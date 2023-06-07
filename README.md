@@ -1,4 +1,5 @@
-# ritog.github.io
-Personal technical blog and online resume
+# Ritobrata (Rito) Ghosh
 
-push test
+#### Visit [Blog](https://ritog.github.io/blog)
+
+#### Visit LinkedIn](https://linkedin.com/in/ritobrata-ghosh)
