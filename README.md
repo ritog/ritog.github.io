@@ -1,7 +1,10 @@
 # Ritobrata (Rito) Ghosh
 
 ___
-##### Visit [Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
+
+# ⚠️ Site under construction
+
+##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
 ___
 
 ## 👨‍💻 Experience
