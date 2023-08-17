@@ -1,15 +1,12 @@
 # Ritobrata (Rito) Ghosh
 
 ___
-##### Visit [Blog](https://ritog.github.io/blog)
-
-<<<<<<< HEAD
-##### [Visit LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
+##### Visit [Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
 ___
 
 ## 👨‍💻 Experience
 
-#### Deep Learning Research Consultant - Akbar Brothers
+#### 🟦 Deep Learning Research Consultant - Akbar Brothers
 ##### 🗓️ Mar 2021 - Jun 2023 | 🗺️ Remote
 
 * Worked in single-label classification with many labels.
@@ -24,7 +21,7 @@ ___
 
 Skills: Machine Learning · Deep Learning · Python (Programming Language) · Data Science · Programming · Computer Vision · Linux · Jupyter Notebook · PyTorch · Written Communication · Convolutional Neural Networks (CNN)
 
-#### Deep Learning Research Consultant - Okkular.io
+#### 🟦 Deep Learning Research Consultant - Okkular.io
 ##### 🗓️ Sep 2021 - Oct 2021 | 🗺️ Remote
 
 * Wrote the patent filing for a novel architecture developed inside the company (filing process ongoing)
@@ -33,7 +30,14 @@ Skills: Machine Learning · Deep Learning · Python (Programming Language) · Da
 
 Skills: Deep Learning · Linux · AWS SageMaker
 
-## Education
+## 👨‍🏫 Education
+
+#### Master of Science (Computer Science) [M.Sc. (CS)]
+#### 🏛️ Techno College Hooghly (under MAKAUT)
+##### 🗓️ Jul 2021 - Jul 2023 | 🗺️ Kolkata
+
+
+
 
 ## Projects
 
@@ -41,7 +45,4 @@ Skills: Deep Learning · Linux · AWS SageMaker
 
 ## Honors and Awards
 
-## Volunteering Experience
-=======
-#### Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh)
->>>>>>> 512f78a9e6f29b18b61f0066acc7f7bba01ba8e8
+## Volunteering Experiences
