@@ -22,7 +22,7 @@ ___
 * Worked closely with business stakeholders to understand and solve problems.
 * Stack: Python, PyTorch, fast.ai, Scikit-Learn, XGBoost, Pandas, Python, Colab Pro.
 
-**Skills**: Machine Learning · Deep Learning · Python (Programming Language) · Data Science · Programming · Computer Vision · Linux · Jupyter Notebook · PyTorch · Written Communication · Convolutional Neural Networks (CNN)
+**Skills**: Machine Learning, Deep Learning, Python (Programming Language), Data Science, Programming, Computer Vision, Linux, Jupyter Notebook, PyTorch, Written Communication, Convolutional Neural Networks (CNN)
 
 #### 🟦 Deep Learning Research Consultant - Okkular.io
 ##### 🗓️ Sep 2021 - Oct 2021 | 🗺️ Remote
@@ -31,7 +31,7 @@ ___
 * Briefly worked on Active Learning techniques in Computer Vision to automate the training process and improve accuracy and maintenance.
 * Stack: Python, PyTorch, fast.ai, AWS SageMaker, AWS S3, Pandas.
 
-**Skills**: Deep Learning · Linux · AWS SageMaker · Team Work
+**Skills**: Deep Learning, Linux, AWS SageMaker, Team Work
 
 #### 🟦 Technical Reviewer - Packt
 ##### 🗓️ Sep 2022 - Present | 🗺️ Remote
@@ -39,7 +39,7 @@ ___
 * Reviewing a book on Advanced PyTorch. Chapters include: multimodal AI, Deep Reinforcement Learning, etc.
 * Working with co-ordinators and other editors.
 
-**Skills**: PyTorch · Computer Vision · NLP · Reinforcement Learning · Team Work
+**Skills**: PyTorch, Computer Vision, NLP, Reinforcement Learning, Team Work
 
 #### 🟦 Section Leader (Teaching Assistant) of Code in Place Programme - Stanford University
 ##### 🗓️ Apr 2021 - Jun 2021| 🗺️ Remote
@@ -56,7 +56,7 @@ ___
 
 * Taught programming, problem-solving, and CS concepts.
 
-**Skills**: Python · Programming · Teaching · Team Work
+**Skills**: Python, Programming, Teaching, Team Work
  
 ___
 
@@ -111,7 +111,49 @@ Won the Google Open Source Software Expert Prize
 
 * I worked on researching and applying different augmentation techniques that led to the improvement of the model.This project is an Open-Source Deep Learning architecture that generates captions for satellite imagery. We used transfer-learning to fine-tune OpenAI CLIP for satellite data. Training was done for multiple hours on a TPUv3-8 enabled virtual machine provided by Google Cloud. We used JAX/Flax and PyTorch for this model.
 
-**Skills**: Transfer Learning · Deep Learning · Computer Vision · Linux · Jupyter Notebook
+**Skills**: Transfer Learning, Deep Learning, Computer Vision, Linux, Jupyter Notebook
+
+### 🟧 _DALL·E Mini_
+#### 🏛️ Hugging Face x Google Cloud Hackathon
+#### 🗓️ Jul 2021 - Sep 2021 | 🔗  [Link ➡️](https://wandb.ai/dalle-mini/dalle-mini/reports/DALL-E-mini--Vmlldzo4NjIxODA)
+
+* This project is an Open-Source Deep Learning architecture that generates images from a given text prompt. This implements the functionality of OpenAI's DALL-E architecture, but with a 27x smaller model.
+
+* A BART autoregressive model was used to process and generate text, and a VQGAN to generate the images. Then we used a pre-trained CLIP model from OpenAI to rank the generated images.
+
+* Training was done for 70 hours on a TPUv3-8 enabled virtual machine provided by Google Cloud.
+
+* We used JAX/Flax and PyTorch for this model.
+
+* GitHub: https://github.com/borisdayma/dalle-mini
+* Demo: https://huggingface.co/spaces/flax-community/dalle-mini
+
+**Skills**: Deep Learning, Linux, Google Cloud Platform, JAX, Flax, Team Work
+
+### 🟧 _Folk.AI: Classifying Between Two Folk Dance Forms of India Using Deep Learning_
+#### 🏛️ Personal Project during taking the fast.ai MOOC
+#### 🗓️ Jul 2020 - Aug 2020 | 🔗  [Link ➡️](https://github.com/ghosh-r/folkAI)
+
+* Trained a Convolutional Neural Network with ResNet-34 leveraging transfer learning. Deployed the model as a web app for inference. 
+
+* This app distinguishes between Kathakali and Chhau- two classical dance forms of India.Trained a Convolutional Neural Network with ResNet-34 leveraging transfer learning. Deployed the model as a web app for inference. GitHub- https://github.com/ghosh-r/folkAI This app distinguishes between Kathakali and Chhau- two classical dance forms of India.
+
+**Skills**: Transfer Learning, Deep Learning, Computer Vision
+
+### 🟧 _Investing in A New Eatery in California: A Data Driven Approach_
+#### 🏛️ Personal Project for IBM Data Science Professional Certificate
+#### 🗓️ Jul 2020 - Jul 2020 | 🔗  [Link ➡️](https://github.com/truth-r/Coursera_Capstone)
+
+* Applied KMeans Clustering algorithm to cluster counties of California, to look for and recommend new investment opportunities for investors looking to fund new eateries in California City.
+
+* Evaluated feature correlation through the Pearson Coefficient, and evaluated model through elbow method.
+
+* Final Report Link: https://github.com/ghosh-r/California_Eatery/blob/master/final_deliverables/capstone_project_final_report.pdf
+
+**Skills**: Machine Learning, Data Science, Python, Scikit-Learn, Written Communication
+
+___
+
 
 
 ## Publications
