@@ -6,8 +6,6 @@
 
 ___
 
-# ⚠️ Site under construction
-
 ##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
 ___
 
@@ -169,7 +167,7 @@ Won the Google Open Source Software Expert Prize
 **Skills**: Linux, Python, Web Scraping
 
 ### 🟧 _Bengali-MNIST_ (Dataset Project)
-🏛️ Personal Project
+### 🏛️ Personal Project
 #### 🗓️ Mar 2021 | 🔗 [Link ➡️](https://www.kaggle.com/truthr/banglamnist)
 
 * Created a Dataset containing 70,000 images from an existing database so that it can be used for a seamless introduction to Vision, and can be used to solve commercial problems involving Bengali handwritten digits.
@@ -179,7 +177,7 @@ Won the Google Open Source Software Expert Prize
 
 ___
 
-## Honors and Awards
+## 🏅 Honors and Awards
 
 ### 🏆️ Winner of Google Open Source Software Expert Prize
 #### 🏛️ Google/Kaggle
@@ -204,7 +202,7 @@ ___
 * GitHub: https://github.com/borisdayma/dalle-mini
 * Report: https://wandb.ai/dalle-mini/dalle-mini/reports/DALL-E-mini--Vmlldzo4NjIxODA
 
-### 3rd Place in JAX/Flax Deep Learning Community Event Organized by Hugging Face and Google Cloud
+### 🏆️ 3rd Place in JAX/Flax Deep Learning Community Event Organized by Hugging Face and Google Cloud
 #### 🏛️ Hugging Face x Google Cloud
 #### 🗓️ Jul 2021 | 🔗 [Link ➡️](https://lnkd.in/eFKguYM)
 
@@ -237,12 +235,39 @@ ___
 
 * Designed a model of a stradling bus, and discussed on its logistics and was awarded 3rd Place in District Level (then undivided) Burdwan District.
 
-* And participated in State Level of the Competition. 
+* And participated in State Level of the Competition.
+
 ___
 
-## Publications
+## 📜 Publications
 
+### 📜 _Complete Introductory Guide to Speech to Text with Transformers_
+#### 🏛️ Analytics Vidhya
+#### 🗓️ Jul 2023 | 🔗 [Link ➡️](https://www.analyticsvidhya.com/blog/2023/07/speech-to-text-with-transformers)
 
+* Wrote an introductory guide to using Transformers models for solving audio-related problems.
+
+* It is very practical and one can get started with Audio Machine Learning right away after reading this blog. This also teaches how to use Hugging Face to find models, datasets, and how to use them to solve one's own problems.
+
+### 📜 _Non-Linear Dynamics Through Linear Algebraic Lenses: Attempting to Learn the Trajectories of the Logistic Map with Artificial Neural Networks_
+#### 🏛️ Master's Thesis published in Zenodo
+#### 🗓️ Apr 2023 | 🔗 [Link ➡️](https://zenodo.org/record/7840239)
+
+* To automatically learn the behavior of trajectories of a map in Non-Linear Dynamics- the Logistic Map, Deep Neural Networks have been trained. Different iterates of the Logistic Map have been generated and models have been fit to them to test the learning capabilities of Neural Networks under such scenario. This paper examines the capability of Neural Networks to learn the dynamics of a system that can be modeled with the Logistic Map.
+
+* keywords- Non-Linear Dynamics, Deep Learning, Artificial Neural Networks, Physics, Computational Mathematics, Logistic Map
+
+### 📜 _Best Podcasts for Machine Learning_
+#### 🏛️ KDNuggets
+#### 🗓️ Apr 2021 | 🔗 [Link ➡️](https://www.kdnuggets.com/2021/04/best-podcasts-machine-learning.html)
+
+### 📜 _TAKING JULIA FOR A TEST DRIVE: My First Encounter With Julia_
+#### 🏛️ Towards Data Science
+#### 🗓️ Sep 2020 | 🔗 [Link ➡️](https://towardsdatascience.com/my-first-encounter-with-julia-15777c6189f9)
+
+### 📜 _How Much Math Do You Need to Know to Get Started with Data Science? A Clear, Straightforward Answer_
+#### 🏛️ Towards Data Science
+#### 🗓️ Jul 2020 | [Link ➡️](https://towardsdatascience.com/how-much-math-do-you-need-to-know-to-get-started-with-data-science-789b24d212fc)
 
 ___
 
@@ -278,4 +303,6 @@ I recorded my voice and validates others' for creating the Mozilla Common Voice 
 ### 🌱 Language and Culture Volunteer
 #### 🏛️ Project Bhasha | 🗓️ Jan 2019 - Feb 2021
 
-* Project Bhasha was aimed at creating a website and a community around it to teach Bengali to foreigners. We took a broader approach to teach culture as well as the language. My role was to write articles on Bengali art, culture, language, and literature. I also oversaw some aspects of the overall strategy, pedagogy, etc. 
+* Project Bhasha was aimed at creating a website and a community around it to teach Bengali to foreigners. We took a broader approach to teach culture as well as the language. My role was to write articles on Bengali art, culture, language, and literature. I also oversaw some aspects of the overall strategy, pedagogy, etc.
+
+___
