@@ -6,7 +6,7 @@
 
 ___
 
-##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version
+##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | [🐘 Mastodon](https://sigmoid.social/@rito)
 ___
 
 ## 👨‍💻 Experience
