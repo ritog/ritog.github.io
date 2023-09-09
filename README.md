@@ -2,7 +2,7 @@
 #### *aka* Rito Ghosh
 #### (he/him)
 
-![self photo](temp.jpg)
+<img src="self.png" height=25 width=25>
 
 ___
 
