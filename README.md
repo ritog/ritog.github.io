@@ -2,6 +2,8 @@
 #### *aka* Rito Ghosh
 #### (he/him)
 
+![self photo](temp.jpg)
+
 ___
 
 # ⚠️ Site under construction
