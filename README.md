@@ -8,9 +8,9 @@ ___
 
 ##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | [🐘 Mastodon](https://sigmoid.social/@rito)
 ___
-## 🥼 **Research Interests**: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
+### 🥼 ***Research Interests***: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
 
-## 🗝️ **Key Skills**: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
+### 🗝️ ***Key Skills***: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
 
 ___
 
@@ -311,3 +311,7 @@ I recorded my voice and validates others' for creating the Mozilla Common Voice 
 * Project Bhasha was aimed at creating a website and a community around it to teach Bengali to foreigners. We took a broader approach to teach culture as well as the language. My role was to write articles on Bengali art, culture, language, and literature. I also oversaw some aspects of the overall strategy, pedagogy, etc.
 
 ___
+
+## 🤸‍♂️ Hobbies
+
+Reading books, swimming, playing the piano, narrating stories, etc.
