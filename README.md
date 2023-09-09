@@ -62,17 +62,14 @@ ___
 
 ## 👨‍🏫 Education
 
-#### Master of Science (Computer Science) [M.Sc. (CS)]
-#### 🏛️ Techno College Hooghly (under [MAKAUT](https://makautwb.ac.in/))
-##### 🗓️ Jul 2021 - Jul 2023 | 🗺️ Kolkata
+### 🟩 Master of Science (Computer Science) [M.Sc. (CS)]
+#### 🏛️ Techno College Hooghly (under [MAKAUT](https://makautwb.ac.in/)) | 🗓️ Jul 2021 - Jul 2023 | 🗺️ Kolkata
 
-#### Bachelor of Science (Physics, Mathematics, Computer Science) [B.Sc.]
-#### 🏛️ University of Calcutta
-##### 🗓️  Jul 2017 - Apr 2021 | 🗺️ Kolkata
+### 🟩 Bachelor of Science (Physics, Mathematics, Computer Science) [B.Sc.]
+#### 🏛️ University of Calcutta | 🗓️  Jul 2017 - Apr 2021 | 🗺️ Kolkata
 
-#### Summer School (Computational Neuroscience)
-#### 🏛️ Neuromatch Academy
-##### 🗓️ Jun 2022 - Jul 2022 | 🗺️ Remote
+### 🟩 Summer School (Computational Neuroscience)
+#### 🏛️ Neuromatch Academy | 🗓️ Jun 2022 - Jul 2022 | 🗺️ Remote
 
 ___
 
@@ -95,6 +92,8 @@ I introduce the JAX library for solving basic problems in Machine Learning. I ex
 Won the Google Open Source Software Expert Prize
 
 Skills: JAX, Machine Learning, Deep Learning, Written Communication
+
+
 
 
 ## Publications
