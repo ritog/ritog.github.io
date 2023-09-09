@@ -1,5 +1,5 @@
-# Ritobrata (Rito) Ghosh
-#### *aka* Rito Ghosh
+# Rito Ghosh
+#### *Legal name:* Ritobrata Ghosh
 #### (he/him)
 
 <img src="self.png" height=150 width=150>
