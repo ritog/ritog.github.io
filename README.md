@@ -2,11 +2,16 @@
 #### *aka* Rito Ghosh
 #### (he/him)
 
-<img src="self.png" height=25 width=25>
+<img src="self.png" height=150 width=150>
 
 ___
 
 ##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | [🐘 Mastodon](https://sigmoid.social/@rito)
+___
+## 🥼 **Research Interests**: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
+
+## 🗝️ **Key Skills**: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
+
 ___
 
 ## 👨‍💻 Experience
