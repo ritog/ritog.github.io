@@ -22,7 +22,7 @@ ___
 * Worked closely with business stakeholders to understand and solve problems.
 * Stack: Python, PyTorch, fast.ai, Scikit-Learn, XGBoost, Pandas, Python, Colab Pro.
 
-Skills: Machine Learning · Deep Learning · Python (Programming Language) · Data Science · Programming · Computer Vision · Linux · Jupyter Notebook · PyTorch · Written Communication · Convolutional Neural Networks (CNN)
+**Skills**: Machine Learning · Deep Learning · Python (Programming Language) · Data Science · Programming · Computer Vision · Linux · Jupyter Notebook · PyTorch · Written Communication · Convolutional Neural Networks (CNN)
 
 #### 🟦 Deep Learning Research Consultant - Okkular.io
 ##### 🗓️ Sep 2021 - Oct 2021 | 🗺️ Remote
@@ -31,7 +31,7 @@ Skills: Machine Learning · Deep Learning · Python (Programming Language) · Da
 * Briefly worked on Active Learning techniques in Computer Vision to automate the training process and improve accuracy and maintenance.
 * Stack: Python, PyTorch, fast.ai, AWS SageMaker, AWS S3, Pandas.
 
-Skills: Deep Learning · Linux · AWS SageMaker · Team Work
+**Skills**: Deep Learning · Linux · AWS SageMaker · Team Work
 
 #### 🟦 Technical Reviewer - Packt
 ##### 🗓️ Sep 2022 - Present | 🗺️ Remote
@@ -39,24 +39,24 @@ Skills: Deep Learning · Linux · AWS SageMaker · Team Work
 * Reviewing a book on Advanced PyTorch. Chapters include: multimodal AI, Deep Reinforcement Learning, etc.
 * Working with co-ordinators and other editors.
 
-Skills: PyTorch · Computer Vision · NLP · Reinforcement Learning · Team Work
+**Skills**: PyTorch · Computer Vision · NLP · Reinforcement Learning · Team Work
 
 #### 🟦 Section Leader (Teaching Assistant) of Code in Place Programme - Stanford University
 ##### 🗓️ Apr 2021 - Jun 2021| 🗺️ Remote
 
-This online course was offered by Stanford University during the COVID-19 pandemic. It brought together 12,000 students and 1,100 volunteer teachers participating from around the world. The course is a 6-week introduction to Python programming using materials from the first half of Stanford’s CS106A course.
+* This online course was offered by Stanford University during the COVID-19 pandemic. It brought together 12,000 students and 1,100 volunteer teachers participating from around the world. The course is a 6-week introduction to Python programming using materials from the first half of Stanford’s CS106A course.
 
-As a volunteer section leader, I prepared and taught a weekly discussion section of 8-10 students to supplement professors' lectures.
+* As a volunteer section leader, I prepared and taught a weekly discussion section of 8-10 students to supplement professors' lectures.
 
-Received direct training from Stanford Professors Mehran Sahami, Chris Piech, and Julie Zelenski. Received further training from Stanford-appointed teacher mentors.
+* Received direct training from Stanford Professors Mehran Sahami, Chris Piech, and Julie Zelenski. Received further training from Stanford-appointed teacher mentors.
 
-Taught introductory Python and CS to about 12 students from India, Bangladesh, and the USA. Students were of various ages and came from diverse backgrounds including from Fine Arts backgrounds. For many students, it was the first introduction to programming and CS ever.
+* Taught introductory Python and CS to about 12 students from India, Bangladesh, and the USA. Students were of various ages and came from diverse backgrounds including from Fine Arts backgrounds. For many students, it was the first introduction to programming and CS ever.
 
-Taught five sessions of my own (lasting 1.5 h on average) and a backup session for another.
+* Taught five sessions of my own (lasting 1.5 h on average) and a backup session for another.
 
-Taught programming, problem-solving, and CS concepts.
+* Taught programming, problem-solving, and CS concepts.
 
-Skills: Python · Programming · Teaching · Team Work
+**Skills**: Python · Programming · Teaching · Team Work
  
 ___
 
@@ -79,21 +79,39 @@ ___
 #### 🏛️ Neuromatch Academy Summer School in Computational Neuroscience
 ##### 🗓️ Jun 2022 - Jul 2022 | 🔗  [Link ➡️](https://github.com/ghosh-r/functional-connectivity-motor-imagery)
 
-Human brain is responsible for both motor tasks, i.e. when actual movement of some body parts happen, and also for imagery tasks: when the person imagines a movement. This is a project that aims to find functional connectivity among brain areas in both imagined and real motor movements. This project also aims to find the similarity (or lack thereof) between real and imaginary movement in lower dimensional latent space of brain signals using Principal Component Analysis.
+* Human brain is responsible for both motor tasks, i.e. when actual movement of some body parts happen, and also for imagery tasks: when the person imagines a movement. This is a project that aims to find functional connectivity among brain areas in both imagined and real motor movements. This project also aims to find the similarity (or lack thereof) between real and imaginary movement in lower dimensional latent space of brain signals using Principal Component Analysis.
 
-Skills: Python, PyTorch, Deep Learning, Computational Neuroscience, Team Work
+**Skills**: Python, PyTorch, Deep Learning, Computational Neuroscience, Team Work
 
-#### 🟧 _Learn JAX: From Linear Regression to Neural Networks_
-#### Personal Project
-##### 🗓️ Dec 2021 - Jan 2022 | 🔗  [Link ➡️](https://www.kaggle.com/code/truthr/jax-0)
+### 🟧 _Learn JAX: From Linear Regression to Neural Networks_
+#### 🏛️ Personal Project
+#### 🗓️ Dec 2021 - Jan 2022 | 🔗  [Link ➡️](https://www.kaggle.com/code/truthr/jax-0)
 
 I introduce the JAX library for solving basic problems in Machine Learning. I explain everything so that a beginner in this framework will find it helpful. Introduced the functional programming paradigm for Deep Learning. 
 
 Won the Google Open Source Software Expert Prize
 
-Skills: JAX, Machine Learning, Deep Learning, Written Communication
+**Skills**: JAX, Machine Learning, Deep Learning, Written Communication
 
 
+### 🟧 _CLIP for Satellite Images_
+#### 🏛️ Hugging Face x Google Cloud Hackathon
+#### 🗓️ Jul 2021 - Sep 2021 | 🔗  [Link ➡️](https://github.com/arampacha/CLIP-rsicd)
+
+* This project is an Open-Source Deep Learning architecture that generates captions for satellite imagery.
+
+* We used transfer-learning to fine-tune OpenAI CLIP for satellite data.
+
+* Training was done for multiple hours on a TPUv3-8 enabled virtual machine provided by Google Cloud.
+
+* We used JAX/Flax and PyTorch for this model.
+
+* GitHub: https://github.com/arampacha/CLIP-rsicd
+* Demo: https://huggingface.co/spaces/sujitpal/clip-rsicd-demo
+
+* I worked on researching and applying different augmentation techniques that led to the improvement of the model.This project is an Open-Source Deep Learning architecture that generates captions for satellite imagery. We used transfer-learning to fine-tune OpenAI CLIP for satellite data. Training was done for multiple hours on a TPUv3-8 enabled virtual machine provided by Google Cloud. We used JAX/Flax and PyTorch for this model.
+
+**Skills**: Transfer Learning · Deep Learning · Computer Vision · Linux · Jupyter Notebook
 
 
 ## Publications
