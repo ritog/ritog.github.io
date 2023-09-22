@@ -3,11 +3,10 @@
 #### (he/him)
 
 <img src="self.png" height=150 width=150>
-<a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a>
 
 ___
 
-##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | [<a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a>
+##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a>
 ___
 ### 🥼 ***Research Interests***: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
 
