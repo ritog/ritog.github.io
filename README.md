@@ -6,11 +6,11 @@
 
 ___
 
-##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a>
+##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com
 ___
-### 🥼 ***Research Interests***: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
+#### 🥼 ***Research Interests***: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
 
-### 🗝️ ***Key Skills***: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
+#### 🗝️ ***Key Skills***: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
 
 ___
 
@@ -71,9 +71,13 @@ ___
 
 ### 🟩 Master of Science (Computer Science) [M.Sc. (CS)]
 #### 🏛️ Techno College Hooghly (under [MAKAUT](https://makautwb.ac.in/)) | 🗓️ Jul 2021 - Jul 2023 | 🗺️ Kolkata
+**CGPA: 9.04/10**
+Notable courses: Advanced algorithms, Soft Computing, Artificial Intelligence
 
 ### 🟩 Bachelor of Science (Physics, Mathematics, Computer Science) [B.Sc.]
 #### 🏛️ University of Calcutta | 🗓️  Jul 2017 - Apr 2021 | 🗺️ Kolkata
+**Grade: First Class**
+Notable courses: Mathematical Methods for Physics I, II, Quantum Mechanics, Statistical Mechanics, Special Theory of Relativity
 
 ### 🟩 Summer School (Computational Neuroscience)
 #### 🏛️ Neuromatch Academy | 🗓️ Jun 2022 - Jul 2022 | 🗺️ Remote
