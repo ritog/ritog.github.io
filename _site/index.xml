@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Posts by Rito Ghosh</title>
+<link>https://ghosh-r.github.io/index.html</link>
+<atom:link href="https://ghosh-r.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.3.450</generator>
+<lastBuildDate>Wed, 26 Apr 2023 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Non-Linear Dynamics Trajectories with Python</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="non-linear-dynamics-trajectories-with-python" class="level1">
+<h1>Non-Linear Dynamics Trajectories with Python</h1>
+<p>by Ritobrata Ghosh</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In this Notebook, trajectories of the Logistic Map [1] is plotted with Python.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span></code></pre></div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> logistic_function(parameter: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>, initial_value: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>:</span>
+<span id="cb2-2">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> parameter <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> initial_value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> initial_value)</span></code></pre></div>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> logistic_function_trajectory(parameter: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>,</span>
+<span id="cb3-2">                                 initial_value: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>,</span>
+<span id="cb3-3">                                 num_iter: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> np.array:</span>
+<span id="cb3-4">    trajectory <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.zeros(num_iter)</span>
+<span id="cb3-5">    trajectory[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> initial_value</span>
+<span id="cb3-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>):</span>
+<span id="cb3-7">        trajectory[i<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function(parameter, initial_value)</span>
+<span id="cb3-8">        initial_value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> trajectory[i<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb3-9">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> np.array(trajectory)</span></code></pre></div>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.2</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)</span></code></pre></div>
+<pre><code>array([0.8       , 0.352     , 0.5018112 , 0.54999278, 0.54450159,
+       0.54564314, 0.54541675, 0.5454621 , 0.54545303, 0.54545485])</code></pre>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">xs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb6-2">ys <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.2</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> plot_trajectory(xs, ys, x_label, y_label, title):</span>
+<span id="cb7-2">    plt.figure(figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>))</span>
+<span id="cb7-3">    plt.scatter(xs, ys, marker<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'o'</span>, edgecolor<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'black'</span>, c<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>point_colors <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-4">    plt.xlabel(x_label)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-5">    plt.ylabel(y_label)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-6">    plt.title(title)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-7">    plt.grid()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">point_colors <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cyan'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'magenta'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'yellow'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'black'</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ys, x_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$n$'</span>, y_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$x_n$'</span>, title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Trajectory'</span>)</span></code></pre></div>
+<p><img src="https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
+</section>
+<section id="r-2" class="level3">
+<h3 class="anchored" data-anchor-id="r-2"><img src="https://latex.codecogs.com/png.latex?r%20=%202"></h3>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">x_n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb10-2">x_n_hat <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.0</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.200001</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">ys <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">abs</span>(np.subtract(x_n, x_n_hat))</span>
+<span id="cb11-2">xs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ys, x_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$n$'</span>, y_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$ x_n - \hat</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{x_n}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> $'</span>, title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div>
+<p><img src="https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
+</section>
+<section id="plotting-x_n---hatx_n-vs.-n-for-r3.4" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-x_n---hatx_n-vs.-n-for-r3.4">Plotting <img src="https://latex.codecogs.com/png.latex?x_n%20-%20%5Chat%7Bx_n%7D"> vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?n"> for <img src="https://latex.codecogs.com/png.latex?r=3.4"></h3>
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">x_n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.4</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb13-2">x_n_hat <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.4</span>, initial_value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.200001</span>, num_iter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb13-3"></span>
+<span id="cb13-4">ys <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">abs</span>(np.subtract(x_n, x_n_hat))</span>
+<span id="cb13-5">xs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb13-6"></span>
+<span id="cb13-7">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ys, x_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$n$'</span>, y_label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'$ x_n - \hat</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{x_n}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> $'</span>, title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></div>
+<p><img src="https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
+<p>We can thus plot the trajectories of the Logistic Map with Python and relevant libraries.</p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ol type="1">
+<li>https://en.wikipedia.org/wiki/Logistic_map</li>
+<li>Bradley, Liz: <em>Nonlinear Dynamics: Mathematical and Computational Approaches</em> via Complexity Explorer, Santa Fe Institute</li>
+</ol>
+<p>Cite this Notebook:</p>
+<pre><code>@ONLINE {,
+    author = "Ritobrata Ghosh",
+    title  = "Non Linear Dynamics Trajectories with Python",
+    month  = "apr",
+    year   = "2023",
+    url    = "https://www.kaggle.com/truthr/non-linear-dynamics-trajectories-with-python"
+}</code></pre>
+
+
+</section>
+
+ ]]></description>
+  <category>deep-learning</category>
+  <category>physics</category>
+  <category>chaos-theory</category>
+  <category>ai</category>
+  <guid>https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</guid>
+  <pubDate>Wed, 26 Apr 2023 18:30:00 GMT</pubDate>
+  <media:content url="https://ghosh-r.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
+</item>
+<item>
+  <title>A Gentle Introduction to the Hugging Face API</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ghosh-r.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p><img src="https://ghosh-r.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="img-fluid"></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Natural Language Processing is a fast-advancing field. And it is also one of the fields that require a huge amount of computational resources to make important progress. And although breakthroughs are openly announced, and papers are released in free-to-access repositories such as <a href="https://arxiv.org/">arXiv</a>, Open Review, Papers with Code, etc., and despite (sometimes) having the code freely available on GitHub, using those language models is not something widely accessible and easy.</p>
+<p>Let me provide more context. BERT is a state-of-the-art encoder language model. It takes days to train the model from the ground up even when using very powerful GPUs that only a few entities have access to. In 2019, NVIDIA <a href="https://nvidianews.nvidia.com/news/nvidia-achieves-breakthroughs-in-language-understandingto-enable-real-time-conversational-ai">used</a> 1472 NVIDIA V100 GPUs to train BERT from scratch in 53 minutes. Yes, 1,472!</p>
+<p>One estimate <a href="https://twitter.com/eturner303/status/1266264358771757057?s=20">puts</a> the cost of training GPT-3, a 175 billion parameter model, for a single training run at $12 Million USD.</p>
+<p>And such language models are released every now and then. How do you use these powerful language models for your task?</p>
+<p>Here Hugging Face comes to the scene. They aim to solve this problem by providing pre-trained models, and simple API so that you can use them, fine-tune them, and use the API in your applications.</p>
+<p>In this article, my goal is to introduce the Hugging Face <code>pipeline</code> API to accomplish very interesting tasks by utilizing powerful pre-trained models present in the models hub of Hugging Face.</p>
+<p>To follow through this article, you need not have any prior knowledge of Natural Language Processing. I, however, assume minor prior experience in writing Python code.</p>
+<hr>
+<p>In this article, I will go over, describe, and provide examples for the following tasks using Hugging Face <code>pipeline</code>-</p>
+<ul>
+<li>Sentiment Analysis</li>
+<li>Zero-Shot Classification</li>
+<li>Text Generation</li>
+<li>Mask-Filling</li>
+<li>Named Entity Recognition</li>
+<li>Question Answering</li>
+<li>Summarization</li>
+<li>Translation</li>
+</ul>
+<hr>
+</section>
+<section id="installing-and-importing" class="level3">
+<h3 class="anchored" data-anchor-id="installing-and-importing">Installing and Importing</h3>
+<pre><code>! pip install transformers[sentencepiece] &gt; /dev/null</code></pre>
+<p>If you have not seen a <code>pip</code> install with a square bracket in it before, don’t worry. It means that you are installing the <code>transformers</code> package with extra support added for the <code>sentencepiece</code> package. You can find out more about square parentheses installs in <code>pip</code> <a href="https://stackoverflow.com/questions/46775346/what-do-square-brackets-mean-in-pip-install">here</a>.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> transformers <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pipeline</span></code></pre></div>
+<p>We will use the utilities available in the <code>pipeline</code> namespace in the <code>transformers</code> library.</p>
+<hr>
+</section>
+<section id="sentiment-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="sentiment-analysis">Sentiment Analysis</h3>
+<p>Before I begin going through the specific <code>pipeline</code>s, let me tell you something beforehand that you will find yourself. Hugging Face API is very intuitive. When you want to use a <code>pipeline</code>, you have to instantiate an object, then you pass data to that object to get result. Very simple! You are soon to see what I mean.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb3-1">classifier_sentiment <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sentiment-analysis"</span>)</span></code></pre></div>
+<p>That’s it. You call the <code>pipeline()</code> method with the task you want to accomplish as an argument. And you assign a name to it. You are done now. You can now begin to use the object as a function to achieve what you want. Let’s see an example-</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=15&amp;kernelSessionId=66118660" height="150" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>See, it returns a dictionary contained in a list that has two items, <code>label</code> and <code>score</code>. The <code>label</code> part tells us its prediction, and the <code>score</code> tells us its confidence score.</p>
+<blockquote class="blockquote">
+<p><em>As an aside, I think they are structured this way because this structure is easily compatible with <code>.json</code> and similar filetypes which are very common in APIs.</em></p>
+</blockquote>
+<p>Let’s see another example.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=17&amp;kernelSessionId=66118660" height="150" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>See, how the classifier is aware of my emotion about pineapple pizzas? 🙃</p>
+<hr>
+</section>
+<section id="zero-shot-classification" class="level3">
+<h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-Shot Classification</h3>
+<p>When you want to classify something using Deep Learning, in many cases you need to train it with labeled examples. This approach is known as Supervised Learning. Even when leveraging transfer learning, you need to train your model with quite a few labeled examples in the domain of your choice. Zero-shot classification is different than that. In this, you use a pre-trained model to classify a given string and some labels of your choice. The model returns you the confidence score for each model.</p>
+<p>Let me show you how this works. First, you instantiate an object and assign it a name just like you did in the case of the Sentiment Analysis pipeline.</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1">classifier_zero_shot <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"zero-shot-classification"</span>)</span></code></pre></div>
+<p>Then you pass a string, along with the labels of your choice to test how well they correspond to your sentence.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=25&amp;kernelSessionId=66118660" height="260" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>See, the given sentence is about a profession, and the model tells you that. And it knows that it is much more related to education than politics.</p>
+<p>Essentially, when you are doing Zero-Shot Classification, you are supplying a string to the <code>pipeline</code>, and also labels. The pipeline returns how accurate <strong>those labels are</strong>.</p>
+<hr>
+</section>
+<section id="text-generation" class="level3">
+<h3 class="anchored" data-anchor-id="text-generation">Text Generation</h3>
+<p>Before I heard about Deep Learning, I heard about Natural Language Processing, because I heard that you can generate text with it! This is the most exciting part of NLP to me, personally.</p>
+<p>As the name suggests, this <code>pipeline</code> lets you generate text. It just needs you to supply a prompt, a text that will determine what the generated text will be. Let me show you how.</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb5-1">generator <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"text-generation"</span>)</span></code></pre></div>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=30&amp;kernelSessionId=66118660" height="230" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>See what I mean! Even with zero training, it can create logically coherent text that is even interesting to read. Robots will take over writers soon 🤖!</p>
+<p>You can control the maximum length of the output of the <code>pipeline</code>, and even ask for multiple possible outputs, like so-</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellIds=34&amp;kernelSessionId=66128979" height="320" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<blockquote class="blockquote">
+<p><em>Whoa, it’s poetic!</em></p>
+</blockquote>
+<p>We can accomplish more interesting things with transfer learning. But that is a story for another day.</p>
+<hr>
+</section>
+<section id="mask-filling" class="level3">
+<h3 class="anchored" data-anchor-id="mask-filling">Mask Filling</h3>
+<p>In this pipeline, if there is a word that you hide and supply the string with the hidden word, the <code>pipeline</code> will predict that word. This is like magic!</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb6-1">unmasker <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fill-mask"</span>)</span></code></pre></div>
+<p>You pass the sentence with the masked word, and it will predict it. You can choose the number of predictions you want to see. You just have to pass a value to the <code>top_k</code> parameter.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellIds=41&amp;kernelSessionId=66128979" height="330" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=40&amp;kernelSessionId=66118660" height="320" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>It can predict the words quite well. Just remember to mask the word using <code>&lt;mask&gt;</code>.</p>
+<hr>
+</section>
+<section id="named-entity-recognition" class="level3">
+<h3 class="anchored" data-anchor-id="named-entity-recognition">Named Entity Recognition</h3>
+<p>This <code>pipeline</code> recognizes the proper nouns in your sentence. And it also classifies them. Let’s see an example.</p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb7-1">ner <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ner"</span>, grouped_entities<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div>
+<p>The <code>grouped_entities</code> parameter just ensures that the <code>pipeline</code> can recognize the names that have more than one word, like, you know, Chocolate Factory.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=46&amp;kernelSessionId=66118660" height="400" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>See how it recognizes a person, his profession, and location on its own, and also labels them as “PER”, “ORG”, and “LOC” (meaning location), respectively.</p>
+<hr>
+</section>
+<section id="question-answering" class="level3">
+<h3 class="anchored" data-anchor-id="question-answering">Question Answering</h3>
+<p>This pipeline provides you with an answer to a question you ask from the context that you provide.</p>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb8-1">question_answerer <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"question-answering"</span>)</span></code></pre></div>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=51&amp;kernelSessionId=66118660" height="210" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>It can answer multiple questions from the same prompt.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=53&amp;kernelSessionId=66118660" height="210" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<hr>
+</section>
+<section id="summarization" class="level3">
+<h3 class="anchored" data-anchor-id="summarization">Summarization</h3>
+<p>This is one of the most practical tasks that has existed for a long time. Deep Learning really changes the landscape of the task.</p>
+<p>Let’s see it in action.</p>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb9-1">summarizer <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"summarization"</span>)</span></code></pre></div>
+<p>Let’s summarize a piece of text from a <a href="https://blog.royalsloth.eu/posts/i-wish-i-could-write-this-well/">blog post</a> I recently read.</p>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=59&amp;kernelSessionId=66118660" height="650" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>Now, that’s something! The efficacy of the summarizer really shocked me. It does this task so well.</p>
+<hr>
+</section>
+<section id="translation" class="level3">
+<h3 class="anchored" data-anchor-id="translation">Translation</h3>
+<p>The translation <code>pipeline</code> translates a piece of text from one language to another. It also lets you choose the language model of your choice.</p>
+<p>First, let’s translate a text from English to German. I will use the <a href="https://huggingface.co/Helsinki-NLP/opus-mt-en-de"><code>Helsinki-NLP/opus-mt-en-de</code></a> model for this task.</p>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb10-1">translator_de <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"translation"</span>, model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Helsinki-NLP/opus-mt-en-de"</span>)</span></code></pre></div>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=64&amp;kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<p>Note that you are not explicitly telling the model about the language of the input language or the output language. A language model is only trained for translating from one language to another. It cannot translate other languages. If you want to translate from German to English, you’d have to use another model from the model hub. You can find all the translation models <a href="https://huggingface.co/models?pipeline_tag=translation">here</a>.</p>
+<p>The cool thing is that Hugging Face is not limited to Romance languages or European languages in general. Let me show you by translating a piece of text from Bengali.</p>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb11-1">translator_bn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"translation"</span>, model<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></div>
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=68&amp;kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
+</iframe>
+<blockquote class="blockquote">
+
+</blockquote>
+<hr>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>I have shown you several pipeline APIs and what they do and how they work.</p>
+<p>Here are the suggested next steps-</p>
+<ul>
+<li><strong>Experiment.</strong> Play with the <code>pipeline</code>s by yourself, try different things with different parameters, run inference on examples of your own, test edge cases, run wild with it. I believe that is the best way to learn.</li>
+<li><strong>Do Projects.</strong> Use the knowledge you gained here in simple projects. We only learn by doing.</li>
+<li><strong>Hugging Face Course.</strong> Hugging Face has recently released a <a href="https://huggingface.co/course/chapter1">free course</a> where they teach you about Transformers and their library ecosystem. It is a good next step.</li>
+<li><strong>Explore.</strong> Explore the Hugging Face <a href="https://huggingface.co/">website</a>, learn more about their APIs, Services, pre-trained models, and many more things it has to offer.</li>
+</ul>
+<hr>
+<p>If you notice any error, mistake, or typo, please feel free to let me know. If something is not clear, please let me know that as well. I will do my best to correct it and will credit you here.</p>
+<p>Let me know if you have any questions at all.</p>
+<hr>
+<p><em>(Originally <a href="https://www.kaggle.com/truthr/a-gentle-introduction-to-the-hugging-face-api">published as a Notebook</a> on Kaggle.)</em></p>
+
+
+</section>
+
+ ]]></description>
+  <category>deep-learning</category>
+  <category>machine-learning</category>
+  <category>data-science</category>
+  <category>ai</category>
+  <category>tutorial</category>
+  <category>nlp</category>
+  <category>kaggle</category>
+  <guid>https://ghosh-r.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</guid>
+  <pubDate>Sat, 19 Jun 2021 18:30:00 GMT</pubDate>
+  <media:content url="https://ghosh-r.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Creating Any Boolean Function</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ghosh-r.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>by <a href="https://ghosh-r.github.io/aboutme">Ritobrata Ghosh</a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Digital electronics is probably the most impactful and widespread technology now. It forms the basis of all of the chips- from ARM microcontrollers to processors in cellphones, all the way to uberpowerful AMD Threadrippers. In all these cases, digital electronics reign supreme.</p>
+<p>It is very useful to learn not only about basic principles but also how these principles and the components of Digital Electronics exactly form the basis of the modern world, i.e., how do we go from basic logic gates to fully functional computers.</p>
+</section>
+<section id="elements-of-computing-systems" class="level3">
+<h3 class="anchored" data-anchor-id="elements-of-computing-systems">Elements of Computing Systems</h3>
+<p>Digital Electronics is not only important because it is the base of the modern technology that literally governs our lives, but it makes us better as programmers, and computer scientists.</p>
+<p>Whether we are self-taught programmers or a person with a 4-year CS degree, we were never taught how we go from basic logic gates to CPUs.</p>
+<p>A book that I have come across- <a href="https://mitpress.mit.edu/books/elements-computing-systems-second-edition"><em>The Elements of Computing Systems</em></a> by By Noam Nisan and Shimon Schocken does just that. It teaches you how the basic building blocks of modern computers actually create the computers.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/mitpress.mit.edu/sites/default/files/styles/large_book_cover/http/mitp-content-server.mit.edu%3A18180/books/covers/cover/%3Fcollid%3Dbooks_covers_0%26isbn%3D9780262539807%26type%3D.jpg?itok=KlT7RdFp" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">nand2tetris-book-cover-2ed</figcaption>
+</figure>
+</div>
+<p><em>[Although it shows the new 2nd edition, I am reading the first one]</em></p>
+<p>It promises to teach you, actively, how we can start from nothing but a NAND gate and go all the way to a full-fledged computer with an operating system, and a general-purpose programming language that runs on it, which can be used to create anything. The book is also known as <strong><em>nand2tetris</em></strong>.</p>
+<p>I have started reading this book and working through it every Sunday, and I have almost finished a chapter.</p>
+</section>
+<section id="building-gates-from-elementary-gates" class="level3">
+<h3 class="anchored" data-anchor-id="building-gates-from-elementary-gates">Building Gates from Elementary Gates</h3>
+<p>People who have taken a Digital Architecture class or a Digital Electronics class will know that NAND (NOT AND) gates are called “universal gates” because some combination of them are able to create any other gates. So, when you have a NAND gate with you, you can create a general-purpose computer with it. And the book makes you do that. It makes you create many logic gates starting from AND, NOT, and OR with nothing but a pre-implemented NAND gate.</p>
+<p>So, a NAND gate is already implemented and supplied. You first have to create AND, OR, and NOT gates. Then you go on to further create XOR gates, Multiplexors (MUX), Demultiplexors (D-MUX), and multi-bit versions of these gates and basic gates with what you have built previously, viz.&nbsp;AND, OR, NOT, and NAND gates.</p>
+<p>This is a fascinating task in itself, and very intellectually stimulating.</p>
+<p>This is where the core of the post comes in.</p>
+<p>I will show you how to implement any Boolean function with nothing but three logic gates. This is a trick worth knowing.</p>
+<p>Let’s start.</p>
+<hr>
+</section>
+<section id="implementing-a-boolean-function" class="level3">
+<h3 class="anchored" data-anchor-id="implementing-a-boolean-function">Implementing a Boolean Function</h3>
+<section id="design-a-boolean-function" class="level4">
+<h4 class="anchored" data-anchor-id="design-a-boolean-function">Design a Boolean Function</h4>
+<p>Let’s say we need a Boolean function that behaves in such a way-</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This <em>truth table</em> tells you that we need such a Boolean function that outputs 1 iff- * <em>A</em>, <em>B</em>, and <em>C</em>, three Boolean variables, are all 0 * only <em>A</em> is 1, <em>B</em> and <em>C</em> are 0 * <em>A</em> and <em>C</em> are 1, <em>B</em> is 0 * <em>A</em> and <em>B</em> are 1, <em>C</em> is 0</p>
+<p>Now, in some situations, you might need to define a Boolean function that behaves as you expect. Do not worry about what this function is doing. Let’s focus on the implementation part.</p>
+</section>
+<section id="boolean-expression" class="level4">
+<h4 class="anchored" data-anchor-id="boolean-expression">Boolean Expression</h4>
+<p>I am assuming that you already know about the basic gates, and how they function.</p>
+<p>So, in the first step to build a Boolean function, you must create the Boolean expression. Just like a Boolean variable can have two values (0, 1), and a Boolean function can only output two values (0, 1, duh!), a Boolean expression always evaluates to either 0 or 1.</p>
+<p>How to actually do it?</p>
+<ol type="1">
+<li>You should just note in which cases the function outputs a 1. Focus just on those.</li>
+<li>Note which variables are on (1) and which are off (0).</li>
+<li>Keep the variables unchanged which are 1 in this case, and take a negation of those which are off (in electronics, you would put them through NOT).</li>
+<li>Multiply them together.</li>
+<li>For these products for each 1 in the output, just add them together.</li>
+</ol>
+<p>That’s it. You have got your Boolean expression.</p>
+<p>Let me go through it step by step.</p>
+<p>In the first occurrence of 1 in the output, we see that all the input variables are off. So, we get a*, b*, and c*, where a, b, and c are the variables representing inputs <em>A</em>, <em>B</em>, and <em>C</em>, respectively, and x* is the negation of x. We multiply them together, and we get a*b*c*.</p>
+<p>In the second occurrence of 1, in a similar manner, we get- ab*c*.</p>
+<p>For the third and fourth occurrences of 1, we get ab*c, and abc*, respectively.</p>
+<p>We have to add them. And doing so, we get-</p>
+<p><img src="https://latex.codecogs.com/png.latex?%20y%20=%20%5Coverline%7Ba%7D%5Coverline%7Bb%7D%5Coverline%7Bc%7D%20+%20a%5Coverline%7Bb%7D%5Coverline%7Bc%7D%20+%20a%5Coverline%7Bb%7Dc%20+%20ab%5Coverline%7Bc%7D%20"></p>
+<p>[You are required to write cases in the proper order. The first of three variable has these values row-wise- 0-0-0-0-1-1-1-1, the second one varies- 0-0-1-1-0-0-1-1, and the third one- 0-1-0-1-0-1-0-1.]</p>
+</section>
+<section id="implementation" class="level4">
+<h4 class="anchored" data-anchor-id="implementation">Implementation</h4>
+<p>You might be already aware that negation is passing through a NOT gate, multiplying is just passing through an AND gate, and adding is just an OR gate.</p>
+<p>The first <em>component</em> a*b*c* can be obtained in this way-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>And here are the second, third, and fourth components-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>And,</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>Now, we have to add them all together, i.e.&nbsp;put these components through an OR gate. The output of the OR gate will be our final output.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>Our final output.</p>
+</section>
+<section id="hdl-implement-and-test" class="level4">
+<h4 class="anchored" data-anchor-id="hdl-implement-and-test">HDL: Implement and Test</h4>
+<p>Now, if you have ICs lying around, you can quickly test this with a power supply or a 5V cell, and some wires. You will also need a multimeter or LED bulbs to check your output.</p>
+<p>But, remember, we are building a computer from scratch when following this book. Using thousands of ICs to build a computer is not slightly practical unless you happen to have a contract with TSMC!</p>
+<p>Something called HDL (Hardware Description Language) is used. It is an intuitive, high-level, special-purpose programming language that you use to design and test chips, and use previously created chips.</p>
+<p>It is implemented in Java, but you do not have to worry about its implementation, you just need to use it. A GUI program is also supplied to do load and test chips.</p>
+<p>For example, given a NAND gate, you will design an AND gate this way.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>As you can see, it is very intuitive, and you can pick it up in 20 minutes.</p>
+<p>And, this is how you’d test this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>To write our custom function in HDL, we would do-</p>
+<pre><code>// Custom.hdl
+// this is a part of Hashnode blog Convoluted demo
+
+CHIP Custom {
+    IN a, b, c;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    And(a=nota, b=notb, out=notanotb);
+    And(a=notanotb, b=notc, out=w1);
+    And(a=a, b=notb, out=anotb);
+    And(a=anotb, b=notc, out=w2);
+    And(a=anotb, b=c, out=w3);
+    And(a=a, b=b, out=ab);
+    And(a=ab, b=notc, out=w4);
+    Or8Way(in[0]=w1, in[1]=w2, in[2]=w3, in[3]=w4, out=out);
+}</code></pre>
+<p>And as this is a custom chip, the <code>.tst</code> test file, and <code>.cmp</code> compare file are not supplied. So, for testing this chip, I wrote my own.</p>
+<p>Here is the test (<code>.tst</code>) file-</p>
+<pre><code>// Custom.tst
+// test file for testing custom chip
+// could be found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
+
+// test file for a custom chip in Convoluted, a Hashnode blog
+
+load Custom.hdl,
+output-file Custom.out,
+compare-to Custom.cmp,
+output-list a%B3.1.3 b%B3.1.3 c%B3.1.3 out%B3.1.3;
+
+set a 0,
+set b 0,
+set c 0,
+eval,
+output;
+
+set a 0,
+set b 0,
+set c 1,
+eval,
+output;
+
+set a 0,
+set b 1,
+set c 0,
+eval,
+output;
+
+set a 0,
+set b 1,
+set c 1,
+eval,
+output; 
+
+set a 1,
+set b 0,
+set c 0,
+eval,
+output;
+
+set a 1,
+set b 0,
+set c 1,
+eval,
+output;
+
+set a 1,
+set b 1,
+set c 0,
+eval,
+output;
+
+set a 1,
+set b 1,
+set c 1,
+eval,
+output;</code></pre>
+<p>And here is the compare (<code>.cmp</code>) file. It contains the truth table that we expect.</p>
+<pre><code>// Custom.cmp
+// compare file for chip Custom.hdl
+// found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
+// test file at- https://gist.github.com/ghosh-r/cef52b9f6ac017e00d64460b025a53fe
+
+|   a   |   b   |   c   |  out  |
+|   0   |   0   |   0   |   1   |
+|   0   |   0   |   1   |   0   |
+|   0   |   1   |   0   |   0   |
+|   0   |   1   |   1   |   0   |
+|   1   |   0   |   0   |   1   |
+|   1   |   0   |   1   |   1   |
+|   1   |   1   |   0   |   1   |
+|   1   |   1   |   1   |   0   |</code></pre>
+<p>Note that the text in Compare files is not robust to whitespaces.</p>
+<p>It will be compared with the output file generated by the simulator.</p>
+<p>Here’s how the successful run looks like-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://ghosh-r.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">final_60c5cd572911290063ac8055_216317.gif</figcaption>
+</figure>
+</div>
+</section>
+<section id="another-example-xor-gate" class="level4">
+<h4 class="anchored" data-anchor-id="another-example-xor-gate">Another Example: XOR Gate</h4>
+<p>Suppose you want to implement a XOR gate from basic gates. And the truth-table would be-</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This will be your Boolean expression-</p>
+<p><img src="https://latex.codecogs.com/png.latex?%20y%20=%20%5Coverline%7Ba%7Db%20+%20a%5Coverline%7Bb%7D%20"></p>
+<p>And this will be your HDL implementation.</p>
+<pre><code>// Xor.hdl
+
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    And(a=a, b=notb, out=w1);
+    And(a=nota, b=b, out=w2);
+    Or(a=w1, b=w2, out=out);
+}</code></pre>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>I showed you how to implement any Boolean function with nothing but three elementary logic gates. However, you should keep in mind that this approach is impractical when there are more variables, and the chip you want is more complicated.</p>
+<hr>
+<p>Follow the blog to get more similar posts.</p>
+<p>Follow me on <a href="https://twitter.com/AllesistKode">Twitter</a> or connect with me on <a href="https://www.linkedin.com/in/ritobrata-ghosh/">LinkedIn</a>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>nand2tetris</category>
+  <category>computer-science</category>
+  <category>electronics</category>
+  <category>computation</category>
+  <guid>https://ghosh-r.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</guid>
+  <pubDate>Sat, 12 Jun 2021 18:30:00 GMT</pubDate>
+  <media:content url="https://ghosh-r.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" medium="image" type="image/png" height="76" width="144"/>
+</item>
+</channel>
+</rss>

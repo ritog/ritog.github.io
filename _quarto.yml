@@ -2,13 +2,13 @@ project:
   type: website
 
 website:
-  title: "Blogs by Rito Ghosh"
-  site-url: https://ghosh-r.github.io/blog
+  title: "Posts by Rito Ghosh"
+  site-url: https://ghosh-r.github.io
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/ghosh-r
+        href: https://github.com/ritog
       - icon: twitter
         href: https://twitter.com/AllesistKode
       - icon: rss

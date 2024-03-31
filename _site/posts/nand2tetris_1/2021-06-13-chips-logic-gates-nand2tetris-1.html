@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ritobrata Ghosh">
+<meta name="dcterms.date" content="2021-06-13">
+
+<title>Posts by Rito Ghosh - Creating Any Boolean Function</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Posts by Rito Ghosh</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ritog" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/AllesistKode" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Creating Any Boolean Function</h1>
+            <p class="subtitle lead">How to Represent Any Boolean Function with Elementary Logic Gates</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">nand2tetris</div>
+                <div class="quarto-category">computer-science</div>
+                <div class="quarto-category">electronics</div>
+                <div class="quarto-category">computation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ritobrata Ghosh </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 13, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>by <a href="https://ghosh-r.github.io/aboutme">Ritobrata Ghosh</a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Digital electronics is probably the most impactful and widespread technology now. It forms the basis of all of the chips- from ARM microcontrollers to processors in cellphones, all the way to uberpowerful AMD Threadrippers. In all these cases, digital electronics reign supreme.</p>
+<p>It is very useful to learn not only about basic principles but also how these principles and the components of Digital Electronics exactly form the basis of the modern world, i.e., how do we go from basic logic gates to fully functional computers.</p>
+</section>
+<section id="elements-of-computing-systems" class="level3">
+<h3 class="anchored" data-anchor-id="elements-of-computing-systems">Elements of Computing Systems</h3>
+<p>Digital Electronics is not only important because it is the base of the modern technology that literally governs our lives, but it makes us better as programmers, and computer scientists.</p>
+<p>Whether we are self-taught programmers or a person with a 4-year CS degree, we were never taught how we go from basic logic gates to CPUs.</p>
+<p>A book that I have come across- <a href="https://mitpress.mit.edu/books/elements-computing-systems-second-edition"><em>The Elements of Computing Systems</em></a> by By Noam Nisan and Shimon Schocken does just that. It teaches you how the basic building blocks of modern computers actually create the computers.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mitpress.mit.edu/sites/default/files/styles/large_book_cover/http/mitp-content-server.mit.edu%3A18180/books/covers/cover/%3Fcollid%3Dbooks_covers_0%26isbn%3D9780262539807%26type%3D.jpg?itok=KlT7RdFp" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">nand2tetris-book-cover-2ed</figcaption>
+</figure>
+</div>
+<p><em>[Although it shows the new 2nd edition, I am reading the first one]</em></p>
+<p>It promises to teach you, actively, how we can start from nothing but a NAND gate and go all the way to a full-fledged computer with an operating system, and a general-purpose programming language that runs on it, which can be used to create anything. The book is also known as <strong><em>nand2tetris</em></strong>.</p>
+<p>I have started reading this book and working through it every Sunday, and I have almost finished a chapter.</p>
+</section>
+<section id="building-gates-from-elementary-gates" class="level3">
+<h3 class="anchored" data-anchor-id="building-gates-from-elementary-gates">Building Gates from Elementary Gates</h3>
+<p>People who have taken a Digital Architecture class or a Digital Electronics class will know that NAND (NOT AND) gates are called “universal gates” because some combination of them are able to create any other gates. So, when you have a NAND gate with you, you can create a general-purpose computer with it. And the book makes you do that. It makes you create many logic gates starting from AND, NOT, and OR with nothing but a pre-implemented NAND gate.</p>
+<p>So, a NAND gate is already implemented and supplied. You first have to create AND, OR, and NOT gates. Then you go on to further create XOR gates, Multiplexors (MUX), Demultiplexors (D-MUX), and multi-bit versions of these gates and basic gates with what you have built previously, viz.&nbsp;AND, OR, NOT, and NAND gates.</p>
+<p>This is a fascinating task in itself, and very intellectually stimulating.</p>
+<p>This is where the core of the post comes in.</p>
+<p>I will show you how to implement any Boolean function with nothing but three logic gates. This is a trick worth knowing.</p>
+<p>Let’s start.</p>
+<hr>
+</section>
+<section id="implementing-a-boolean-function" class="level3">
+<h3 class="anchored" data-anchor-id="implementing-a-boolean-function">Implementing a Boolean Function</h3>
+<section id="design-a-boolean-function" class="level4">
+<h4 class="anchored" data-anchor-id="design-a-boolean-function">Design a Boolean Function</h4>
+<p>Let’s say we need a Boolean function that behaves in such a way-</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This <em>truth table</em> tells you that we need such a Boolean function that outputs 1 iff- * <em>A</em>, <em>B</em>, and <em>C</em>, three Boolean variables, are all 0 * only <em>A</em> is 1, <em>B</em> and <em>C</em> are 0 * <em>A</em> and <em>C</em> are 1, <em>B</em> is 0 * <em>A</em> and <em>B</em> are 1, <em>C</em> is 0</p>
+<p>Now, in some situations, you might need to define a Boolean function that behaves as you expect. Do not worry about what this function is doing. Let’s focus on the implementation part.</p>
+</section>
+<section id="boolean-expression" class="level4">
+<h4 class="anchored" data-anchor-id="boolean-expression">Boolean Expression</h4>
+<p>I am assuming that you already know about the basic gates, and how they function.</p>
+<p>So, in the first step to build a Boolean function, you must create the Boolean expression. Just like a Boolean variable can have two values (0, 1), and a Boolean function can only output two values (0, 1, duh!), a Boolean expression always evaluates to either 0 or 1.</p>
+<p>How to actually do it?</p>
+<ol type="1">
+<li>You should just note in which cases the function outputs a 1. Focus just on those.</li>
+<li>Note which variables are on (1) and which are off (0).</li>
+<li>Keep the variables unchanged which are 1 in this case, and take a negation of those which are off (in electronics, you would put them through NOT).</li>
+<li>Multiply them together.</li>
+<li>For these products for each 1 in the output, just add them together.</li>
+</ol>
+<p>That’s it. You have got your Boolean expression.</p>
+<p>Let me go through it step by step.</p>
+<p>In the first occurrence of 1 in the output, we see that all the input variables are off. So, we get a*, b*, and c*, where a, b, and c are the variables representing inputs <em>A</em>, <em>B</em>, and <em>C</em>, respectively, and x* is the negation of x. We multiply them together, and we get a*b*c*.</p>
+<p>In the second occurrence of 1, in a similar manner, we get- ab*c*.</p>
+<p>For the third and fourth occurrences of 1, we get ab*c, and abc*, respectively.</p>
+<p>We have to add them. And doing so, we get-</p>
+<p><span class="math display">\[ y = \overline{a}\overline{b}\overline{c} + a\overline{b}\overline{c} + a\overline{b}c + ab\overline{c} \]</span></p>
+<p>[You are required to write cases in the proper order. The first of three variable has these values row-wise- 0-0-0-0-1-1-1-1, the second one varies- 0-0-1-1-0-0-1-1, and the third one- 0-1-0-1-0-1-0-1.]</p>
+</section>
+<section id="implementation" class="level4">
+<h4 class="anchored" data-anchor-id="implementation">Implementation</h4>
+<p>You might be already aware that negation is passing through a NOT gate, multiplying is just passing through an AND gate, and adding is just an OR gate.</p>
+<p>The first <em>component</em> a*b*c* can be obtained in this way-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>And here are the second, third, and fourth components-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>And,</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>Now, we have to add them all together, i.e.&nbsp;put these components through an OR gate. The output of the OR gate will be our final output.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>Our final output.</p>
+</section>
+<section id="hdl-implement-and-test" class="level4">
+<h4 class="anchored" data-anchor-id="hdl-implement-and-test">HDL: Implement and Test</h4>
+<p>Now, if you have ICs lying around, you can quickly test this with a power supply or a 5V cell, and some wires. You will also need a multimeter or LED bulbs to check your output.</p>
+<p>But, remember, we are building a computer from scratch when following this book. Using thousands of ICs to build a computer is not slightly practical unless you happen to have a contract with TSMC!</p>
+<p>Something called HDL (Hardware Description Language) is used. It is an intuitive, high-level, special-purpose programming language that you use to design and test chips, and use previously created chips.</p>
+<p>It is implemented in Java, but you do not have to worry about its implementation, you just need to use it. A GUI program is also supplied to do load and test chips.</p>
+<p>For example, given a NAND gate, you will design an AND gate this way.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>As you can see, it is very intuitive, and you can pick it up in 20 minutes.</p>
+<p>And, this is how you’d test this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">image.png</figcaption>
+</figure>
+</div>
+<p>To write our custom function in HDL, we would do-</p>
+<pre><code>// Custom.hdl
+// this is a part of Hashnode blog Convoluted demo
+
+CHIP Custom {
+    IN a, b, c;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    And(a=nota, b=notb, out=notanotb);
+    And(a=notanotb, b=notc, out=w1);
+    And(a=a, b=notb, out=anotb);
+    And(a=anotb, b=notc, out=w2);
+    And(a=anotb, b=c, out=w3);
+    And(a=a, b=b, out=ab);
+    And(a=ab, b=notc, out=w4);
+    Or8Way(in[0]=w1, in[1]=w2, in[2]=w3, in[3]=w4, out=out);
+}</code></pre>
+<p>And as this is a custom chip, the <code>.tst</code> test file, and <code>.cmp</code> compare file are not supplied. So, for testing this chip, I wrote my own.</p>
+<p>Here is the test (<code>.tst</code>) file-</p>
+<pre><code>// Custom.tst
+// test file for testing custom chip
+// could be found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
+
+// test file for a custom chip in Convoluted, a Hashnode blog
+
+load Custom.hdl,
+output-file Custom.out,
+compare-to Custom.cmp,
+output-list a%B3.1.3 b%B3.1.3 c%B3.1.3 out%B3.1.3;
+
+set a 0,
+set b 0,
+set c 0,
+eval,
+output;
+
+set a 0,
+set b 0,
+set c 1,
+eval,
+output;
+
+set a 0,
+set b 1,
+set c 0,
+eval,
+output;
+
+set a 0,
+set b 1,
+set c 1,
+eval,
+output; 
+
+set a 1,
+set b 0,
+set c 0,
+eval,
+output;
+
+set a 1,
+set b 0,
+set c 1,
+eval,
+output;
+
+set a 1,
+set b 1,
+set c 0,
+eval,
+output;
+
+set a 1,
+set b 1,
+set c 1,
+eval,
+output;</code></pre>
+<p>And here is the compare (<code>.cmp</code>) file. It contains the truth table that we expect.</p>
+<pre><code>// Custom.cmp
+// compare file for chip Custom.hdl
+// found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
+// test file at- https://gist.github.com/ghosh-r/cef52b9f6ac017e00d64460b025a53fe
+
+|   a   |   b   |   c   |  out  |
+|   0   |   0   |   0   |   1   |
+|   0   |   0   |   1   |   0   |
+|   0   |   1   |   0   |   0   |
+|   0   |   1   |   1   |   0   |
+|   1   |   0   |   0   |   1   |
+|   1   |   0   |   1   |   1   |
+|   1   |   1   |   0   |   1   |
+|   1   |   1   |   1   |   0   |</code></pre>
+<p>Note that the text in Compare files is not robust to whitespaces.</p>
+<p>It will be compared with the output file generated by the simulator.</p>
+<p>Here’s how the successful run looks like-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">final_60c5cd572911290063ac8055_216317.gif</figcaption>
+</figure>
+</div>
+</section>
+<section id="another-example-xor-gate" class="level4">
+<h4 class="anchored" data-anchor-id="another-example-xor-gate">Another Example: XOR Gate</h4>
+<p>Suppose you want to implement a XOR gate from basic gates. And the truth-table would be-</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This will be your Boolean expression-</p>
+<p><span class="math display">\[ y = \overline{a}b + a\overline{b} \]</span></p>
+<p>And this will be your HDL implementation.</p>
+<pre><code>// Xor.hdl
+
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    And(a=a, b=notb, out=w1);
+    And(a=nota, b=b, out=w2);
+    Or(a=w1, b=w2, out=out);
+}</code></pre>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>I showed you how to implement any Boolean function with nothing but three elementary logic gates. However, you should keep in mind that this approach is impractical when there are more variables, and the chip you want is more complicated.</p>
+<hr>
+<p>Follow the blog to get more similar posts.</p>
+<p>Follow me on <a href="https://twitter.com/AllesistKode">Twitter</a> or connect with me on <a href="https://www.linkedin.com/in/ritobrata-ghosh/">LinkedIn</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
