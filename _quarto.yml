@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Posts by Rito Ghosh"
-  site-url: https://ghosh-r.github.io
+  site-url: https://ritog.github.io
   navbar:
     right:
       - about.qmd
