@@ -1,1 +1,1 @@
-Sitemap: https://ghosh-r.github.io/blog/sitemap.xml
+Sitemap: https://ritog.github.io/sitemap.xml

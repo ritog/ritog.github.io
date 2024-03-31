@@ -5,16 +5,16 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>Blogs by Rito Ghosh</title>
-<link>https://ghosh-r.github.io/blog/index.html</link>
-<atom:link href="https://ghosh-r.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
+<title>Posts by Rito Ghosh</title>
+<link>https://ritog.github.io/index.html</link>
+<atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
 <lastBuildDate>Wed, 26 Apr 2023 18:30:00 GMT</lastBuildDate>
 <item>
   <title>Non-Linear Dynamics Trajectories with Python</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/index.html</link>
+  <link>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</link>
   <description><![CDATA[ 
 
 
@@ -213,7 +213,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory'</span>)</span></code></pre></div>
-<p><img src="https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
+<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
 </section>
 <section id="r-2" class="level3">
 <h3 class="anchored" data-anchor-id="r-2"><img src="https://latex.codecogs.com/png.latex?r%20=%202"></h3>
@@ -282,7 +282,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div>
-<p><img src="https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
+<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
 </section>
 <section id="plotting-x_n---hatx_n-vs.-n-for-r3.4" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-x_n---hatx_n-vs.-n-for-r3.4">Plotting <img src="https://latex.codecogs.com/png.latex?x_n%20-%20%5Chat%7Bx_n%7D"> vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?n"> for <img src="https://latex.codecogs.com/png.latex?r=3.4"></h3>
@@ -353,7 +353,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></div>
-<p><img src="https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
+<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
 <p>We can thus plot the trajectories of the Logistic Map with Python and relevant libraries.</p>
 </section>
 </section>
@@ -380,20 +380,20 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
   <category>physics</category>
   <category>chaos-theory</category>
   <category>ai</category>
-  <guid>https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/index.html</guid>
+  <guid>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</guid>
   <pubDate>Wed, 26 Apr 2023 18:30:00 GMT</pubDate>
-  <media:content url="https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
+  <media:content url="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
 </item>
 <item>
   <title>A Gentle Introduction to the Hugging Face API</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ghosh-r.github.io/blog/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
+  <link>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
   <description><![CDATA[ 
 
 
 
 
-<p><img src="https://ghosh-r.github.io/blog/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="img-fluid"></p>
+<p><img src="https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="img-fluid"></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Natural Language Processing is a fast-advancing field. And it is also one of the fields that require a huge amount of computational resources to make important progress. And although breakthroughs are openly announced, and papers are released in free-to-access repositories such as <a href="https://arxiv.org/">arXiv</a>, Open Review, Papers with Code, etc., and despite (sometimes) having the code freely available on GitHub, using those language models is not something widely accessible and easy.</p>
@@ -611,14 +611,14 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
   <category>tutorial</category>
   <category>nlp</category>
   <category>kaggle</category>
-  <guid>https://ghosh-r.github.io/blog/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</guid>
+  <guid>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</guid>
   <pubDate>Sat, 19 Jun 2021 18:30:00 GMT</pubDate>
-  <media:content url="https://ghosh-r.github.io/blog/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Creating Any Boolean Function</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ghosh-r.github.io/blog/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</link>
+  <link>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</link>
   <description><![CDATA[ 
 
 
@@ -637,7 +637,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>A book that I have come across- <a href="https://mitpress.mit.edu/books/elements-computing-systems-second-edition"><em>The Elements of Computing Systems</em></a> by By Noam Nisan and Shimon Schocken does just that. It teaches you how the basic building blocks of modern computers actually create the computers.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/mitpress.mit.edu/sites/default/files/styles/large_book_cover/http/mitp-content-server.mit.edu%3A18180/books/covers/cover/%3Fcollid%3Dbooks_covers_0%26isbn%3D9780262539807%26type%3D.jpg?itok=KlT7RdFp" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/mitpress.mit.edu/sites/default/files/styles/large_book_cover/http/mitp-content-server.mit.edu%3A18180/books/covers/cover/%3Fcollid%3Dbooks_covers_0%26isbn%3D9780262539807%26type%3D.jpg?itok=KlT7RdFp" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">nand2tetris-book-cover-2ed</figcaption>
 </figure>
 </div>
@@ -750,34 +750,34 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>The first <em>component</em> a*b*c* can be obtained in this way-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <p>And here are the second, third, and fourth components-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <p>And,</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
 <p>Now, we have to add them all together, i.e.&nbsp;put these components through an OR gate. The output of the OR gate will be our final output.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -792,7 +792,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>For example, given a NAND gate, you will design an AND gate this way.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -800,7 +800,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>And, this is how you’d test this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">image.png</figcaption>
 </figure>
 </div>
@@ -905,7 +905,7 @@ output;</code></pre>
 <p>Here’s how the successful run looks like-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ghosh-r.github.io/blog/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
+<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">final_60c5cd572911290063ac8055_216317.gif</figcaption>
 </figure>
 </div>
@@ -978,9 +978,9 @@ CHIP Xor {
   <category>computer-science</category>
   <category>electronics</category>
   <category>computation</category>
-  <guid>https://ghosh-r.github.io/blog/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</guid>
+  <guid>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</guid>
   <pubDate>Sat, 12 Jun 2021 18:30:00 GMT</pubDate>
-  <media:content url="https://ghosh-r.github.io/blog/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" medium="image" type="image/png" height="76" width="144"/>
+  <media:content url="https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" medium="image" type="image/png" height="76" width="144"/>
 </item>
 </channel>
 </rss>

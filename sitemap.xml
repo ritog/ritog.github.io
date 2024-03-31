@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ghosh-r.github.io/blog/about.html</loc>
-    <lastmod>2024-03-31T11:56:43.777Z</lastmod>
+    <loc>https://ritog.github.io/about.html</loc>
+    <lastmod>2024-03-31T12:29:34.523Z</lastmod>
   </url>
   <url>
-    <loc>https://ghosh-r.github.io/blog/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
-    <lastmod>2024-03-31T11:56:43.185Z</lastmod>
+    <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
+    <lastmod>2024-03-31T12:29:33.911Z</lastmod>
   </url>
   <url>
-    <loc>https://ghosh-r.github.io/blog/index.html</loc>
-    <lastmod>2024-03-31T11:56:42.369Z</lastmod>
+    <loc>https://ritog.github.io/index.html</loc>
+    <lastmod>2024-03-31T12:29:33.123Z</lastmod>
   </url>
   <url>
-    <loc>https://ghosh-r.github.io/blog/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
-    <lastmod>2024-03-31T11:56:42.949Z</lastmod>
+    <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
+    <lastmod>2024-03-31T12:29:33.679Z</lastmod>
   </url>
   <url>
-    <loc>https://ghosh-r.github.io/blog/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
-    <lastmod>2024-03-31T11:56:43.589Z</lastmod>
+    <loc>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
+    <lastmod>2024-03-31T12:29:34.343Z</lastmod>
   </url>
 </urlset>
