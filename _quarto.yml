@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "Blogs by Rito Ghosh"
+  site-url: https://ghosh-r.github.io/blog
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/ghosh-r
+      - icon: twitter
+        href: https://twitter.com/AllesistKode
+      - icon: rss
+        href: index.xml
+format:
+  html:
+    theme: solar
+    monofont: "Cascadia Code PL"
+    css: styles.css
+
+execute:
+    freeze: auto
+

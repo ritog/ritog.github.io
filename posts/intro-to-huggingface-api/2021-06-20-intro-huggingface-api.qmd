@@ -1,0 +1,254 @@
+---
+layout: post
+title: A Gentle Introduction to the Hugging Face API
+subtitle: A Hands-On Tutorial
+author: "Ritobrata Ghosh"
+date: "2021-06-20"
+categories: [deep-learning, machine-learning, data-science, ai, tutorial, nlp, kaggle]
+comments: false
+image: "2021-06-20-intro-huggingface-api-0.jpg"
+---
+
+![](2021-06-20-intro-huggingface-api-0.jpg)
+
+### Introduction
+
+Natural Language Processing is a fast-advancing field. And it is also one of the fields that require a huge amount of computational resources to make important progress. And although breakthroughs are openly announced, and papers are released in free-to-access repositories such as [arXiv](https://arxiv.org/), Open Review, Papers with Code, etc., and despite (sometimes) having the code freely available on GitHub, using those language models is not something widely accessible and easy.
+
+Let me provide more context. BERT is a state-of-the-art encoder language model. It takes days to train the model from the ground up even when using very powerful GPUs that only a few entities have access to. In 2019, NVIDIA [used](https://nvidianews.nvidia.com/news/nvidia-achieves-breakthroughs-in-language-understandingto-enable-real-time-conversational-ai) 1472 NVIDIA V100 GPUs to train BERT from scratch in 53 minutes. Yes, 1,472!
+
+One estimate [puts](https://twitter.com/eturner303/status/1266264358771757057?s=20) the cost of training GPT-3, a 175 billion parameter model, for a single training run at $12 Million USD.
+
+And such language models are released every now and then. How do you use these powerful language models for your task?
+
+Here Hugging Face comes to the scene. They aim to solve this problem by providing pre-trained models, and simple API so that you can use them, fine-tune them, and use the API in your applications.
+
+In this article, my goal is to introduce the Hugging Face `pipeline` API to accomplish very interesting tasks by utilizing powerful pre-trained models present in the models hub of Hugging Face.
+
+To follow through this article, you need not have any prior knowledge of Natural Language Processing. I, however, assume minor prior experience in writing Python code.
+
+___
+
+
+In this article, I will go over, describe, and provide examples for the following tasks using Hugging Face `pipeline`-
+
+* Sentiment Analysis
+* Zero-Shot Classification
+* Text Generation
+* Mask-Filling
+* Named Entity Recognition
+* Question Answering
+* Summarization
+* Translation
+
+___
+
+### Installing and Importing
+
+```
+! pip install transformers[sentencepiece] > /dev/null
+```
+
+If you have not seen a `pip` install with a square bracket in it before, don't worry. It means that you are installing the `transformers` package with extra support added for the `sentencepiece` package. You can find out more about square parentheses installs in `pip` [here](https://stackoverflow.com/questions/46775346/what-do-square-brackets-mean-in-pip-install).
+
+```py
+from transformers import pipeline
+```
+
+We will use the utilities available in the `pipeline` namespace in the `transformers` library.
+
+___
+
+### Sentiment Analysis
+
+Before I begin going through the specific `pipeline`s, let me tell you something beforehand that you will find yourself. Hugging Face API is very intuitive. When you want to use a `pipeline`, you have to instantiate an object, then you pass data to that object to get result. Very simple! You are soon to see what I mean.
+
+```py
+classifier_sentiment = pipeline("sentiment-analysis")
+```
+
+That's it. You call the `pipeline()` method with the task you want to accomplish as an argument. And you assign a name to it. You are done now. You can now begin to use the object as a function to achieve what you want. Let's see an example-
+
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=15&kernelSessionId=66118660" height="150" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+See, it returns a dictionary contained in a list that has two items, `label` and `score`. The `label` part tells us its prediction, and the `score` tells us its confidence score.
+
+
+> *As an aside, I think they are structured this way because this structure is easily compatible with `.json` and similar filetypes which are very common in APIs.*
+
+
+Let's see another example.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=17&kernelSessionId=66118660" height="150" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+See, how the classifier is aware of my emotion about pineapple pizzas? 🙃
+
+
+____
+
+
+### Zero-Shot Classification
+
+When you want to classify something using Deep Learning, in many cases you need to train it with labeled examples. This approach is known as Supervised Learning. Even when leveraging transfer learning, you need to train your model with quite a few labeled examples in the domain of your choice. Zero-shot classification is different than that. In this, you use a pre-trained model to classify a given string and some labels of your choice. The model returns you the confidence score for each model.
+
+Let me show you how this works. First, you instantiate an object and assign it a name just like you did in the case of the Sentiment Analysis pipeline.
+
+```py
+classifier_zero_shot = pipeline("zero-shot-classification")
+```
+
+Then you pass a string, along with the labels of your choice to test how well they correspond to your sentence.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=25&kernelSessionId=66118660" height="260" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+See, the given sentence is about a profession, and the model tells you that. And it knows that it is much more related to education than politics.
+
+Essentially, when you are doing Zero-Shot Classification, you are supplying a string to the `pipeline`, and also labels. The pipeline returns how accurate **those labels are**.
+
+___
+
+
+### Text Generation
+
+Before I heard about Deep Learning, I heard about Natural Language Processing, because I heard that you can generate text with it! This is the most exciting part of NLP to me, personally.
+
+As the name suggests, this `pipeline` lets you generate text. It just needs you to supply a prompt, a text that will determine what the generated text will be. Let me show you how.
+
+```py
+generator = pipeline("text-generation")
+```
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=30&kernelSessionId=66118660" height="230" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+See what I mean! Even with zero training, it can create logically coherent text that is even interesting to read. Robots will take over writers soon 🤖!
+
+
+You can control the maximum length of the output of the `pipeline`, and even ask for multiple possible outputs, like so-
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellIds=34&kernelSessionId=66128979" height="320" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+> *Whoa, it's poetic!*
+
+We can accomplish more interesting things with transfer learning. But that is a story for another day.
+
+___
+
+### Mask Filling
+
+In this pipeline, if there is a word that you hide and supply the string with the hidden word, the `pipeline` will predict that word. This is like magic!
+
+```py
+unmasker = pipeline("fill-mask")
+```
+
+You pass the sentence with the masked word, and it will predict it. You can choose the number of predictions you want to see. You just have to pass a value to the `top_k` parameter.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellIds=41&kernelSessionId=66128979" height="330" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=40&kernelSessionId=66118660" height="320" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+It can predict the words quite well. Just remember to mask the word using `<mask>`.
+
+___
+
+
+### Named Entity Recognition
+
+This `pipeline` recognizes the proper nouns in your sentence. And it also classifies them. Let's see an example.
+
+```py
+ner = pipeline("ner", grouped_entities=True)
+```
+
+
+The `grouped_entities` parameter just ensures that the `pipeline` can recognize the names that have more than one word, like, you know, Chocolate Factory.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=46&kernelSessionId=66118660" height="400" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+See how it recognizes a person, his profession, and location on its own, and also labels them as "PER", "ORG", and "LOC" (meaning location), respectively.
+
+___
+
+### Question Answering
+
+This pipeline provides you with an answer to a question you ask from the context that you provide.
+
+```py
+question_answerer = pipeline("question-answering")
+```
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=51&kernelSessionId=66118660" height="210" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+It can answer multiple questions from the same prompt.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=53&kernelSessionId=66118660" height="210" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+____
+
+
+### Summarization
+
+This is one of the most practical tasks that has existed for a long time. Deep Learning really changes the landscape of the task.
+
+Let's see it in action.
+
+```py
+summarizer = pipeline("summarization")
+```
+
+Let's summarize a piece of text from a [blog post](https://blog.royalsloth.eu/posts/i-wish-i-could-write-this-well/) I recently read.
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=59&kernelSessionId=66118660" height="650" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+Now, that's something! The efficacy of the summarizer really shocked me. It does this task so well.
+
+___
+
+
+### Translation
+
+The translation `pipeline` translates a piece of text from one language to another. It also lets you choose the language model of your choice.
+
+First, let's translate a text from English to German. I will use the [`Helsinki-NLP/opus-mt-en-de`](https://huggingface.co/Helsinki-NLP/opus-mt-en-de) model for this task.
+
+```py
+translator_de = pipeline("translation", model="Helsinki-NLP/opus-mt-en-de")
+```
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=64&kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>
+
+Note that you are not explicitly telling the model about the language of the input language or the output language. A language model is only trained for translating from one language to another. It cannot translate other languages. If you want to translate from German to English, you'd have to use another model from the model hub. You can find all the translation models [here](https://huggingface.co/models?pipeline_tag=translation).
+
+The cool thing is that Hugging Face is not limited to Romance languages or European languages in general. Let me show you by translating a piece of text from Bengali.
+
+```py
+translator_bn = pipeline("translation", model="Helsinki-NLP/opus-mt-bn-en")
+```
+
+<iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&cellIds=68&kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API"></iframe>>
+
+____
+
+
+### Conclusion
+
+I have shown you several pipeline APIs and what they do and how they work.
+
+Here are the suggested next steps-
+
+* **Experiment.** Play with the `pipeline`s by yourself, try different things with different parameters, run inference on examples of your own, test edge cases, run wild with it. I believe that is the best way to learn.
+* **Do Projects.** Use the knowledge you gained here in simple projects. We only learn by doing.
+* **Hugging Face Course.** Hugging Face has recently released a [free course](https://huggingface.co/course/chapter1) where they teach you about Transformers and their library ecosystem. It is a good next step.
+* **Explore.** Explore the Hugging Face [website](https://huggingface.co/), learn more about their APIs, Services, pre-trained models, and many more things it has to offer.
+
+___
+
+
+If you notice any error, mistake, or typo, please feel free to let me know. If something is not clear, please let me know that as well. I will do my best to correct it and will credit you here.
+
+Let me know if you have any questions at all.
+
+___
+
+*(Originally [published as a Notebook](https://www.kaggle.com/truthr/a-gentle-introduction-to-the-hugging-face-api) on Kaggle.)*
