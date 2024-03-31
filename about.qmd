@@ -12,8 +12,8 @@ about:
       href: https://linkedin.com/in/ritobrata-ghosh
     - icon: github
       text: Github
-      href: https://github.com/ghosh-r
+      href: https://github.com/ritog
 
 ---
 
-About this blog
+Writings on matters of Deep Learning, functional programming, programming languages, and fun projects. 

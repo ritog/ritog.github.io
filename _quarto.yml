@@ -7,6 +7,7 @@ website:
   navbar:
     right:
       - about.qmd
+      - cv.qmd
       - icon: github
         href: https://github.com/ritog
       - icon: twitter
