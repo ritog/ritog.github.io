@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ritog.github.io/about.html</loc>
-    <lastmod>2024-03-31T12:29:34.523Z</lastmod>
+    <lastmod>2024-03-31T12:46:05.153Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
-    <lastmod>2024-03-31T12:29:33.911Z</lastmod>
+    <lastmod>2024-03-31T12:46:04.577Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/index.html</loc>
-    <lastmod>2024-03-31T12:29:33.123Z</lastmod>
+    <lastmod>2024-03-31T12:46:03.781Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/cv.html</loc>
+    <lastmod>2024-03-31T12:46:03.365Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
-    <lastmod>2024-03-31T12:29:33.679Z</lastmod>
+    <lastmod>2024-03-31T12:46:04.357Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
-    <lastmod>2024-03-31T12:29:34.343Z</lastmod>
+    <lastmod>2024-03-31T12:46:04.973Z</lastmod>
   </url>
 </urlset>
