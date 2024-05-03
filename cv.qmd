@@ -1,5 +1,19 @@
 ---
 title: "CV"
+image: self.png
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/AllesistKode
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/ritobrata-ghosh
+    - icon: github
+      text: Github
+      href: https://github.com/ritog
+
 ---
 
 # Rito Ghosh
@@ -12,11 +26,11 @@ title: "CV"
 
 ---
 
-##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com | [📃 CV](Ritobrata_Ghosh_CV.pdf)
+##### [Google Scholar 🎓](https://scholar.google.com/citations?user=R_X74h0AAAAJ) | Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com | [📃 CV](Ritobrata_Ghosh_CV.pdf)
 
 ---
 
-#### 🥼 **_Research Interests_**: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
+#### 🥼 **_Research Interests_**: Computer Vision, Scientific Machine Learning, Artificial Life, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
 
 #### 🗝️ **_Key Skills_**: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.
 

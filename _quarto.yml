@@ -12,6 +12,9 @@ website:
         href: https://github.com/ritog
       - icon: twitter
         href: https://twitter.com/AllesistKode
+      - icon: google-scholar
+        text: Google Scholar
+        href: https://scholar.google.com/citations?user=R_X74h0AAAAJ
       - icon: rss
         href: index.xml
 format:
