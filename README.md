@@ -10,8 +10,6 @@
 
 ##### Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com | [📃 CV](Ritobrata_Ghosh_CV.pdf)
 
----
-
 #### 🥼 **_Research Interests_**: Computer Vision, Scientific Machine Learning, Edge AI/TinyML, Computational Neuroscience, Efficient NLP.
 
 #### 🗝️ **_Key Skills_**: Python, Deep Learning, Machine Learning, Computer Vision, PyTorch, Mathematics, Programming, Team Work, Communication.

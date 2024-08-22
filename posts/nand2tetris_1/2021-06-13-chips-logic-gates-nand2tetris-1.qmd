@@ -8,7 +8,7 @@ date: 2021-06-13
 author: "Ritobrata Ghosh"
 ---
 
-by [Ritobrata Ghosh](https://ghosh-r.github.io/aboutme)
+by [Ritobrata Ghosh](https://ritog.github.io)
 
 ### Introduction
 
@@ -24,7 +24,7 @@ Whether we are self-taught programmers or a person with a 4-year CS degree, we w
 
 A book that I have come across- [*The Elements of Computing Systems*](https://mitpress.mit.edu/books/elements-computing-systems-second-edition) by By Noam Nisan and Shimon Schocken does just that. It teaches you how the basic building blocks of modern computers actually create the computers.
 
-![nand2tetris-book-cover-2ed](https://mitpress.mit.edu/sites/default/files/styles/large_book_cover/http/mitp-content-server.mit.edu%3A18180/books/covers/cover/%3Fcollid%3Dbooks_covers_0%26isbn%3D9780262539807%26type%3D.jpg?itok=KlT7RdFp)
+![nand2tetris-book-cover-2ed](https://m.media-amazon.com/images/I/71tRTKR3NOL._SL1500_.jpg)
 
 *[Although it shows the new 2nd edition, I am reading the first one]*
 
