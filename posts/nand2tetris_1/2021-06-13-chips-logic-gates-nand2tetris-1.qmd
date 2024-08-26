@@ -184,6 +184,7 @@ CHIP Custom {
     Or8Way(in[0]=w1, in[1]=w2, in[2]=w3, in[3]=w4, out=out);
 }
 ```
+
 And as this is a custom chip, the `.tst` test file, and `.cmp` compare file are not supplied. So, for testing this chip, I wrote my own.
 
 Here is the test (`.tst`) file-
@@ -321,4 +322,4 @@ _______
 
 Follow the blog to get more similar posts.
 
-Follow me on [Twitter](https://twitter.com/AllesistKode) or connect with me on [LinkedIn](https://www.linkedin.com/in/ritobrata-ghosh/). 
+Follow me on [Twitter](https://twitter.com/AllesistKode) or connect with me on [LinkedIn](https://www.linkedin.com/in/ritobrata-ghosh/).
