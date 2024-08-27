@@ -166,7 +166,7 @@ And, this is how you'd test this:
 
 To write our custom function in HDL, we would do-
 
-```
+```HDL
 // Custom.hdl
 // this is a part of Hashnode blog Convoluted demo
 
@@ -193,7 +193,7 @@ And as this is a custom chip, the `.tst` test file, and `.cmp` compare file are 
 
 Here is the test (`.tst`) file-
 
-```
+```HDL
 // Custom.tst
 // test file for testing custom chip
 // could be found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
@@ -257,7 +257,7 @@ output;
 And here is the compare (`.cmp`) file. It contains the truth table that we expect.
 
 
-```
+```HDL
 // Custom.cmp
 // compare file for chip Custom.hdl
 // found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be
@@ -300,7 +300,7 @@ $$ y = \overline{a}b + a\overline{b} $$
 And this will be your HDL implementation.
 
 
-```
+```HDL
 // Xor.hdl
 
 CHIP Xor {

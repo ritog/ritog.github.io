@@ -28,7 +28,6 @@ format:
     code-line-numbers: true
     code-copy: true
     code-block-bg: "black"
-    fontsize: 1.4em
 
 
 execute:
