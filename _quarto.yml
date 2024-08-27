@@ -9,12 +9,17 @@ website:
     right:
       - about.qmd
       - cv.qmd
-      - icon: github
+      - text: "{{< iconify fa6-brands github >}}"
         href: https://github.com/ritog
-      - icon: twitter
+      - text: "{{< iconify fa6-brands twitter >}}"
         href: https://twitter.com/AllesistKode
       - text: "{{< iconify fa6-brands google-scholar >}}"
         href: https://scholar.google.com/citations?user=R_X74h0AAAAJ
+      - text: "{{< iconify fa6-brands mastodon >}}"
+        href: https://sigmoid.social/@rito
+        rel: me
+      - text: "{{< iconify fa6-brands linkedin >}}"
+        href: https://linkedin.com/in/ritobrata-ghosh
       - icon: rss
         href: index.xml
 format:
