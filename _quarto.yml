@@ -4,6 +4,7 @@ project:
 website:
   title: "Posts by Rito Ghosh"
   site-url: https://ritog.github.io
+  search: true
   navbar:
     right:
       - about.qmd
@@ -19,15 +20,16 @@ website:
 format:
   html:
     theme: solar
-    monofont: "Fira Code"
+    monofont: "Cascadia Code"
     css: styles.css
     anchor-sections: true
-    mainfont: "IBM Plex Mono"
+    mainfont: "IBM Plex Sans"
     monobackgroundcolor: "black"
     code-line-numbers: true
     code-copy: true
     code-block-bg: "black"
-    
+    fontsize: 1.4em
+
 
 execute:
     freeze: auto

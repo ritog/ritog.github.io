@@ -6,6 +6,10 @@ comments: false
 image: 2021-06-13-chips-logic-gates-nand2tetris-1-1.png
 date: 2021-06-13
 author: "Ritobrata Ghosh"
+lang: en
+pagetitle: "Creating Any Boolean Function"
+keywords: nand2tetris, digital-electronics, low-level, cs, computation
+license: CC-BY-NC-SA
 ---
 
 by [Ritobrata Ghosh](https://ritog.github.io)
