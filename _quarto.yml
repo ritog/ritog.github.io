@@ -23,7 +23,7 @@ format:
     monofont: "Cascadia Code"
     css: styles.css
     anchor-sections: true
-    mainfont: "IBM Plex Sans"
+    mainfont: "IBM Plex Mono"
     monobackgroundcolor: "black"
     code-line-numbers: true
     code-copy: true
