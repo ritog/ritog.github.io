@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ritog.github.io/about.html</loc>
-    <lastmod>2024-08-27T12:06:17.881Z</lastmod>
+    <lastmod>2024-08-27T12:23:41.558Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
-    <lastmod>2024-08-27T12:06:17.046Z</lastmod>
+    <lastmod>2024-08-27T12:23:40.690Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/index.html</loc>
-    <lastmod>2024-08-27T12:06:16.166Z</lastmod>
+    <lastmod>2024-08-27T12:23:39.832Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/now.html</loc>
+    <lastmod>2024-08-27T12:23:38.784Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/cv.html</loc>
-    <lastmod>2024-08-27T12:06:15.676Z</lastmod>
+    <lastmod>2024-08-27T12:23:39.392Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
-    <lastmod>2024-08-27T12:06:16.797Z</lastmod>
+    <lastmod>2024-08-27T12:23:40.435Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
-    <lastmod>2024-08-27T12:06:17.692Z</lastmod>
+    <lastmod>2024-08-27T12:23:41.340Z</lastmod>
   </url>
 </urlset>
