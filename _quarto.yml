@@ -12,16 +12,22 @@ website:
         href: https://github.com/ritog
       - icon: twitter
         href: https://twitter.com/AllesistKode
-      - icon: google-scholar
-        text: Google Scholar
+      - text: "{{< iconify fa6-brands google-scholar >}}"
         href: https://scholar.google.com/citations?user=R_X74h0AAAAJ
       - icon: rss
         href: index.xml
 format:
   html:
     theme: solar
-    monofont: "Cascadia Code PL"
+    monofont: "Fira Code"
     css: styles.css
+    anchor-sections: true
+    mainfont: "IBM Plex Mono"
+    monobackgroundcolor: "black"
+    code-line-numbers: true
+    code-copy: true
+    code-block-bg: "black"
+    
 
 execute:
     freeze: auto
