@@ -5,6 +5,11 @@ website:
   title: "Posts by Rito Ghosh"
   site-url: https://ritog.github.io
   search: true
+  comments:
+    utterances:
+      repo: ritog/ritog.github.io
+      label: comment-utter
+      theme: github-dark
   navbar:
     right:
       - about.qmd

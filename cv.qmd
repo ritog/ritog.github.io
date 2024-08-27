@@ -13,7 +13,7 @@ about:
     - icon: github
       text: Github
       href: https://github.com/ritog
-
+comments: false
 ---
 
 # Rito Ghosh
