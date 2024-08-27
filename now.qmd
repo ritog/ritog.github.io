@@ -1,0 +1,25 @@
+---
+title: "Now"
+about:
+  template: jolla
+comments: false
+---
+
+# Now
+
+[_What is it about?_](https://sive.rs/now2)
+
+### Tech Related
+- Delving deep into Computational Neuroscience- applying AI to Comp. Neuro.
+- Learning more about functional languages via learning Haskell, and reading FP books like Bird, Wadler.
+- Delving into the lower level of SWE, learning about embedded systems, Assembly, etc.
+- Now and then, I look into projects in the JAX ecosystem and following SciML projects.
+- Looking into PhD positions in Comp. Neuro. and looking for RA jobs.
+
+### Others
+- Learning to play the ukulele
+- Writing a memoir about my parents' childhoods
+- Reading books and writing reviews
+- Watching non-mainstream movies
+
+Last updated: 27 Aug, 2024
