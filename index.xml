@@ -26,7 +26,7 @@
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this Notebook, trajectories of the Logistic Map [1] is plotted with Python.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
 background-color: null;
@@ -36,7 +36,7 @@ background-color: null;
 font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">as</span> plt</span></code></pre></div>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> logistic_function(parameter: <span class="bu" style="color: null;
 background-color: null;
@@ -58,7 +58,7 @@ background-color: null;
 font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> initial_value)</span></code></pre></div>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> logistic_function_trajectory(parameter: <span class="bu" style="color: null;
 background-color: null;
@@ -107,7 +107,7 @@ font-style: inherit;">1</span>]</span>
 <span id="cb3-9">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">return</span> np.array(trajectory)</span></code></pre></div>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -122,7 +122,7 @@ background-color: null;
 font-style: inherit;">10</span>)</span></code></pre></div>
 <pre><code>array([0.8       , 0.352     , 0.5018112 , 0.54999278, 0.54450159,
        0.54564314, 0.54541675, 0.5454621 , 0.54545303, 0.54545485])</code></pre>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">xs <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">xs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -146,7 +146,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">def</span> plot_trajectory(xs, ys, x_label, y_label, title):</span>
 <span id="cb7-2">    plt.figure(figsize<span class="op" style="color: #5E5E5E;
@@ -185,7 +185,7 @@ font-style: inherit;">;</span></span>
 <span id="cb7-7">    plt.grid()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span></code></pre></div>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">point_colors <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">point_colors <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
 background-color: null;
@@ -196,7 +196,7 @@ background-color: null;
 font-style: inherit;">'yellow'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'black'</span>]</span></code></pre></div>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -217,7 +217,7 @@ font-style: inherit;">'Trajectory'</span>)</span></code></pre></div>
 </section>
 <section id="r-2" class="level3">
 <h3 class="anchored" data-anchor-id="r-2"><img src="https://latex.codecogs.com/png.latex?r%20=%202"></h3>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">x_n <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">x_n <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -247,7 +247,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">ys <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">ys <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -261,7 +261,7 @@ background-color: null;
 font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -286,7 +286,7 @@ font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div>
 </section>
 <section id="plotting-x_n---hatx_n-vs.-n-for-r3.4" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-x_n---hatx_n-vs.-n-for-r3.4">Plotting <img src="https://latex.codecogs.com/png.latex?x_n%20-%20%5Chat%7Bx_n%7D"> vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?n"> for <img src="https://latex.codecogs.com/png.latex?r=3.4"></h3>
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">x_n <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1">x_n <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -421,7 +421,7 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 <h3 class="anchored" data-anchor-id="installing-and-importing">Installing and Importing</h3>
 <pre><code>! pip install transformers[sentencepiece] &gt; /dev/null</code></pre>
 <p>If you have not seen a <code>pip</code> install with a square bracket in it before, don’t worry. It means that you are installing the <code>transformers</code> package with extra support added for the <code>sentencepiece</code> package. You can find out more about square parentheses installs in <code>pip</code> <a href="https://stackoverflow.com/questions/46775346/what-do-square-brackets-mean-in-pip-install">here</a>.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> transformers <span class="im" style="color: #00769E;
 background-color: null;
@@ -432,7 +432,7 @@ font-style: inherit;">import</span> pipeline</span></code></pre></div>
 <section id="sentiment-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="sentiment-analysis">Sentiment Analysis</h3>
 <p>Before I begin going through the specific <code>pipeline</code>s, let me tell you something beforehand that you will find yourself. Hugging Face API is very intuitive. When you want to use a <code>pipeline</code>, you have to instantiate an object, then you pass data to that object to get result. Very simple! You are soon to see what I mean.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb3-1">classifier_sentiment <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1">classifier_sentiment <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -454,7 +454,7 @@ font-style: inherit;">"sentiment-analysis"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-Shot Classification</h3>
 <p>When you want to classify something using Deep Learning, in many cases you need to train it with labeled examples. This approach is known as Supervised Learning. Even when leveraging transfer learning, you need to train your model with quite a few labeled examples in the domain of your choice. Zero-shot classification is different than that. In this, you use a pre-trained model to classify a given string and some labels of your choice. The model returns you the confidence score for each model.</p>
 <p>Let me show you how this works. First, you instantiate an object and assign it a name just like you did in the case of the Sentiment Analysis pipeline.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1">classifier_zero_shot <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">classifier_zero_shot <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -470,7 +470,7 @@ font-style: inherit;">"zero-shot-classification"</span>)</span></code></pre></di
 <h3 class="anchored" data-anchor-id="text-generation">Text Generation</h3>
 <p>Before I heard about Deep Learning, I heard about Natural Language Processing, because I heard that you can generate text with it! This is the most exciting part of NLP to me, personally.</p>
 <p>As the name suggests, this <code>pipeline</code> lets you generate text. It just needs you to supply a prompt, a text that will determine what the generated text will be. Let me show you how.</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb5-1">generator <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1">generator <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -490,7 +490,7 @@ font-style: inherit;">"text-generation"</span>)</span></code></pre></div>
 <section id="mask-filling" class="level3">
 <h3 class="anchored" data-anchor-id="mask-filling">Mask Filling</h3>
 <p>In this pipeline, if there is a word that you hide and supply the string with the hidden word, the <code>pipeline</code> will predict that word. This is like magic!</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb6-1">unmasker <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">unmasker <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -506,7 +506,7 @@ font-style: inherit;">"fill-mask"</span>)</span></code></pre></div>
 <section id="named-entity-recognition" class="level3">
 <h3 class="anchored" data-anchor-id="named-entity-recognition">Named Entity Recognition</h3>
 <p>This <code>pipeline</code> recognizes the proper nouns in your sentence. And it also classifies them. Let’s see an example.</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb7-1">ner <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1">ner <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -524,7 +524,7 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 <section id="question-answering" class="level3">
 <h3 class="anchored" data-anchor-id="question-answering">Question Answering</h3>
 <p>This pipeline provides you with an answer to a question you ask from the context that you provide.</p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb8-1">question_answerer <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">question_answerer <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -540,7 +540,7 @@ font-style: inherit;">"question-answering"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="summarization">Summarization</h3>
 <p>This is one of the most practical tasks that has existed for a long time. Deep Learning really changes the landscape of the task.</p>
 <p>Let’s see it in action.</p>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb9-1">summarizer <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">summarizer <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -555,7 +555,7 @@ font-style: inherit;">"summarization"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="translation">Translation</h3>
 <p>The translation <code>pipeline</code> translates a piece of text from one language to another. It also lets you choose the language model of your choice.</p>
 <p>First, let’s translate a text from English to German. I will use the <a href="https://huggingface.co/Helsinki-NLP/opus-mt-en-de"><code>Helsinki-NLP/opus-mt-en-de</code></a> model for this task.</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb10-1">translator_de <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">translator_de <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -568,7 +568,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-en-de"</span>)</span></code></pre></
 </iframe>
 <p>Note that you are not explicitly telling the model about the language of the input language or the output language. A language model is only trained for translating from one language to another. It cannot translate other languages. If you want to translate from German to English, you’d have to use another model from the model hub. You can find all the translation models <a href="https://huggingface.co/models?pipeline_tag=translation">here</a>.</p>
 <p>The cool thing is that Hugging Face is not limited to Romance languages or European languages in general. Let me show you by translating a piece of text from Bengali.</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb11-1">translator_bn <span class="op" style="color: #5E5E5E;
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">translator_bn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
