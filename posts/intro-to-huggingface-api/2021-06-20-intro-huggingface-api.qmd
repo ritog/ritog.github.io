@@ -5,7 +5,6 @@ subtitle: A Hands-On Tutorial
 author: "Ritobrata Ghosh"
 date: "2021-06-20"
 categories: [deep-learning, machine-learning, data-science, ai, tutorial, nlp, kaggle]
-comments: false
 image: "2021-06-20-intro-huggingface-api-0.jpg"
 ---
 

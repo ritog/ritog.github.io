@@ -2,7 +2,6 @@
 title: Creating Any Boolean Function
 subtitle: How to Represent Any Boolean Function with Elementary Logic Gates
 categories: [nand2tetris, computer-science, electronics, computation]
-comments: false
 image: 2021-06-13-chips-logic-gates-nand2tetris-1-1.png
 date: 2021-06-13
 author: "Ritobrata Ghosh"
