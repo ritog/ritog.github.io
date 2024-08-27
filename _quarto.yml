@@ -39,8 +39,8 @@ format:
     code-line-numbers: true
     code-copy: true
     code-block-bg: "black"
+    linkcolor: "cyan"
 
 
 execute:
     freeze: auto
-
