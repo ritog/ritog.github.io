@@ -13,8 +13,9 @@ website:
   navbar:
     right:
       - about.qmd
-      - cv.qmd
       - now.qmd
+      - cv.qmd
+      - publications.qmd
       - text: "{{< iconify fa6-brands github >}}"
         href: https://github.com/ritog
       - text: "{{< iconify fa6-brands twitter >}}"

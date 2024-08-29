@@ -1,0 +1,16 @@
+---
+title: "Publications"
+about:
+  template: jolla
+comments: false
+---
+
+- Jul 15, 2023 | Analytics Vidhya | Complete Introductory Guide to Speech to Text with TransformersComplete Introductory Guide to Speech to Text with Transformers | [Link](https://www.analyticsvidhya.com/blog/2023/07/speech-to-text-with-transformers)
+
+- Apr 22, 2023 | Zenodo | Non-Linear Dynamics Through Linear Algebraic Lenses: Attempting to Learn the Trajectories of the Logistic Map with Artificial Neural Networks | [Link](https://zenodo.org/record/7840239)
+
+- Apr 5, 2021 | KDNuggets | Best Podcasts for Machine Learning | [Link](https://www.kdnuggets.com/2021/04/best-podcasts-machine-learning.html)
+
+- Sep 29, 2020 | Towards Data Science | TAKING JULIA FOR A TEST DRIVE: My First Encounter With Julia | [Link](https://towardsdatascience.com/my-first-encounter-with-julia-15777c6189f9)
+
+- Jul 31, 2020 | Towards Data Science | How Much Math Do You Need to Know to Get Started with Data Science? A Clear, Straightforward Answer | [Link](https://towardsdatascience.com/how-much-math-do-you-need-to-know-to-get-started-with-data-science-789b24d212fc)
