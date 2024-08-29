@@ -5,7 +5,7 @@ about:
 comments: false
 ---
 
-# Now
+# What am I Doing Now?
 
 [_What is it about?_](https://sive.rs/now2)
 
@@ -23,4 +23,4 @@ comments: false
 - Reading books and writing reviews
 - Watching non-mainstream movies
 
-Last updated: 27 Aug, 2024
+Last updated: 30 Aug, 2024

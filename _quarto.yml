@@ -33,7 +33,9 @@ website:
       - TILs_index.qmd
 format:
   html:
-    theme: solar
+    theme:
+      dark: solar
+      light: minty
     monofont: "Cascadia Code"
     css: styles.css
     anchor-sections: true

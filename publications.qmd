@@ -5,7 +5,7 @@ about:
 comments: false
 ---
 
-- Jul 15, 2023 | Analytics Vidhya | Complete Introductory Guide to Speech to Text with TransformersComplete Introductory Guide to Speech to Text with Transformers | [Link](https://www.analyticsvidhya.com/blog/2023/07/speech-to-text-with-transformers)
+- Jul 15, 2023 | Analytics Vidhya | Complete Introductory Guide to Speech to Text with Transformers | [Link](https://www.analyticsvidhya.com/blog/2023/07/speech-to-text-with-transformers)
 
 - Apr 22, 2023 | Zenodo | Non-Linear Dynamics Through Linear Algebraic Lenses: Attempting to Learn the Trajectories of the Logistic Map with Artificial Neural Networks | [Link](https://zenodo.org/record/7840239)
 
