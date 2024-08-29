@@ -2,34 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ritog.github.io/about.html</loc>
-    <lastmod>2024-08-29T10:26:41.757Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
-    <lastmod>2024-08-29T10:26:40.912Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/posts/complex-numbers/index.html</loc>
-    <lastmod>2024-08-29T10:26:40.028Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/cv.html</loc>
-    <lastmod>2024-08-29T10:26:39.142Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/now.html</loc>
-    <lastmod>2024-08-29T10:26:38.466Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/index.html</loc>
-    <lastmod>2024-08-29T10:26:39.626Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
-    <lastmod>2024-08-29T10:26:40.667Z</lastmod>
+    <lastmod>2024-08-29T18:25:18.265Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
-    <lastmod>2024-08-29T10:26:41.568Z</lastmod>
+    <lastmod>2024-08-29T18:25:17.852Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
+    <lastmod>2024-08-29T18:25:16.954Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/index.html</loc>
+    <lastmod>2024-08-29T18:25:16.027Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/now.html</loc>
+    <lastmod>2024-08-29T18:25:14.886Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/TILs_index.html</loc>
+    <lastmod>2024-08-29T18:25:14.645Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/cv.html</loc>
+    <lastmod>2024-08-29T18:25:15.542Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/posts/complex-numbers/index.html</loc>
+    <lastmod>2024-08-29T18:25:16.371Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
+    <lastmod>2024-08-29T18:25:17.221Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/TILs/2023-Jul-07/index.html</loc>
+    <lastmod>2024-08-29T18:25:18.062Z</lastmod>
   </url>
 </urlset>
