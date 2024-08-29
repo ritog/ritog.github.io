@@ -1,7 +1,8 @@
 ---
 title: "TILs"
 listing:
-  contents: til
+  contents:
+    - "TILs/*/*.qmd"
   sort: "date desc"
   type: default
   categories: true
