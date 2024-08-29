@@ -1,0 +1,17 @@
+---
+title: 2023-Jul-07
+categories: [functional-programming, haskell, til]
+date: 2023-07-07
+author: "Ritobrata Ghosh"
+lang: en
+pagetitle: "2023-Jul-07"
+keywords: functional-programming, haskell 
+license: CC-BY-NC-SA
+---
+
+1. Learned that procedures as data can also be seen and used in Haskell, as well as Scheme/LISP.
+```haskell
+ghci> head [(*3), (+10), square] 5
+15
+```
+I got this from Dmitrii K.'s Haskell course on YouTube. [video](https://www.youtube.com/watch?v=6MsQcUprO9o)

@@ -28,6 +28,8 @@ website:
         href: https://linkedin.com/in/ritobrata-ghosh
       - icon: rss
         href: index.xml
+    left:
+      - TILs_index.qmd
 format:
   html:
     theme: solar
