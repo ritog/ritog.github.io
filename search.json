@@ -35,6 +35,13 @@
     "text": "Now\nWhat is it about?\n\nTech Related\n\nDelving deep into Computational Neuroscience- applying AI to Comp. Neuro.\nLearning more about functional languages via learning Haskell, and reading FP books like Bird, Wadler.\nDelving into the lower level of SWE, learning about embedded systems, Assembly, etc.\nNow and then, I look into projects in the JAX ecosystem and following SciML projects.\nLooking into PhD positions in Comp. Neuro. and looking for RA jobs.\nSometimes tinkering with TinyML projects.\n\n\n\nOthers\n\nLearning to play the ukulele\nWriting a memoir about my parents’ childhoods\nReading books and writing reviews\nWatching non-mainstream movies\n\nLast updated: 27 Aug, 2024"
   },
   {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Jul 15, 2023 | Analytics Vidhya | Complete Introductory Guide to Speech to Text with TransformersComplete Introductory Guide to Speech to Text with Transformers | Link\nApr 22, 2023 | Zenodo | Non-Linear Dynamics Through Linear Algebraic Lenses: Attempting to Learn the Trajectories of the Logistic Map with Artificial Neural Networks | Link\nApr 5, 2021 | KDNuggets | Best Podcasts for Machine Learning | Link\nSep 29, 2020 | Towards Data Science | TAKING JULIA FOR A TEST DRIVE: My First Encounter With Julia | Link\nJul 31, 2020 | Towards Data Science | How Much Math Do You Need to Know to Get Started with Data Science? A Clear, Straightforward Answer | Link"
+  },
+  {
     "objectID": "TILs_index.html",
     "href": "TILs_index.html",
     "title": "TILs",
