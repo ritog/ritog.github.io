@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ritobrata Ghosh">
+<meta name="dcterms.date" content="2022-07-06">
+<meta name="keywords" content="math, cs">
 
-<title>Posts by Rito Ghosh - Posts</title>
+<title>Complex Numbers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -62,50 +63,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Posts by Rito Ghosh" href="index.xml"></head>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Posts by Rito Ghosh</span>
     </a>
   </div>
@@ -116,15 +88,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html" rel="" target="">
+    <a class="nav-link" href="../../cv.html" rel="" target="">
  <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./now.html" rel="" target="">
+    <a class="nav-link" href="../../now.html" rel="" target="">
  <span class="menu-text">Now</span></a>
   </li>  
   <li class="nav-item">
@@ -148,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:linkedin" aria-label="Icon linkedin from fa6-brands Iconify.design set." title="Icon linkedin from fa6-brands Iconify.design set."></iconify-icon></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -162,244 +134,169 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Posts</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Stuff About Complex Number I Wish Somebody Told Me</h1>
+            <p class="subtitle lead">Stuff About Complex Number I Wish I Knew Earlier</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+              </div>
+                  </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ritobrata Ghosh </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 6, 2022</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="ai">ai <span class="quarto-category-count">(2)</span></div><div class="category" data-category="chaos-theory">chaos-theory <span class="quarto-category-count">(1)</span></div><div class="category" data-category="computation">computation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="computer-science">computer-science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data-science">data-science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="deep-learning">deep-learning <span class="quarto-category-count">(2)</span></div><div class="category" data-category="electronics">electronics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="kaggle">kaggle <span class="quarto-category-count">(1)</span></div><div class="category" data-category="machine-learning">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(1)</span></div><div class="category" data-category="nand2tetris">nand2tetris <span class="quarto-category-count">(1)</span></div><div class="category" data-category="nlp">nlp <span class="quarto-category-count">(1)</span></div><div class="category" data-category="physics">physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<section id="stuff-about-complex-number-i-wish-somebody-told-me" class="level1">
+<h1>Stuff About Complex Number I Wish Somebody Told Me</h1>
+<p>by <a href="https://github.com/ritog">Rito Ghosh</a></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>There are many places that teach you complex number like High School, college classes, YouTube channels, and so on.</p>
+<p>But they earlier ones often heavy on solving problems by-hand, and almost every time, they do only that.</p>
+<p>The latter ones focus mainly on shiny visuals or advanced properties that are not intended for the uninitiated.</p>
+<p>This is a piece written for both people who are getting introduced to Complex Numbers for the first time, and for the people who have studied it in college, and are hazy on the topic. (Why won’t they be? They had to focus on solving boring problems by hand.)</p>
+<p>When I saw Jeremy talk about Complex Numbers on the APL study group, I knew I had to write something- I did my Junior year Math paper on Complex Number in High School!</p>
+<p>The idea is to:</p>
+<ul>
+<li>quickly introduce Complex Numbers, and how to work with them</li>
+<li>talk about their origins: why need complex numbers in the first place?</li>
+<li>show how they extend the number line</li>
+<li>show how <span class="math inline">\(i\)</span> works as an operator, and briefly what operators are</li>
+<li>talk about a real world example, and probable future usage</li>
+</ul>
+<p>I will keep it short and crisp.</p>
+<hr>
+</section>
+<section id="comples-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="comples-numbers">Comples Numbers</h2>
+<p>Complex Numbers, as you might have seen are written like this:</p>
+<p><span class="math display">\[x = a + ib\]</span></p>
+<p>Here, the whole thing in the right-hand side is the number. a is the Real part, and b is the imaginary part.</p>
+<p>Do not get misguided by the names. Imaginary numbers aren’t imaginary at all. They make appearance, or rather, they can represent stuff in real life really well! We will soon see.</p>
+<p>You can add and subtract complex numbers. You add (or subtract) the real and imaginary parts separately.</p>
+<p>Let me show you.</p>
+<p><span class="math display">\[(4 + 5i) + (3 + 6i) = (4 + 3) + (5 + 6)i\]</span></p>
+<p><span class="math display">\[ (6i) - (3 + 7i) = (0-3) - (7-6)i = -3 - i\]</span></p>
+<p>They can be multiplied and divided with real numbers and other complex numbers. They work just as you expect them to.</p>
+<p><span class="math display">\[(3 + 2i)(1 + 4i) = 3 + 12i + 2i + 8i^2\]</span></p>
+<p>Let’s not spend too much time here.</p>
+<p>As how they behave, and more related information can quickly be found- and good ones at that- on internet.</p>
+<p>I suggest the Khan Academy course on Complex Numbers.</p>
+<hr>
+<p>Oh, I haven’t told you the value of <span class="math inline">\(i\)</span> yet.</p>
+<p><span class="math inline">\(i\)</span>, is defined such that,</p>
+<p><span class="math display">\[i = \sqrt(-1), \text{or}, i^2 = -1\]</span></p>
+<p>That’s it!</p>
+<hr>
+</section>
+<section id="why-do-we-need-i-and-the-whole-complex-number-scenery" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-we-need-i-and-the-whole-complex-number-scenery">Why do we Need i, and the Whole Complex Number Scenery</h2>
+<p>The story goes, when the Greeks were ridden with famines and other troubles, the Oracle of Delphi told them to double the height of the cube made in honor of Apollo.</p>
+<p>The Greeks could not do it! How could they?</p>
+<p>To double the size of a cube, you need to find the cube root of 2. The Greeks didn’t know how to that!</p>
+<p>Too bad.</p>
+<p>You are probably familiar with the story that Pythagoras, frustrated with the fact that the the size of the diagonal of a square with the side of 1 could not be measured, ordered to off someone! Just like that!</p>
+<p>Because the square root of 2 was not measurable then. It is not a number that you write down like the others.</p>
+<p>Human beings needed something that could be tamed- numbers that always had roots- no matter what the number was!</p>
+<p>This is how it came to be. Complex numbers are numbers that always has roots. No matter what.</p>
+<p>And with the advent of imaginary numbers, it was possible to calculate the square root of negative numbers, too. But that came later.</p>
+<hr>
+</section>
+<section id="extending-the-number-line" class="level2">
+<h2 class="anchored" data-anchor-id="extending-the-number-line">Extending the Number Line</h2>
+<p>The number line is a simple animal.</p>
+<p>It is one-dimensional. It extends both ways of zero.</p>
+<p>And thus, it was limiting.</p>
+<p>Complex numbers was defined in such a way that they added one extra dimension to the number line.</p>
+<p>It wasn’t so one-dimensional anymore.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/A_plus_bi.svg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">argand plane</figcaption>
+</figure>
+</div>
+<p>Picture: Wikipedia</p>
+<p>Now, numbers weren’t limited to a line, but it was a plane.</p>
+<p>And many more operations became possible that simply weren’t before.</p>
+<hr>
+</section>
+<section id="i-as-an-operator" class="level2">
+<h2 class="anchored" data-anchor-id="i-as-an-operator">i as an Operator</h2>
+<p>i is not simple. Adding it or multiplying it has consequences.</p>
+<p>If you don’t know yet, very simply, operators are stuff that act on other stuff.</p>
+<p>(No mathematical rigor whatsoever can be expected from the previous line)</p>
+<p>You know operators. We are talking about it in APL. We use them whenever we code.</p>
+<p>Functions are also operators.</p>
+<p>Think, for example, about the - operator.</p>
+<p>This is our friendly negative sign. But add it before a positive number, and the result will be a negative number. The number will no longer remain positive.</p>
+<p>Think about the + operator in math. It takes two numbers, not one. And the result is the sum of both of them.</p>
+<p>Operator takes stuff in it, and spits out results.</p>
+<p>i is also an operator.</p>
+<p>Multiplying a number with i rotates the number by 90 degrees counter-clockwise in the complex plain.</p>
+<p>Rotate it twice, and you get the negative of a number. Because, you know, i is the square of -1. And multiplying a number with square of i negates it, i.e.&nbsp;rotates the number by 180 degrees, or throws it to the dark, ehm, negative side.</p>
+<p>This has important consequences.</p>
+<hr>
+</section>
+<section id="example-of-use-of-complex-number-in-real-world-electronics" class="level2">
+<h2 class="anchored" data-anchor-id="example-of-use-of-complex-number-in-real-world-electronics">Example of Use of Complex Number in Real World: Electronics</h2>
+<p>The scope of this piece is very limited.</p>
+<p>But I will show you one example.</p>
+<p>Alternating Current is not steady, or fixed like Direct Current or DC. AC current, the one powers our home is the only practical form of electricity that can be practically transported from one point to another over a long distance.</p>
+<p>This form of electricity acts like a wave.</p>
+<p>And whenever waves are involved, we have to deal with angles, frequencies, and amplitudes.</p>
+<p>When angles become involved, we can use trigonometric functions like cosine and sine.</p>
+<p>And complex numbers are related to trigonometric functions via the Euler’s Formula:</p>
+<p><span class="math display">\[e^{i \theta} = \cos{\theta} + i \cdot \sin{\theta}\]</span></p>
+<p>And, when we can use the special number, e, we can solve many problems easily because the function returns itself after differentiation and integration.</p>
+<p>That makes a lot of the things easier.</p>
+<p>While this is the reason for using complex numbers in electronics in the first place, they also make life easier for easier calculation and quantity manipulation.</p>
+<hr>
+</section>
+<section id="why-bother-isnt-one-more-dimension-enough" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother-isnt-one-more-dimension-enough">Why Bother: Isn’t One More Dimension Enough?</h2>
+<p>You might think that complex numbers are such nuisance, and we could have done the same clever things with adding one more dimension to the real number like we do in geometry. Would not a ‘y’ suffice instead of this dimension riddled with ‘imaginary numbers’?</p>
+<p>The answer is no.</p>
+<p>You will not have the same behavior then.</p>
+<p>You won’t be able to get the niceties that is afforded to you via Euler’s formula and the access it provides you to the exponential function.</p>
+<hr>
+<p>I hope I was able to give you some intuition about complex numbers, and their uses.</p>
+<p>Please let me know what you think.</p>
+<hr>
+<p>Subscribe to my <a href="https://ritog.substack.com">substack</a> to get posts on your inbox, or subscribe via RSS.</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="deep-learning,physics,chaos-theory,ai" data-listing-date-sort="1682533800000" data-listing-file-modified-sort="1724762504549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/non-linear-dynamics-trajectories-with-python/index.html"> <img src="./posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/non-linear-dynamics-trajectories-with-python/index.html">
-<h3 class="no-anchor listing-title">
-Non-Linear Dynamics Trajectories with Python
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('deep-learning'); return false;">
-deep-learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('physics'); return false;">
-physics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('chaos-theory'); return false;">
-chaos-theory
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ai'); return false;">
-ai
-</div>
-</div>
-<a href="./posts/non-linear-dynamics-trajectories-with-python/index.html">
-<div class="listing-description">
-by Ritobrata Ghosh
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/non-linear-dynamics-trajectories-with-python/index.html">
-<div class="listing-date">
-Apr 27, 2023
-</div>
-<div class="listing-author">
-Ritobrata Ghosh
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="math" data-listing-date-sort="1657045800000" data-listing-file-modified-sort="1724927107779" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./posts/complex-numbers/index.html"> <img src="./posts/complex-numbers/complex-numbers-post.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/complex-numbers/index.html">
-<h3 class="no-anchor listing-title">
-Stuff About Complex Number I Wish Somebody Told Me
-</h3>
-<div class="listing-subtitle">
-Stuff About Complex Number I Wish I Knew Earlier
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
-math
-</div>
-</div>
-<a href="./posts/complex-numbers/index.html">
-<div class="listing-description">
-by Rito Ghosh
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/complex-numbers/index.html">
-<div class="listing-date">
-Jul 6, 2022
-</div>
-<div class="listing-author">
-Ritobrata Ghosh
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="deep-learning,machine-learning,data-science,ai,tutorial,nlp,kaggle" data-listing-date-sort="1624127400000" data-listing-file-modified-sort="1724762461359" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html"> <img src="./posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html">
-<h3 class="no-anchor listing-title">
-A Gentle Introduction to the Hugging Face API
-</h3>
-<div class="listing-subtitle">
-A Hands-On Tutorial
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('deep-learning'); return false;">
-deep-learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('machine-learning'); return false;">
-machine-learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('data-science'); return false;">
-data-science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ai'); return false;">
-ai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('nlp'); return false;">
-nlp
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('kaggle'); return false;">
-kaggle
-</div>
-</div>
-<a href="./posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html">
-<div class="listing-description">
-Natural Language Processing is a fast-advancing field. And it is also one of the fields that require a…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html">
-<div class="listing-date">
-Jun 20, 2021
-</div>
-<div class="listing-author">
-Ritobrata Ghosh
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="nand2tetris,computer-science,electronics,computation" data-listing-date-sort="1623522600000" data-listing-file-modified-sort="1724762485285" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html"> <img src="./posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html">
-<h3 class="no-anchor listing-title">
-Creating Any Boolean Function
-</h3>
-<div class="listing-subtitle">
-How to Represent Any Boolean Function with Elementary Logic Gates
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('nand2tetris'); return false;">
-nand2tetris
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('computer-science'); return false;">
-computer-science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('electronics'); return false;">
-electronics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('computation'); return false;">
-computation
-</div>
-</div>
-<a href="./posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html">
-<div class="listing-description">
-by Ritobrata Ghosh
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html">
-<div class="listing-date">
-Jun 13, 2021
-</div>
-<div class="listing-author">
-Ritobrata Ghosh
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -632,6 +529,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
+</script>
+<script src="https://utteranc.es/client.js" repo="ritog/ritog.github.io" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 

@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/non-linear-dynamics-trajectories-with-python/index.html",
+      "/posts/complex-numbers/index.html",
       "/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html",
       "/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html"
     ]
