@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ritog.github.io/about.html</loc>
-    <lastmod>2024-08-29T18:54:47.210Z</lastmod>
+    <lastmod>2025-03-03T18:05:08.280Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</loc>
-    <lastmod>2024-08-29T18:54:46.769Z</lastmod>
+    <lastmod>2025-03-03T18:05:07.777Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</loc>
-    <lastmod>2024-08-29T18:54:45.765Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/index.html</loc>
-    <lastmod>2024-08-29T18:54:44.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/now.html</loc>
-    <lastmod>2024-08-29T18:54:43.557Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/publications.html</loc>
-    <lastmod>2024-08-29T18:54:42.490Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/TILs_index.html</loc>
-    <lastmod>2024-08-29T18:54:43.241Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ritog.github.io/cv.html</loc>
-    <lastmod>2024-08-29T18:54:44.217Z</lastmod>
+    <lastmod>2025-03-03T18:05:06.791Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/complex-numbers/index.html</loc>
-    <lastmod>2024-08-29T18:54:45.128Z</lastmod>
+    <lastmod>2025-03-03T18:05:05.271Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/cv.html</loc>
+    <lastmod>2025-03-03T18:05:04.264Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/TILs_index.html</loc>
+    <lastmod>2025-03-03T18:05:03.280Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/publications.html</loc>
+    <lastmod>2025-03-03T18:05:02.924Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/now.html</loc>
+    <lastmod>2025-03-03T18:05:03.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/index.html</loc>
+    <lastmod>2025-03-03T18:05:04.851Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</loc>
+    <lastmod>2025-03-03T18:05:06.136Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</loc>
-    <lastmod>2024-08-29T18:54:46.056Z</lastmod>
+    <lastmod>2025-03-03T18:05:07.083Z</lastmod>
   </url>
   <url>
     <loc>https://ritog.github.io/TILs/2023-Jul-07/index.html</loc>
-    <lastmod>2024-08-29T18:54:46.994Z</lastmod>
+    <lastmod>2025-03-03T18:05:08.041Z</lastmod>
   </url>
 </urlset>

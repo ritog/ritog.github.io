@@ -10,7 +10,383 @@
 <atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Wed, 26 Apr 2023 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 02 Mar 2025 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Solving First Order Differential Equations with Julia</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="solving-first-order-differential-equations-with-julia" class="level2">
+<h2 class="anchored" data-anchor-id="solving-first-order-differential-equations-with-julia">Solving First Order Differential Equations with Julia</h2>
+<p><img src="https://ritog.github.io/posts/1st-order-DE-julia/fractal-2008101.jpg" class="img-fluid"></p>
+<p>Image by <a href="https://pixabay.com/users/thedigitalartist-202249/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2008101">Pete Linforth</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2008101">Pixabay</a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In this tutorial, we will learn about solving Differential Equations with Julia. Differential Equations are everywhere in Science and Engineering problems. And, being able to solve Differential Equations using computers is very convenient. We will use the <strong>DifferentialEquations.jl</strong> package for solving Differential Equations.</p>
+</section>
+<section id="who-is-this-for" class="level3">
+<h3 class="anchored" data-anchor-id="who-is-this-for">Who is this for</h3>
+<p>This is for people who are already familiar with Differential Equations from Mathematics, and who can code, preferably in Julia. Only the very basics of Julia langauge is required. If you are unfamiliar with Julia, and yet you have non-trivial experience with any of Python, C/C++, Ruby, JavaScript, golang, etc., you are fine, and you can follow along.</p>
+</section>
+<section id="what-we-will-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-do">What we will do</h3>
+<p>In this tutorial, we will only focus on using the high level API of the DifferentialEquations.jl package, and we will learn, <em>from scratch</em>, how to translate first order Differential Equations to Julia, and how to solve them using the library. We will not learn about and code up numerical methods of solving Differential Equations such as <a href="https://tutorial.math.lamar.edu/classes/de/eulersmethod.aspx">Euler’s method</a>, <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge-Kutta methods</a>, etc. Neither we will talk about testing for accuracy, testing convergence of our algorithms. We will simply and plainly have some DEs in our familiar mathematical notation, and then translate them to a form Julia and the library can understand, and then we call high level APIs of the <code>DifferentialEquations.jl</code> library to solve our DEs. That’s it.</p>
+<p>And for this post, we are limiting ourselves to First Order Differential Equations.</p>
+</section>
+<section id="what-are-differential-equations-a-very-quick-recap" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-differential-equations-a-very-quick-recap">What are Differential Equations: a <em>very</em> quick recap</h3>
+<section id="normal-equations" class="level4">
+<h4 class="anchored" data-anchor-id="normal-equations"><em>“Normal”</em> Equations</h4>
+<p>Let’s take a step back and discuss normal equations first. Normal equations are equations involving one or more unknown roots. Like this:</p>
+<p><img src="https://latex.codecogs.com/png.latex?x%5E2%20-%203x%20-%2018%20=%200"></p>
+<p>And you solve this equation for two values of <img src="https://latex.codecogs.com/png.latex?x">, since this equation is quadratic.</p>
+<p>How do you <em>create</em> this equation? You formulate an equation from a real-world scenario. Here’s an example, from which you will get the above equation:</p>
+<blockquote class="blockquote">
+<p>A farmer is designing a rectangular vegetable garden. The length of the garden is 3 meters longer than its width. The total area of the garden is 18 square meters. How long are the sides of this garden?</p>
+</blockquote>
+<p>This is how the equation is created: <img src="https://latex.codecogs.com/png.latex?x(x+3)%20=%2018">, where <img src="https://latex.codecogs.com/png.latex?x"> is the length of the smaller side of the garden.</p>
+</section>
+<section id="differential-equations" class="level4">
+<h4 class="anchored" data-anchor-id="differential-equations">Differential Equations</h4>
+<p>In normal equations, we solve the equation to find out values of variables previously unknown to us. In case of Differential Equations, we solve to find out <strong><em>functions</em></strong> previously unknown to us.</p>
+<p>For normal equations, we find out a relation of the unknown variable with something known to us, concretely.</p>
+<p>In DEs, we know how an unknown functions <em>changes</em> with time, or another variable. We form our equation with this derivative of an unknown function, and it’s derivatives- one or more.</p>
+<p>It might look like this:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdy%7D%7Bdx%7D%20=%20-y"></p>
+<p>Differential Equations are used to model real-world happenings, and we aim to solve for that function.</p>
+<p>Forming a Differential Equation is only possible when there is a function that changes with another variable, let’s say, time. It is not enough for the output of a function to differ with time, it is also necessary that the <em>function itself</em> changes with time.</p>
+<p>Here are some examples:</p>
+<ul>
+<li>An ideal candle burns at a constant rate, i.e.&nbsp;the rate of burning of wax is the same when the candle is in its full length, as well as when it is nearly finished. But, the growth rate of population is not the same when the population is low as well as when it is hight. Not population itself increases as population increases, but the rate of increase of population also increases with growing population. (Here I am talking about human population in modern age- with the absence of a natural predator, exceptionally good medical facilities, etc.)</li>
+<li>Another example I can think of is the water emission rate of a hole that is used to empty a water tank. When the water tank is nearly full, the rate of emission of water from the hole is very high, but when the tank is almost empty, the rate of water emission is much lower.</li>
+<li>When you have just made coffee, and say it’s temperature is <img src="https://latex.codecogs.com/png.latex?70%20%5E%5Ccirc%20C">, and your surrounding temperature is <img src="https://latex.codecogs.com/png.latex?8%20%5E%5Ccirc%20C">, the time taken by the coffee to reach <img src="https://latex.codecogs.com/png.latex?30%20%5E%5Ccirc%20C"> is much lower than the time it takes to reach <img src="https://latex.codecogs.com/png.latex?8%20%5E%5Ccirc%20C"> from <img src="https://latex.codecogs.com/png.latex?12%20%5E%5Ccirc%20C">. The <em>process of cooling</em> is slower when the temperature difference is lower compared to when the temperature difference is larger.</li>
+</ul>
+<p>These are the situations that you model using Differential Equations.</p>
+</section>
+</section>
+<section id="numerical-solutions-of-differential-equations" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-solutions-of-differential-equations">Numerical Solutions of Differential Equations</h3>
+<p>There are some situations where finding the exact solution to a Differential Equaion is not possible, or is impractical. This is why we try to find approximate solution. In many situations, this is good enough. When an analytical solution is impossible, numerical olutions is all we have.</p>
+<section id="what-we-expect-here" class="level4">
+<h4 class="anchored" data-anchor-id="what-we-expect-here">What we expect here</h4>
+<p>For the Differential Equations that we will implement here, and will solve numerically, we will see a graph that will predict the behaviour of the unknown function.</p>
+</section>
+</section>
+<section id="first-example-radioactive-decay" class="level3">
+<h3 class="anchored" data-anchor-id="first-example-radioactive-decay">First Example: Radioactive Decay</h3>
+<p>Radioactivity is the phenomena in which an unstable nucleus loses energy by radiation.</p>
+<p>In radioactive decay, if a sample of radioactive nucleus is kept, through several kinds of radiation, the original sample reduces in mass. If there were <img src="https://latex.codecogs.com/png.latex?n"> number of nuclei originally, after a certain amount of time, there would be <img src="https://latex.codecogs.com/png.latex?p"> number of nuclei, where <img src="https://latex.codecogs.com/png.latex?p%20%3C%20n">.</p>
+<p>We know that the amount of decay is directly proportional to the number of nuclei present in a sample.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0A%20%20%20%20-%5Cdfrac%7BdN%7D%7Bdt%7D%20&amp;%5Cpropto%20N%20%5C%5C%0A%20%20%20%20%5Cimplies%20-%5Cdfrac%7BdN%7D%7Bdt%7D%20&amp;=%20%5Clambda%20N%0A%5Cend%7Balign%7D%0A"></p>
+<p>The sign is negative, because, the rate <em>decreases</em> with decreasing number of nuclei.</p>
+<p>We will reframe this equation so that we can implement the equation in Julia, and solve it using the solver.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0A%20%20%20%20&amp;-%5Cdfrac%7BdN%7D%7Bdt%7D%20%5Cpropto%20N%20%5C%5C%0A%20%20%20%20&amp;%5Cimplies%20-%5Cdfrac%7BdN%7D%7Bdt%7D%20=%20%5Clambda%20N%20%5C%5C%0A%20%20%20%20&amp;%5Cimplies%20%5Cdfrac%7BdN%7D%7BN%7D%20=%20-%5Clambda%20dt%0A%5Cend%7Balign%7D%0A"></p>
+<p>Julia package <code>DifferentialEquations.jl</code> expects functions to be in this format-</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">f</span>(du, u, p, t) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u</span></code></pre></div>
+<p>Where <code>du</code> is the first derivative, <code>u</code> is the function, <code>t</code> is the timespan for which we want the function’s output, and <code>p</code> is the parameter, or a set of parameters.</p>
+<p>From here, we can frame <code>du</code> to be <code>du[1] = -lambda * u[1]</code>.</p>
+<section id="importing-packages" class="level4">
+<h4 class="anchored" data-anchor-id="importing-packages">Importing Packages</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Pkg</span></span>
+<span id="cb2-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Pkg</span>.<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">add</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"DifferentialEquations"</span>)</span>
+<span id="cb2-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Pkg</span>.<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">add</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Plots"</span>)</span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">using</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">DifferentialEquations</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Plots</span></span></code></pre></div>
+</div>
+</section>
+<section id="function-definition" class="level4">
+<h4 class="anchored" data-anchor-id="function-definition">Function Definition</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">radio_decay!</span>(du, u, p, t)</span>
+<span id="cb3-2">    lambda <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>p</span>
+<span id="cb3-3">    du[<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> lambda <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u[<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb3-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">end</span></span></code></pre></div>
+</div>
+</section>
+<section id="declaring-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="declaring-parameters">Declaring Parameters</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1">N <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60.0e18</span>]           <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># initial condition</span></span>
+<span id="cb4-2"></span>
+<span id="cb4-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># parameter</span></span>
+<span id="cb4-4">lambda <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.28e6</span>         <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># in SI unit, s^{-1}</span></span>
+<span id="cb4-5">p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> lambda</span>
+<span id="cb4-6"></span>
+<span id="cb4-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># timespan</span></span>
+<span id="cb4-8">tspan <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5e-6</span>)     <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># timespan is very small because the half-life is very small</span></span></code></pre></div>
+</div>
+</section>
+<section id="defining-the-ode-problem" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-ode-problem">Defining the ODE Problem</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1">prob <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ODEProblem</span>(radio_decay!, N, tspan, p)</span></code></pre></div>
+</div>
+</section>
+<section id="solving-and-plotting-the-solution" class="level4">
+<h4 class="anchored" data-anchor-id="solving-and-plotting-the-solution">Solving and Plotting the Solution</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1">sol <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">solve</span>(prob)</span></code></pre></div>
+</div>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(sol, title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Radioactive Decay"</span>, xlabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time"</span>, ylabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"N"</span>)</span></code></pre></div>
+</div>
+</section>
+</section>
+<section id="second-example-newtons-law-of-cooling" class="level3">
+<h3 class="anchored" data-anchor-id="second-example-newtons-law-of-cooling">Second Example: Newton’s Law of Cooling</h3>
+<p>As we have seen in an example before, we know that something cools much faster when the difference between the temperature of that object and the surrounding temperature is comparatively higher. When the difference is lower, it takes a <em>higher</em> amount of time to cool down.</p>
+<p>The problem was quantified by Isaac Newton himself. Let’s understand it.</p>
+<p>The temperature of an object, <img src="https://latex.codecogs.com/png.latex?T"> varies with time, <img src="https://latex.codecogs.com/png.latex?t">, and it depends on the difference of the temperature of the object and its surroundings- the ambient temperature <img src="https://latex.codecogs.com/png.latex?T_a">.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0A%20%20%20%20%5Cdfrac%7BdT%7D%7Bdt%7D%20&amp;%5Cpropto%20(T%20-%20T_a)%20%5C%5C%0A%20%20%20%20%5Cimplies%20%5Cdfrac%7BdT%7D%7Bdt%7D%20&amp;=%20k(T%20-%20T_a)%0A%5Cend%7Balign%7D%0A"></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?k"> is a constant of proportionality, the value of which depends on the material.</p>
+<p>Now we will implement this DE in Julia, and solve it using <code>DifferentialEquations.jl</code> library.</p>
+<section id="function-definition-1" class="level4">
+<h4 class="anchored" data-anchor-id="function-definition-1">Function Definition</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">newtons_cooling!</span>(du, u, p, t)</span>
+<span id="cb8-2">    k, T_a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p</span>
+<span id="cb8-3">    du[<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> k <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (u[<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> T_a)</span>
+<span id="cb8-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">end</span></span></code></pre></div>
+</div>
+<p>Expected format-</p>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">f</span>(du, u, p, t) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> u</span></code></pre></div>
+<p>Where <code>du</code> is the first derivative, <code>u</code> is the function, <code>t</code> is the timespan for which we want the function’s output, and <code>p</code> is the parameter, or a set of parameters.</p>
+<p>Here, we are using in-place updating to define <code>du</code> because it is memory efficient, and will be a crucial where there is a system of Differential Equations present.</p>
+<p>Here we have two parameters- <code>k</code> and <code>T_a</code>, and they are related as <img src="https://latex.codecogs.com/png.latex?T_1%20=%20k%20%5Ctimes%20(T_0%20-%20T_a)">. That is what we implement on line 3 of the function definition.</p>
+</section>
+<section id="declaring-parameters-1" class="level4">
+<h4 class="anchored" data-anchor-id="declaring-parameters-1">Declaring Parameters</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb10-1">T <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">80.0</span>]                <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Temperature of object</span></span>
+<span id="cb10-2">k <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.06</span>                 <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># k, the cooling constant, negative, because cooling</span></span>
+<span id="cb10-3">T_a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20.0</span>                <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># the ambient temperature</span></span>
+<span id="cb10-4">tspan <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">300.0</span>)      <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># time-period for which we want to tract the values of the function, i.e. temperature of the object</span></span>
+<span id="cb10-5">p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (k, T_a)              <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># defining a tuple of parameters as expected by the library</span></span></code></pre></div>
+</div>
+</section>
+<section id="defining-the-ode-problem-1" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-ode-problem-1">Defining the ODE Problem</h4>
+<p>Here we define the <code>ODEProblem</code> as required by the solver package.</p>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1">prob <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ODEProblem</span>(newtons_cooling!, T, tspan, p)</span></code></pre></div>
+</div>
+</section>
+<section id="solving-the-ode" class="level4">
+<h4 class="anchored" data-anchor-id="solving-the-ode">Solving the ODE</h4>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb12-1">sol <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">solve</span>(prob)</span></code></pre></div>
+</div>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(sol,</span>
+<span id="cb13-2">    xlabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time, t"</span>,</span>
+<span id="cb13-3">    ylabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Temperature, T"</span>,</span>
+<span id="cb13-4">    title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div>
+</div>
+<p>We see very clearly how the value of the function <img src="https://latex.codecogs.com/png.latex?T"> changes with time.</p>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>We have seen the very basics and intuitive explanation of First Order Differential Equations, and learned about how <code>DifferentialEquations.jl</code> solves DEs, and how to frame DEs according to the format expected by that library.</p>
+</section>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>I learned a lot about the content of this tutorial from- some amazing teachers that I had in college, and some amazing textbooks like <a href="https://www.cambridge.org/highereducation/books/mathematical-methods-for-physics-and-engineering/FC466374D5B94E86D969100070CA6483#overview">Mathematical Methods for Physics and Engineering</a> by Riley, Hobson, Bence and <a href="https://shop.elsevier.com/books/mathematical-methods-for-physicists/arfken/978-0-12-384654-9">Mathematical Methods for Physicists</a> by Arfken, Weber, Harris. I learned about the DE solver package from many content from the creator: <a href="https://chrisrackauckas.com">Chris Rackauckas</a>, and some example videos from this YouTube channel- <a href="https://www.youtube.com/@doggodotjl">doggo dot jl</a>.</p>
+</section>
+<section id="discuss" class="level3">
+<h3 class="anchored" data-anchor-id="discuss">Discuss</h3>
+<p>If you have read this post, and found it interesting or edifying, please let me know. I would like that very much. If you have any criticism, suggestion, or want to tell me anything, just add a comment or let me know privately. Discuss this post on Fediverse, Hacker News, or Twitter/X.</p>
+<p><img src="https://ritog.github.io/posts/1st-order-DE-julia/human-gen-sticker.png" width="256"></p>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+  <category>math</category>
+  <category>julia</category>
+  <category>computational-math</category>
+  <guid>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</guid>
+  <pubDate>Sun, 02 Mar 2025 18:30:00 GMT</pubDate>
+  <media:content url="https://ritog.github.io/posts/1st-order-DE-julia/fractal-2008101.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Non-Linear Dynamics Trajectories with Python</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>

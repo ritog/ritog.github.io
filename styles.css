@@ -2,13 +2,3 @@
 #quarto-document-content {
 	text-align: left;
 }
-
-@font-face {
-	font-family: "IBM Plex Mono";
-	src: url("fonts/IBMPlexMono-Regular.ttf");
-}
-
-@font-face {
-	font-family: "Cascadia Code";
-	src: url("fonts/CascadiaCode-Regular.ttf");
-}
