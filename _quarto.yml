@@ -18,12 +18,12 @@ website:
       - publications.qmd
       - text: "{{< iconify fa6-brands github >}}"
         href: https://github.com/ritog
-      - text: "{{< iconify fa6-brands twitter >}}"
+      - text: "{{< iconify fa6-brands x-twitter >}}"
         href: https://twitter.com/AllesistKode
       - text: "{{< iconify fa6-brands google-scholar >}}"
         href: https://scholar.google.com/citations?user=R_X74h0AAAAJ
       - text: "{{< iconify fa6-brands mastodon >}}"
-        href: https://sigmoid.social/@rito
+        href: https://mathstodon.xyz/@rg
         rel: me
       - text: "{{< iconify fa6-brands linkedin >}}"
         href: https://linkedin.com/in/ritobrata-ghosh
@@ -35,15 +35,13 @@ format:
   html:
     theme:
       dark: solar
-      light: minty
+      light: lumen
     monofont: "Cascadia Code"
     css: styles.css
     anchor-sections: true
     mainfont: "IBM Plex Mono"
-    monobackgroundcolor: "black"
     code-line-numbers: true
     code-copy: true
-    code-block-bg: "black"
     linkcolor: "cyan"
 
 
