@@ -283,3 +283,10 @@ This is an Open Source blog. Feel free to inspect diffs in the GitHub [repo](htt
     url    = "https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html"
 }
 ```
+
+### Support
+I highly appreciate donations. If you liked this post, or the content in the site in general, support me via [Ko-Fi](https://ko-fi.com/ritog), [Liberapay](https://liberapay.com/ritog) or if you are in India, via UPI [ritogh8@oksbi](https://ritog.github.io/donate_UPI.jpg).
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B33QVX2)
+
+<noscript><a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
