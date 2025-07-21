@@ -26,7 +26,7 @@ comments: false
 
 ---
 
-##### [Google Scholar 🎓](https://scholar.google.com/citations?user=R_X74h0AAAAJ) | Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://sigmoid.social/@rito"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com | [📃 CV](Ritobrata_Ghosh_CV.pdf)
+##### [Google Scholar 🎓](https://scholar.google.com/citations?user=R_X74h0AAAAJ) | Visit [📄 Blog](https://ritog.github.io/blog) | Visit [LinkedIn](https://linkedin.com/in/ritobrata-ghosh) for a more updated version | [✖️/Twitter](https://twitter.com/AllesistKode) | [😸 GitHub](https://github.com/ritog) | <a rel="me" href="https://mathstodon.xyz/@rg"> 🐘 Mastodon</a> | ✉️ [gh_uname].ml@gmail.com | [📃 CV](Ritobrata_Ghosh_CV.pdf)
 
 ---
 
