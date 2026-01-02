@@ -2,3 +2,88 @@
 #quarto-document-content {
 	text-align: left;
 }
+
+/* Inter – Regular */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter – Italic */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Inter – Medium */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter – SemiBold */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter – Bold */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   Cascadia Code (Monospace)
+   ========================= */
+
+/* Regular */
+@font-face {
+  font-family: "Cascadia Code";
+  src: url("fonts/cascadia/CascadiaCode-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic */
+@font-face {
+  font-family: "Cascadia Code";
+  src: url("fonts/cascadia/CascadiaCode-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: "Cascadia Code";
+  src: url("fonts/cascadia/CascadiaCode-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Cascadia Code";
+  src: url("fonts/cascadia/CascadiaCode-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ritobrata Ghosh">
+<meta name="dcterms.date" content="2026-01-03">
+<meta name="keywords" content="math, cs, programming, physics">
+
+<title>Spring Hamiltonian - Ritobrata Ghosh</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Posts by Rito Ghosh</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../TILs_index.html" rel="" target="">
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../now.html" rel="" target="">
+ <span class="menu-text">Now</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv.html" rel="" target="">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ritog" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:github" aria-label="Icon github from fa6-brands Iconify.design set." title="Icon github from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/AllesistKode" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:x-twitter" aria-label="Icon x-twitter from fa6-brands Iconify.design set." title="Icon x-twitter from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=R_X74h0AAAAJ" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:google-scholar" aria-label="Icon google-scholar from fa6-brands Iconify.design set." title="Icon google-scholar from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://mathstodon.xyz/@rg" rel="me" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:mastodon" aria-label="Icon mastodon from fa6-brands Iconify.design set." title="Icon mastodon from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/ritobrata-ghosh" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:linkedin" aria-label="Icon linkedin from fa6-brands Iconify.design set." title="Icon linkedin from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Modelling a Spring System in Hamiltonian Mechanics</h1>
+            <p class="subtitle lead">Using Euler’s Method for Trajectory Plotting</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">math</div>
+                <div class="quarto-category">physics</div>
+                <div class="quarto-category">computational-math</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ritobrata Ghosh </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 3, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory" class="level2">
+<h2 class="anchored" data-anchor-id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory">Modelling a Spring System in Hamiltonian Mechanics: Using Euler Method for Trajectory</h2>
+<p><img src="euler_cover.png" class="img-fluid"></p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Hamiltonian Mechanics provides us with ways to deal with dynamical systems computationally. We can simulate a system of a weighted spring using Hamiltonian mechanics. We can plot trajectories using the simulation. We will use Euler’s method and Semi-Implicit Euler’s method to plot phase spaces, and compare between them. In a future post, I will describe the training of a Hamiltonian Neural Network for learning the physics of a non-linear system, and simulate it.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>I expect the reader to have some programming background in any imperative language. I will use Python. I expect no knowledge of Hamiltonian Dynamics or college-level Physics, but knowing the basics of Physics up to High School level is needed. Being well-versed in Differential Calculus is required. Experience with Python is helpful.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>We will model our system using Hamiltonian Dynamics. We will first write a function to get derivatives of two variables at each step. And using the Python function, we will plot the phase space of the system. For doing that we will need to integrate them using a DE solver - we will use Euler’s method. Then we will see if that suffices. If not, we will switch to implicit Euler, and plot the same phase space. If you don’t know about Hamiltonian Dynamics or phase spaces, then that’s okay. I will cover what we need. This is a trivial example for something I want to build up to- training a Hamiltonian Neural Network. But that’s not the objective of this article.</p>
+</section>
+<section id="our-system" class="level2">
+<h2 class="anchored" data-anchor-id="our-system">Our System</h2>
+<p>We have a mass <span class="math inline">\(m\)</span> attached to a spring of negligible mass.</p>
+<p><img src="system.jpg" class="img-fluid"></p>
+<p>And we are concerned with only two variables of the system- the position <span class="math inline">\(q\)</span>, and the momentum <span class="math inline">\(p\)</span> (<span class="math inline">\(p = m \cdot v\)</span>). These are the only two variables needed to construct the Hamiltonian. And if we plot <span class="math inline">\(p\)</span> versus <span class="math inline">\(q\)</span> in a 2-dimensional figure, what we get is called a <strong>phase space</strong>.</p>
+</section>
+<section id="hamiltonian-of-the-system" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-of-the-system">Hamiltonian of the System</h2>
+<p>The Hamiltonian of the system is the total energy of the system. It is the sum of kinetic and potential energies of that system. And it is characterized by position and momentum of a particular body.</p>
+<p>You are probably more familiar with Newtonian Mechanics where we are more concerned with <em>force</em>. Newton’s Second Law of Motion, <span class="math inline">\(F = ma\)</span>, is a second-order differential equation, <span class="math inline">\(F = m \times \dfrac{d^2x}{dt^2}\)</span>, where <span class="math inline">\(x\)</span> denotes the position of the body. Computational solvers work better with first-order differential equation, or a system of first-order DEs. If you would like to read a nice article on DEs and solving them computationally with Julia, read this post: <a href="../../posts/1st-order-DE-julia/1st_order_DE_julia.html">Solving First Order Differential Equations with Julia</a>, <a href="https://news.ycombinator.com/item?id=43245172">Hacker News discussion</a>.</p>
+<p>With Hamiltonian system, we get what computers are better at solving. Although that’s not why it was invented or used for a long time. With Hamiltonian mechanics, we have conservation laws baked in, and it can represent evolution of the system through time as a flow, and it provides many geometrical niceties which we will not delve (I know) deep into in this article.</p>
+<p>The Hamiltonian of our system, is the sum of kinetic and potential energies of the system. And it is always conserved.</p>
+<p>Hamiltonian, <span class="math inline">\(H\)</span> of our system:</p>
+<p><span class="math display">\[H(q, p) = \text{Kinetic Energy + Potential Energy}\]</span></p>
+<p>The Hamiltonian is a function of <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> only.</p>
+<p><span class="math display">\[H(q, p) = \dfrac12 mv^2 + \dfrac12 kx^2\]</span></p>
+<p>The above equation can be re-written as:</p>
+<p><span class="math display">\[H(q, p) = \dfrac{p^2}{2m} + \dfrac12 kq^2\]</span></p>
+<p>As <span class="math inline">\(v = \dfrac{p}{m}\)</span>. And the position <span class="math inline">\(x\)</span> is simply rewritten as <span class="math inline">\(q\)</span>.</p>
+</section>
+<section id="hamiltonian-equations" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-equations">Hamiltonian Equations</h2>
+<p>The Hamiltonian Equations are:</p>
+<ol type="1">
+<li><span class="math inline">\(\dfrac{dq}{dt} = \dfrac{\partial H}{\partial p}\)</span></li>
+<li><span class="math inline">\(\dfrac{dp}{dt} = -\dfrac{\partial H}{\partial q}\)</span></li>
+</ol>
+<p>If you have never seen partial derivatives before- they are simple if you know derivatives. In partial derivatives, the variable you are differentiating with respect to, is treated as a variable. All other variables, <em>and constants</em> are treated as constants.</p>
+<p>Let’s say there is a function, <span class="math inline">\(f(m, n) = m^2n + n^3m + m - n\)</span> then <span class="math inline">\(\dfrac{\partial f}{\partial m} = 2mn + n^3 + 1\)</span> and <span class="math inline">\(\dfrac{\partial f}{\partial n} = m^2 + 3n^2m - 1\)</span>. Even though <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span> are variables, when we are differentiating with respect to one of them, we are treating the other as a constant.</p>
+<p>Now, if we calculate the Right Hand Sides of 1 and 2 above, we get,</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{dq}{dt} &amp;= \frac{p}{m} \\
+\frac{dp}{dt} &amp;= -kq
+\end{aligned}\]</span></p>
+<p>You either trust me, or pick up a pen and paper and work through them!</p>
+<p>Now, look at the equations above. This is the core beauty of Hamiltonian mechanics. The change in <span class="math inline">\(q\)</span> through time is dependent on <span class="math inline">\(p\)</span> and the change in <span class="math inline">\(p\)</span> is dependent on <span class="math inline">\(q\)</span>.</p>
+</section>
+<section id="writing-a-program" class="level2">
+<h2 class="anchored" data-anchor-id="writing-a-program">Writing a Program</h2>
+<p>Now we can code up the Python function that will give us <span class="math inline">\(\frac{dq}{dt}\)</span> and <span class="math inline">\(\frac{dp}{dt}\)</span>. This is where we will get the true derivatives that will later guide our training, and will also help up simulate the system.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> harmonic_dynamics(t, state: List, m, k) <span class="op">-&gt;</span> List:</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="co">"""</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">    inputs:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">    t: The current time, solvers expect it.</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">    state: A list or array containing [q, p].</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">    m, k: The mass and spring constant.</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    output:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">    the list [dq_dt, dp_dt]</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">    """</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    dq_dt <span class="op">=</span> state[<span class="dv">1</span>] <span class="op">/</span> m</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    dp_dt <span class="op">=</span> <span class="op">-</span>k <span class="op">*</span> state[<span class="dv">0</span>]</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="cf">return</span> [dq_dt, dp_dt]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a basic function that returns a Python array. We will not deal with PyTorch arrays or SIMD hardware for now.</p>
+<p>This function returns terms analogous to velocities, but to plot the phase space, we will need something analogous to positions. And we need to integrate.</p>
+</section>
+<section id="eulers-method" class="level2">
+<h2 class="anchored" data-anchor-id="eulers-method">Euler’s Method</h2>
+<p>We could use something like <a href="https://docs.scipy.org/doc//scipy-1.16.2/tutorial/integrate.html"><code>scipy.integrate</code></a>, but let’s implement our own solver in Python. We will implement a solver using the Euler Method.</p>
+<p>You can read formally about Euler Method in any decent book covering DEs, but, put simply, it says that- <em>“The state in the next moment is the current state plus a small step in the direction of the derivative.”</em></p>
+<p>In Math:</p>
+<p><span class="math display">\[\mathbf{y}_{t+dt} = \mathbf{y}_t + \dfrac{d\mathbf{y}}{dt} \cdot dt\]</span></p>
+</section>
+<section id="coding-things-up-the-dynamics-of-the-system" class="level2">
+<h2 class="anchored" data-anchor-id="coding-things-up-the-dynamics-of-the-system">Coding Things Up: The Dynamics of the System</h2>
+<p>Now, we can get the “positions” in the phase space, using the code below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> harmonic <span class="im">import</span> harmonic_dynamics</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># params</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>m <span class="op">=</span> <span class="fl">1.0</span>&nbsp; <span class="co"># mass</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>k <span class="op">=</span> <span class="fl">1.0</span>&nbsp; <span class="co"># spring constant</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>q0 <span class="op">=</span> <span class="dv">0</span>&nbsp;  <span class="co"># initial position</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>p0 <span class="op">=</span> <span class="dv">1</span>&nbsp;  <span class="co"># initial momentum</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>dt <span class="op">=</span> <span class="fl">0.1</span>&nbsp;<span class="co"># time-step</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>init_state <span class="op">=</span> q0, p0</span>
+<span id="cb2-11"><a href="#cb2-11"></a>q_vals <span class="op">=</span> []</span>
+<span id="cb2-12"><a href="#cb2-12"></a>p_vals <span class="op">=</span> []</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">200</span>):</span>
+<span id="cb2-15"><a href="#cb2-15"></a>&nbsp; &nbsp; q, p <span class="op">=</span> init_state</span>
+<span id="cb2-16"><a href="#cb2-16"></a>&nbsp; &nbsp; dq_dt, dp_dt <span class="op">=</span> harmonic_dynamics(t<span class="op">=</span>dt, state<span class="op">=</span>[q,p], m<span class="op">=</span>m, k<span class="op">=</span>k)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>&nbsp; &nbsp; q <span class="op">=</span> q <span class="op">+</span> dq_dt <span class="op">*</span> dt</span>
+<span id="cb2-18"><a href="#cb2-18"></a>&nbsp; &nbsp; p <span class="op">=</span> p <span class="op">+</span> dp_dt <span class="op">*</span> dt</span>
+<span id="cb2-19"><a href="#cb2-19"></a>&nbsp; &nbsp; init_state <span class="op">=</span> [q, p]</span>
+<span id="cb2-20"><a href="#cb2-20"></a>&nbsp; &nbsp; q_vals.append(q)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>&nbsp; &nbsp; p_vals.append(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We are taking the following values for the system:</p>
+<ul>
+<li>mass, <span class="math inline">\(m = 1.0\)</span></li>
+<li>spring constant, <span class="math inline">\(k=1\)</span></li>
+<li>initial position, <span class="math inline">\(q_0 = 0\)</span></li>
+<li>initial momentum, <span class="math inline">\(p_0 = 1\)</span> (started at the center with some momentum)</li>
+</ul>
+<p>And for time-stepping, we are taking <span class="math inline">\(dt = 0.1\)</span>.</p>
+<p>Now if we plot both q vs.&nbsp;p (phase space), and q vs.&nbsp;t, we will get:</p>
+<p><img src="Figure_1.png" class="img-fluid"></p>
+</section>
+<section id="semi-implicit-eulers-method" class="level2">
+<h2 class="anchored" data-anchor-id="semi-implicit-eulers-method">Semi-Implicit Euler’s Method</h2>
+<p>We see that the q vs.&nbsp;p plot is spiralling outward with time. This is not the expected behaviour as the total energy is supposed to be conserved. We also see that this ideal version of the spring is swinging more and more as time goes on. This is not happening due to friction or gravity. They are not even considered here! And nothing is <em>pumping</em> energy into the system.</p>
+<p>This is happening due to the limits of Euler’s Method. Imagine walking on a circular track. Euler’s Method says, “take a direction in the direction of the path- the tangent. If you take a straight step along the tangent of a circle, you land slightly outside the circle. Do this 200 times, and you spiral outwards.</p>
+<p>To fix this, we need a Symplectic integrator- one that preserves the area in phase space (and thus behaves better with energy). The simplest version is Semi-Implicit Euler.</p>
+<p>Instead of updating both q and p based on the old state, we update one, and then use that new value to update the other.</p>
+<p>We do this:</p>
+<ul>
+<li>Calculate dp_dt using the current q.</li>
+<li>Immediately update p.</li>
+<li>Then, calculate dq_dt using this new, updated p.</li>
+<li>Update q using that.</li>
+</ul>
+<p>Things will be clearer in code. We keep everything else intact. But we change the loop to this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">200</span>):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    q, p <span class="op">=</span> init_state</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    _, dp_dt <span class="op">=</span> harmonic_dynamics(t<span class="op">=</span>dt, state<span class="op">=</span>[q, p], m<span class="op">=</span>m, k<span class="op">=</span>k)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    p <span class="op">=</span> p <span class="op">+</span> dp_dt <span class="op">*</span> dt</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    dq_dt, _ <span class="op">=</span> harmonic_dynamics(t<span class="op">=</span>dt, state<span class="op">=</span>[q, p], m<span class="op">=</span>m, k<span class="op">=</span>k)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    q <span class="op">=</span> q <span class="op">+</span> dq_dt <span class="op">*</span> dt</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    init_state <span class="op">=</span> [q, p]</span>
+<span id="cb3-8"><a href="#cb3-8"></a>    q_vals.append(q)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    p_vals.append(p) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Doing this, if we plot again, we get:</p>
+<p><img src="Figure_2.png" class="img-fluid"></p>
+<p>Now, it is a well-behaved phase space with no spiralling. And the position vs.&nbsp;time plot is also a smooth sinusoidal wave, as expected.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>We saw that, while simulating a weighted spring in Hamiltonian mechanics, the way we choose to integrate matters a lot.</p>
+<p>This was a linear system. In a future post, I will simulate a non-linear system, and train a Hamiltonian Neural Network to simulate the system.</p>
+<hr>
+<section id="cite-this-article" class="level3">
+<h3 class="anchored" data-anchor-id="cite-this-article">Cite this Article</h3>
+<pre><code>@ONLINE {,
+    author = "Ritobrata Ghosh",
+    title  = "Solving First Order Differential Equations with Julia",
+    month  = "mar",
+    year   = "2025",
+    url    = "https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html"
+}</code></pre>
+</section>
+<section id="support" class="level3">
+<h3 class="anchored" data-anchor-id="support">Support</h3>
+<p>I highly appreciate donations. If you liked this post, or the content in the site in general, support me via <a href="https://ko-fi.com/ritog">Ko-Fi</a>, <a href="https://liberapay.com/ritog">Liberapay</a> or if you are in India, via UPI <a href="https://i.imgur.com/D9rTvVN.png">ritogh8@oksbi</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://ko-fi.com/B0B33QVX2"><img src="https://ko-fi.com/img/githubbutton_sm.svg" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<script src="https://liberapay.com/ritog/widgets/button.js"></script>
+<noscript>
+<a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+</noscript>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="ritog/ritog.github.io" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

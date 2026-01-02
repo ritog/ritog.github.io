@@ -10,7 +10,353 @@
 <atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Sun, 02 Mar 2025 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 02 Jan 2026 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Modelling a Spring System in Hamiltonian Mechanics</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ritog.github.io/posts/implicit_euler/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory" class="level2">
+<h2 class="anchored" data-anchor-id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory">Modelling a Spring System in Hamiltonian Mechanics: Using Euler Method for Trajectory</h2>
+<p><img src="https://ritog.github.io/posts/implicit_euler/euler_cover.png" class="img-fluid"></p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Hamiltonian Mechanics provides us with ways to deal with dynamical systems computationally. We can simulate a system of a weighted spring using Hamiltonian mechanics. We can plot trajectories using the simulation. We will use Euler’s method and Semi-Implicit Euler’s method to plot phase spaces, and compare between them. In a future post, I will describe the training of a Hamiltonian Neural Network for learning the physics of a non-linear system, and simulate it.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>I expect the reader to have some programming background in any imperative language. I will use Python. I expect no knowledge of Hamiltonian Dynamics or college-level Physics, but knowing the basics of Physics up to High School level is needed. Being well-versed in Differential Calculus is required. Experience with Python is helpful.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>We will model our system using Hamiltonian Dynamics. We will first write a function to get derivatives of two variables at each step. And using the Python function, we will plot the phase space of the system. For doing that we will need to integrate them using a DE solver - we will use Euler’s method. Then we will see if that suffices. If not, we will switch to implicit Euler, and plot the same phase space. If you don’t know about Hamiltonian Dynamics or phase spaces, then that’s okay. I will cover what we need. This is a trivial example for something I want to build up to- training a Hamiltonian Neural Network. But that’s not the objective of this article.</p>
+</section>
+<section id="our-system" class="level2">
+<h2 class="anchored" data-anchor-id="our-system">Our System</h2>
+<p>We have a mass <img src="https://latex.codecogs.com/png.latex?m"> attached to a spring of negligible mass.</p>
+<p><img src="https://ritog.github.io/posts/implicit_euler/system.jpg" class="img-fluid"></p>
+<p>And we are concerned with only two variables of the system- the position <img src="https://latex.codecogs.com/png.latex?q">, and the momentum <img src="https://latex.codecogs.com/png.latex?p"> (<img src="https://latex.codecogs.com/png.latex?p%20=%20m%20%5Ccdot%20v">). These are the only two variables needed to construct the Hamiltonian. And if we plot <img src="https://latex.codecogs.com/png.latex?p"> versus <img src="https://latex.codecogs.com/png.latex?q"> in a 2-dimensional figure, what we get is called a <strong>phase space</strong>.</p>
+</section>
+<section id="hamiltonian-of-the-system" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-of-the-system">Hamiltonian of the System</h2>
+<p>The Hamiltonian of the system is the total energy of the system. It is the sum of kinetic and potential energies of that system. And it is characterized by position and momentum of a particular body.</p>
+<p>You are probably more familiar with Newtonian Mechanics where we are more concerned with <em>force</em>. Newton’s Second Law of Motion, <img src="https://latex.codecogs.com/png.latex?F%20=%20ma">, is a second-order differential equation, <img src="https://latex.codecogs.com/png.latex?F%20=%20m%20%5Ctimes%20%5Cdfrac%7Bd%5E2x%7D%7Bdt%5E2%7D">, where <img src="https://latex.codecogs.com/png.latex?x"> denotes the position of the body. Computational solvers work better with first-order differential equation, or a system of first-order DEs. If you would like to read a nice article on DEs and solving them computationally with Julia, read this post: <a href="../../posts/1st-order-DE-julia/1st_order_DE_julia.html">Solving First Order Differential Equations with Julia</a>, <a href="https://news.ycombinator.com/item?id=43245172">Hacker News discussion</a>.</p>
+<p>With Hamiltonian system, we get what computers are better at solving. Although that’s not why it was invented or used for a long time. With Hamiltonian mechanics, we have conservation laws baked in, and it can represent evolution of the system through time as a flow, and it provides many geometrical niceties which we will not delve (I know) deep into in this article.</p>
+<p>The Hamiltonian of our system, is the sum of kinetic and potential energies of the system. And it is always conserved.</p>
+<p>Hamiltonian, <img src="https://latex.codecogs.com/png.latex?H"> of our system:</p>
+<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Ctext%7BKinetic%20Energy%20+%20Potential%20Energy%7D"></p>
+<p>The Hamiltonian is a function of <img src="https://latex.codecogs.com/png.latex?p"> and <img src="https://latex.codecogs.com/png.latex?q"> only.</p>
+<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Cdfrac12%20mv%5E2%20+%20%5Cdfrac12%20kx%5E2"></p>
+<p>The above equation can be re-written as:</p>
+<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2m%7D%20+%20%5Cdfrac12%20kq%5E2"></p>
+<p>As <img src="https://latex.codecogs.com/png.latex?v%20=%20%5Cdfrac%7Bp%7D%7Bm%7D">. And the position <img src="https://latex.codecogs.com/png.latex?x"> is simply rewritten as <img src="https://latex.codecogs.com/png.latex?q">.</p>
+</section>
+<section id="hamiltonian-equations" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-equations">Hamiltonian Equations</h2>
+<p>The Hamiltonian Equations are:</p>
+<ol type="1">
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdq%7D%7Bdt%7D%20=%20%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20p%7D"></li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdp%7D%7Bdt%7D%20=%20-%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20q%7D"></li>
+</ol>
+<p>If you have never seen partial derivatives before- they are simple if you know derivatives. In partial derivatives, the variable you are differentiating with respect to, is treated as a variable. All other variables, <em>and constants</em> are treated as constants.</p>
+<p>Let’s say there is a function, <img src="https://latex.codecogs.com/png.latex?f(m,%20n)%20=%20m%5E2n%20+%20n%5E3m%20+%20m%20-%20n"> then <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7B%5Cpartial%20f%7D%7B%5Cpartial%20m%7D%20=%202mn%20+%20n%5E3%20+%201"> and <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7B%5Cpartial%20f%7D%7B%5Cpartial%20n%7D%20=%20m%5E2%20+%203n%5E2m%20-%201">. Even though <img src="https://latex.codecogs.com/png.latex?m"> and <img src="https://latex.codecogs.com/png.latex?n"> are variables, when we are differentiating with respect to one of them, we are treating the other as a constant.</p>
+<p>Now, if we calculate the Right Hand Sides of 1 and 2 above, we get,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bm%7D%20%5C%5C%0A%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-kq%0A%5Cend%7Baligned%7D"></p>
+<p>You either trust me, or pick up a pen and paper and work through them!</p>
+<p>Now, look at the equations above. This is the core beauty of Hamiltonian mechanics. The change in <img src="https://latex.codecogs.com/png.latex?q"> through time is dependent on <img src="https://latex.codecogs.com/png.latex?p"> and the change in <img src="https://latex.codecogs.com/png.latex?p"> is dependent on <img src="https://latex.codecogs.com/png.latex?q">.</p>
+</section>
+<section id="writing-a-program" class="level2">
+<h2 class="anchored" data-anchor-id="writing-a-program">Writing a Program</h2>
+<p>Now we can code up the Python function that will give us <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdq%7D%7Bdt%7D"> and <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdp%7D%7Bdt%7D">. This is where we will get the true derivatives that will later guide our training, and will also help up simulate the system.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> harmonic_dynamics(t, state: List, m, k) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> List:</span>
+<span id="cb1-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb1-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    inputs:</span></span>
+<span id="cb1-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    t: The current time, solvers expect it.</span></span>
+<span id="cb1-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    state: A list or array containing [q, p].</span></span>
+<span id="cb1-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    m, k: The mass and spring constant.</span></span>
+<span id="cb1-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    output:</span></span>
+<span id="cb1-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    the list [dq_dt, dp_dt]</span></span>
+<span id="cb1-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb1-10">    dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> state[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> m</span>
+<span id="cb1-11">    dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>k <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> state[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb1-12">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div>
+<p>This is a basic function that returns a Python array. We will not deal with PyTorch arrays or SIMD hardware for now.</p>
+<p>This function returns terms analogous to velocities, but to plot the phase space, we will need something analogous to positions. And we need to integrate.</p>
+</section>
+<section id="eulers-method" class="level2">
+<h2 class="anchored" data-anchor-id="eulers-method">Euler’s Method</h2>
+<p>We could use something like <a href="https://docs.scipy.org/doc//scipy-1.16.2/tutorial/integrate.html"><code>scipy.integrate</code></a>, but let’s implement our own solver in Python. We will implement a solver using the Euler Method.</p>
+<p>You can read formally about Euler Method in any decent book covering DEs, but, put simply, it says that- <em>“The state in the next moment is the current state plus a small step in the direction of the derivative.”</em></p>
+<p>In Math:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cmathbf%7By%7D_%7Bt+dt%7D%20=%20%5Cmathbf%7By%7D_t%20+%20%5Cdfrac%7Bd%5Cmathbf%7By%7D%7D%7Bdt%7D%20%5Ccdot%20dt"></p>
+</section>
+<section id="coding-things-up-the-dynamics-of-the-system" class="level2">
+<h2 class="anchored" data-anchor-id="coding-things-up-the-dynamics-of-the-system">Coding Things Up: The Dynamics of the System</h2>
+<p>Now, we can get the “positions” in the phase space, using the code below.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> harmonic <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> harmonic_dynamics</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># params</span></span>
+<span id="cb2-4">m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>&nbsp; <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># mass</span></span>
+<span id="cb2-5">k <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>&nbsp; <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># spring constant</span></span>
+<span id="cb2-6">q0 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>&nbsp;  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># initial position</span></span>
+<span id="cb2-7">p0 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>&nbsp;  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># initial momentum</span></span>
+<span id="cb2-8">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span>&nbsp;<span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># time-step</span></span>
+<span id="cb2-9"></span>
+<span id="cb2-10">init_state <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> q0, p0</span>
+<span id="cb2-11">q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb2-12">p_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb2-13"></span>
+<span id="cb2-14"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>):</span>
+<span id="cb2-15">&nbsp; &nbsp; q, p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> init_state</span>
+<span id="cb2-16">&nbsp; &nbsp; dq_dt, dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> harmonic_dynamics(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[q,p], m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, k<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>k)</span>
+<span id="cb2-17">&nbsp; &nbsp; q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb2-18">&nbsp; &nbsp; p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb2-19">&nbsp; &nbsp; init_state <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [q, p]</span>
+<span id="cb2-20">&nbsp; &nbsp; q_vals.append(q)</span>
+<span id="cb2-21">&nbsp; &nbsp; p_vals.append(p)</span></code></pre></div>
+<p>We are taking the following values for the system:</p>
+<ul>
+<li>mass, <img src="https://latex.codecogs.com/png.latex?m%20=%201.0"></li>
+<li>spring constant, <img src="https://latex.codecogs.com/png.latex?k=1"></li>
+<li>initial position, <img src="https://latex.codecogs.com/png.latex?q_0%20=%200"></li>
+<li>initial momentum, <img src="https://latex.codecogs.com/png.latex?p_0%20=%201"> (started at the center with some momentum)</li>
+</ul>
+<p>And for time-stepping, we are taking <img src="https://latex.codecogs.com/png.latex?dt%20=%200.1">.</p>
+<p>Now if we plot both q vs.&nbsp;p (phase space), and q vs.&nbsp;t, we will get:</p>
+<p><img src="https://ritog.github.io/posts/implicit_euler/Figure_1.png" class="img-fluid"></p>
+</section>
+<section id="semi-implicit-eulers-method" class="level2">
+<h2 class="anchored" data-anchor-id="semi-implicit-eulers-method">Semi-Implicit Euler’s Method</h2>
+<p>We see that the q vs.&nbsp;p plot is spiralling outward with time. This is not the expected behaviour as the total energy is supposed to be conserved. We also see that this ideal version of the spring is swinging more and more as time goes on. This is not happening due to friction or gravity. They are not even considered here! And nothing is <em>pumping</em> energy into the system.</p>
+<p>This is happening due to the limits of Euler’s Method. Imagine walking on a circular track. Euler’s Method says, “take a direction in the direction of the path- the tangent. If you take a straight step along the tangent of a circle, you land slightly outside the circle. Do this 200 times, and you spiral outwards.</p>
+<p>To fix this, we need a Symplectic integrator- one that preserves the area in phase space (and thus behaves better with energy). The simplest version is Semi-Implicit Euler.</p>
+<p>Instead of updating both q and p based on the old state, we update one, and then use that new value to update the other.</p>
+<p>We do this:</p>
+<ul>
+<li>Calculate dp_dt using the current q.</li>
+<li>Immediately update p.</li>
+<li>Then, calculate dq_dt using this new, updated p.</li>
+<li>Update q using that.</li>
+</ul>
+<p>Things will be clearer in code. We keep everything else intact. But we change the loop to this:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>):</span>
+<span id="cb3-2">    q, p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> init_state</span>
+<span id="cb3-3">    _, dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> harmonic_dynamics(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[q, p], m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, k<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>k)</span>
+<span id="cb3-4">    p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb3-5">    dq_dt, _ <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> harmonic_dynamics(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[q, p], m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, k<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>k)</span>
+<span id="cb3-6">    q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb3-7">    init_state <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [q, p]</span>
+<span id="cb3-8">    q_vals.append(q)</span>
+<span id="cb3-9">    p_vals.append(p) </span></code></pre></div>
+<p>Doing this, if we plot again, we get:</p>
+<p><img src="https://ritog.github.io/posts/implicit_euler/Figure_2.png" class="img-fluid"></p>
+<p>Now, it is a well-behaved phase space with no spiralling. And the position vs.&nbsp;time plot is also a smooth sinusoidal wave, as expected.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>We saw that, while simulating a weighted spring in Hamiltonian mechanics, the way we choose to integrate matters a lot.</p>
+<p>This was a linear system. In a future post, I will simulate a non-linear system, and train a Hamiltonian Neural Network to simulate the system.</p>
+<hr>
+<section id="cite-this-article" class="level3">
+<h3 class="anchored" data-anchor-id="cite-this-article">Cite this Article</h3>
+<pre><code>@ONLINE {,
+    author = "Ritobrata Ghosh",
+    title  = "Solving First Order Differential Equations with Julia",
+    month  = "mar",
+    year   = "2025",
+    url    = "https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html"
+}</code></pre>
+</section>
+<section id="support" class="level3">
+<h3 class="anchored" data-anchor-id="support">Support</h3>
+<p>I highly appreciate donations. If you liked this post, or the content in the site in general, support me via <a href="https://ko-fi.com/ritog">Ko-Fi</a>, <a href="https://liberapay.com/ritog">Liberapay</a> or if you are in India, via UPI <a href="https://i.imgur.com/D9rTvVN.png">ritogh8@oksbi</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://ko-fi.com/B0B33QVX2"><img src="https://ritog.github.io/posts/implicit_euler/https:/ko-fi.com/img/githubbutton_sm.svg" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<script src="https://liberapay.com/ritog/widgets/button.js"></script>
+<noscript>
+<a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://ritog.github.io/posts/implicit_euler/https:/liberapay.com/assets/widgets/donate.svg"></a>
+</noscript>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+  <category>math</category>
+  <category>physics</category>
+  <category>computational-math</category>
+  <guid>https://ritog.github.io/posts/implicit_euler/index.html</guid>
+  <pubDate>Fri, 02 Jan 2026 18:30:00 GMT</pubDate>
+  <media:content url="https://ritog.github.io/posts/implicit_euler/euler_cover.png" medium="image" type="image/png" height="79" width="144"/>
+</item>
 <item>
   <title>Solving First Order Differential Equations with Julia</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
