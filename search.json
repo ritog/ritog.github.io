@@ -28,6 +28,13 @@
     "text": "Introduction\nHamiltonian Mechanics provides us with ways to deal with dynamical systems computationally. We can simulate a system of a weighted spring using Hamiltonian mechanics. We can plot trajectories using the simulation. We will use Euler’s method and Semi-Implicit Euler’s method to plot phase spaces, and compare between them. In a future post, I will describe the training of a Hamiltonian Neural Network for learning the physics of a non-linear system, and simulate it."
   },
   {
+    "objectID": "posts/implicit_euler/index.html#code",
+    "href": "posts/implicit_euler/index.html#code",
+    "title": "Modelling a Spring System in Hamiltonian Mechanics",
+    "section": "Code",
+    "text": "Code\nAll code used in this project, as well as code that can be used to reproduce the project can be found on GitHub: ritog/spring_hamiltonian."
+  },
+  {
     "objectID": "posts/implicit_euler/index.html#prerequisites",
     "href": "posts/implicit_euler/index.html#prerequisites",
     "title": "Modelling a Spring System in Hamiltonian Mechanics",
