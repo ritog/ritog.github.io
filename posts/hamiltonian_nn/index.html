@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ritobrata Ghosh">
+<meta name="dcterms.date" content="2026-01-06">
+<meta name="keywords" content="math, cs, programming, physics, deep-learning, ai">
+
+<title>Hamiltonian Neural Network with PyTorch</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Posts by Rito Ghosh</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../TILs_index.html" rel="" target="">
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../now.html" rel="" target="">
+ <span class="menu-text">Now</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv.html" rel="" target="">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ritog" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:github" aria-label="Icon github from fa6-brands Iconify.design set." title="Icon github from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/AllesistKode" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:x-twitter" aria-label="Icon x-twitter from fa6-brands Iconify.design set." title="Icon x-twitter from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=R_X74h0AAAAJ" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:google-scholar" aria-label="Icon google-scholar from fa6-brands Iconify.design set." title="Icon google-scholar from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://mathstodon.xyz/@rg" rel="me" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:mastodon" aria-label="Icon mastodon from fa6-brands Iconify.design set." title="Icon mastodon from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://linkedin.com/in/ritobrata-ghosh" rel="" target="">
+ <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:linkedin" aria-label="Icon linkedin from fa6-brands Iconify.design set." title="Icon linkedin from fa6-brands Iconify.design set."></iconify-icon></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Training a Hamiltonian Neural Network</h1>
+            <p class="subtitle lead">Using an NN for Simulating the Phase Space of a Harmonic Oscillator</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">deep-learning</div>
+                <div class="quarto-category">physics</div>
+                <div class="quarto-category">computational-math</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ritobrata Ghosh </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 6, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator" class="level2">
+<h2 class="anchored" data-anchor-id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator">Training a Hamiltonian Neural Network: Using an NN for Simulating the Phase Space of a Harmonic Oscillator</h2>
+<p><img src="cover_hamiltonian_nn.png" class="img-fluid"></p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We can use Neural Networks not only for predicting the class of an image, completing sentences, or classifying sentiment of a paragraph of text. We can also use Neural Networks for solving scientific problems. In this article, you will learn about using a trained Neural Network to simulate the phase space of a Harmonic Oscillator (a weighted rigid pendulum). Here, there’s a twist. We will train the Neural Network not by calculating the loss between the outputs and the ground truth data, but we will <em>train using the derivatives</em>. We will leverage our Physics knowledge to train the Neural Network.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>I expect the reader to be knowledgeable about basics of training a Neural Network from scratch- using a library like PyTorch, Jax, etc. I will use PyTorch in this project. I expect no knowledge of Hamiltonian Dynamics or college-level Physics, but knowing the basics of Physics up to High School level. Being well-versed in Differential Calculus is required. Experience with Python is helpful. I also expect the reader to have read an earlier post on simulating a spring with Hamiltonian Mechanics and plotting the phase space as well as the trajectory: <a href="../../posts/implicit_euler/index.html">Modelling a Spring System in Hamiltonian Mechanics: Using Euler’s Method for Trajectory Plotting</a>.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>We will model our system using Hamiltonian Dynamics. And using the Python function, we will plot the phase space of the system. And then using the the derivatives, we will train a Neural Network using those derivatives. Then we will use the trained Neural Network to again simulate the system and plot the phase space of the system. And we will see how the NN is doing. If you don’t know about Hamiltonian Dynamics or phase spaces, then that’s okay. I will cover what we need.</p>
+</section>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">Code</h2>
+<p>All code used in this project is available on GitHub: <a href="https://github.com/ritog/harmonic"><strong>ritog/harmonic</strong></a>.</p>
+</section>
+<section id="our-physical-system" class="level2">
+<h2 class="anchored" data-anchor-id="our-physical-system">Our Physical System</h2>
+<p>We will work with a rigid pendulum.</p>
+<p><img src="physical-pendulum-rod-and-ball.png" class="img-fluid"></p>
+<p>The related variables are:</p>
+<ul>
+<li>A body of mass <span class="math inline">\(m\)</span> on a rigid rod of length <span class="math inline">\(l\)</span></li>
+<li>Angle <span class="math inline">\(q\)</span> (<span class="math inline">\(0\)</span> is straight down)</li>
+<li>Angular momentum, <span class="math inline">\(p\)</span></li>
+<li>Gravity <span class="math inline">\(g\)</span></li>
+</ul>
+</section>
+<section id="defining-the-hamiltonian-of-our-system" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-hamiltonian-of-our-system">Defining the Hamiltonian of Our System</h2>
+<ol type="1">
+<li>Potential Energy(<span class="math inline">\(V\)</span>): Height is <span class="math inline">\(l(1-\cos{q})\)</span>, so, <span class="math inline">\(V = mgl(1-\cos{q})\)</span></li>
+</ol>
+<p>How? <img src="triangle.png" class="img-fluid"></p>
+<ol start="2" type="1">
+<li>Kinetic Energy (<span class="math inline">\(T\)</span>):</li>
+</ol>
+<p>Rotational kinetic energy is <span class="math inline">\(\dfrac12 I {\omega}^2\)</span>. For a point mass, moment of inertia, <span class="math inline">\(I=ml^2\)</span>, and angular velocity, <span class="math inline">\(\omega = \dfrac{p}{ml^2}\)</span>.</p>
+<p>So, Kinetic Energy in terms of momentum, <span class="math display">\[T(p) = \dfrac{p^2}{2ml^2}\]</span></p>
+<p>Remember that, in Hamiltonian mechanics, the Hamiltonian of the system is:</p>
+<p><span class="math display">\[H(q, p) = V + T\]</span></p>
+<p>And the Hamiltonian equations are:</p>
+<ol type="1">
+<li><span class="math inline">\(\dfrac{dq}{dt} = \dfrac{\partial H}{\partial p}\)</span></li>
+<li><span class="math inline">\(\dfrac{dp}{dt} = -\dfrac{\partial H}{\partial q}\)</span></li>
+</ol>
+<p>If we calculate theses, we will get:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{dq}{dt} &amp;= \frac{p}{ml^2} &amp; \text{(Angular Velocity)} \\
+\frac{dp}{dt} &amp;= -mgl \sin q &amp; \text{(Torque due to Gravity)}
+\end{aligned}\]</span></p>
+<p>You can trust me, or check using a pen and paper. Remember that I said the same thing in the last article as well?</p>
+</section>
+<section id="implementing" class="level2">
+<h2 class="anchored" data-anchor-id="implementing">Implementing</h2>
+<p>This is how we implement this in Python. Using this function, we can find the derivatives, and using these, we can find the trajectory.</p>
+<p>Here’s a basic implementation using NumPy:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> pendulum_dynamics(t, state: List, m, l, g) <span class="op">-&gt;</span> List:</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="co">"""</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">    inputs:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">    t: The current time, solvers expect it.</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">    state: A list or array containing [q, p].</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">    m: mass</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    l: the length of the rigid pendulum</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">    g: gravitational acceleration</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">    output:</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">    the list [dq_dt, dp_dt]</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">    """</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    dq_dt <span class="op">=</span> state[<span class="dv">1</span>] <span class="op">/</span> (m <span class="op">*</span> np.power(l, <span class="dv">2</span>))</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    dp_dt <span class="op">=</span> <span class="op">-</span>m <span class="op">*</span> g <span class="op">*</span> l <span class="op">*</span> np.sin(state[<span class="dv">0</span>])</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="cf">return</span> [dq_dt, dp_dt]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or, we can write a version using <code>torch</code>. This will make things better.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> pendulum_dynamics_tensor(t, state: torch.Tensor, m, l, g) <span class="op">-&gt;</span> torch.Tensor:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    dq_dt <span class="op">=</span> (state[:, <span class="dv">1</span>] <span class="op">/</span> (m <span class="op">*</span> torch.<span class="bu">pow</span>(torch.tensor(l), <span class="dv">2</span>))).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    dp_dt <span class="op">=</span> (<span class="op">-</span>m <span class="op">*</span> g <span class="op">*</span> l <span class="op">*</span> torch.sin(state[:, <span class="dv">0</span>])).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="cf">return</span> torch.cat([dq_dt, dp_dt], dim<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can use the earlier function to plot the trajectory of the pendulum.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> pendulum_nonlinear <span class="im">import</span> pendulum_dynamics</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># different initial states</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>init_a <span class="op">=</span> [<span class="fl">0.5</span>, <span class="dv">0</span>]  <span class="co"># small release</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>init_b <span class="op">=</span> [<span class="fl">3.1</span>, <span class="dv">0</span>]  <span class="co"># close to top</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>init_c <span class="op">=</span> [<span class="dv">0</span>, <span class="fl">5.0</span>]  <span class="co"># close to bottom with force</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># params</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>m <span class="op">=</span> <span class="fl">1.0</span>    <span class="co"># mass</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>l <span class="op">=</span> <span class="fl">1.0</span>    <span class="co"># length of rod</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>dt <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># time-step</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>g <span class="op">=</span> <span class="fl">9.8</span>    <span class="co"># gravitational acceleration</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="kw">def</span> run_simulation(init_state: List):</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    p_vals <span class="op">=</span> []</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    q_vals <span class="op">=</span> []</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1_000</span>):</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        q, p <span class="op">=</span> init_state</span>
+<span id="cb3-22"><a href="#cb3-22"></a>        _, dp_dt <span class="op">=</span> pendulum_dynamics(t<span class="op">=</span>dt, state<span class="op">=</span>[q, p], m<span class="op">=</span>m, l<span class="op">=</span>l, g<span class="op">=</span>g)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>        p <span class="op">=</span> p <span class="op">+</span> dp_dt <span class="op">*</span> dt</span>
+<span id="cb3-24"><a href="#cb3-24"></a>        dq_dt, _ <span class="op">=</span> pendulum_dynamics(t<span class="op">=</span>dt, state<span class="op">=</span>[q, p], m<span class="op">=</span>m, l<span class="op">=</span>l, g<span class="op">=</span>g)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>        q <span class="op">=</span> q <span class="op">+</span> dq_dt <span class="op">*</span> dt</span>
+<span id="cb3-26"><a href="#cb3-26"></a>        init_state <span class="op">=</span> [q, p]</span>
+<span id="cb3-27"><a href="#cb3-27"></a>        q_vals.append(q)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>        p_vals.append(p)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>    <span class="cf">return</span> p_vals, q_vals</span>
+<span id="cb3-30"><a href="#cb3-30"></a></span>
+<span id="cb3-31"><a href="#cb3-31"></a>a_p_vals, a_q_vals <span class="op">=</span> run_simulation(init_a)</span>
+<span id="cb3-32"><a href="#cb3-32"></a>b_p_vals, b_q_vals <span class="op">=</span> run_simulation(init_b)</span>
+<span id="cb3-33"><a href="#cb3-33"></a>c_p_vals, c_q_vals <span class="op">=</span> run_simulation(init_c)</span>
+<span id="cb3-34"><a href="#cb3-34"></a></span>
+<span id="cb3-35"><a href="#cb3-35"></a></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co"># Plotting</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a>plt.plot(a_q_vals, a_p_vals, label<span class="op">=</span><span class="st">"$q_0=0, p_0=0$"</span>)</span>
+<span id="cb3-38"><a href="#cb3-38"></a>plt.plot(b_q_vals, b_p_vals, label<span class="op">=</span><span class="st">"$q_0=3.1, p_0=0$"</span>)</span>
+<span id="cb3-39"><a href="#cb3-39"></a>plt.plot(c_q_vals, c_p_vals, label<span class="op">=</span><span class="st">"$q_0=0, p_0=5.0$"</span>)</span>
+<span id="cb3-40"><a href="#cb3-40"></a>plt.xlabel(<span class="st">"$q$"</span>)</span>
+<span id="cb3-41"><a href="#cb3-41"></a>plt.ylabel(<span class="st">"$p$"</span>)</span>
+<span id="cb3-42"><a href="#cb3-42"></a>plt.title(<span class="st">"$p v. q$ for different inital conditions"</span>)</span>
+<span id="cb3-43"><a href="#cb3-43"></a>plt.legend()</span>
+<span id="cb3-44"><a href="#cb3-44"></a>plt.tight_layout()</span>
+<span id="cb3-45"><a href="#cb3-45"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is the plot that the code generates:</p>
+<p><img src="Figure_3.png" class="img-fluid"></p>
+<p>The Blue and green loops represent the pendulum swinging back and forth. It doesn’t have enough energy to go over the top, so it stays trapped in a closed loop. The Orange loop is right on the edge! If you had just a tiny bit more energy, the pendulum would stop swinging back and start spinning 360° continuously.</p>
+<p>One of the reasons that Hamiltonian Neural Networks are better than vanilla Neural ODEs comes from Hamiltonian Mechanics. There’s a special property called Liouville’s Theorem, which says that the total area under the curve for the total set of initial points will be preserved for the total set of end points. That is, if you think of the initial points as a blob of points, then the blob might stretch, skew, twist, or distort, but the total area will remain constant. This is how Neural Networks handle data in higher dimension, and maps training data to target. I recommend that you watch Alfredo Canziani’s video from NYU CDS: <a href="https://youtu.be/0TdAmZUMj2k?si=dcQG-2jwaYiVwyHx&amp;t=1127">02 – Neural nets: rotation and squashing</a> to get great a visual grasp of this. These kind of transformations are modelled and studied extensively in Linear Algebra.</p>
+<p>This incompressible flow of points, and fluid-like behaviour (as opposed to gas-like, as gases compress and expand) are great for Neural Networks, and NNs trained using Hamiltonian mechanics are much more robust and well-behaved than simple NODEs.</p>
+<p>I am not writing more about this here. Maybe in a future post I write more on this.</p>
+</section>
+<section id="hamiltonian-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-neural-network">Hamiltonian Neural Network</h2>
+<p>With our Python function, we can generate the data from our knowledge of Physics.</p>
+<p>With Deep Learning, we solve the opposite problem- going from data to the Physics.</p>
+<p>Standard Neural ODEs try to learn the derivatives directly from the available data.</p>
+<p>Input: <span class="math inline">\((q, p)\)</span>, Output: <span class="math inline">\((\dfrac{dq}{dt}, \dfrac{dp}{dt})\)</span></p>
+<p>But, Hamiltonian Neural Networks are smarter. Instead of training the NN to predict the data, we force the NN to <em>predict the Hamiltonian</em> of the system.</p>
+<p><span class="math display">\[\hat{H} = NeuralNet(q, p;\theta)\]</span></p>
+<p>Here, <span class="math inline">\(\theta\)</span> is the set of trainable parameters of the neural network.</p>
+<p>We ask the Neural Network to output the Hamiltonian of the system. And, <em>as the Neural Network is just a chain of differentiable math operations, if we calculate the gradients of the output ($), with respect to the variables <span class="math inline">\(q\)</span> and <span class="math inline">\(p\)</span>, then, what we have are predicted time derivatives of the Hamiltonian</em>.</p>
+<ol type="1">
+<li><span class="math inline">\(\dfrac{d\hat{q}}{dt} = \dfrac{\partial \hat{H}}{\partial p}\)</span></li>
+<li><span class="math inline">\(\dfrac{d\hat{p}}{dt} = -\dfrac{\partial \hat{H}}{\partial q}\)</span></li>
+</ol>
+<p>Here is our Neural Network:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> torch</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>device <span class="op">=</span> <span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">class</span> HNN(nn.Module):</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-9"><a href="#cb4-9"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb4-10"><a href="#cb4-10"></a>        <span class="va">self</span>.linear_block <span class="op">=</span> nn.Sequential(</span>
+<span id="cb4-11"><a href="#cb4-11"></a>            nn.Linear(<span class="dv">2</span>, <span class="dv">200</span>),</span>
+<span id="cb4-12"><a href="#cb4-12"></a>            nn.Tanh(),</span>
+<span id="cb4-13"><a href="#cb4-13"></a>            nn.Linear(<span class="dv">200</span>, <span class="dv">200</span>),</span>
+<span id="cb4-14"><a href="#cb4-14"></a>            nn.Tanh(),</span>
+<span id="cb4-15"><a href="#cb4-15"></a>            nn.Linear(<span class="dv">200</span>, <span class="dv">1</span>),</span>
+<span id="cb4-16"><a href="#cb4-16"></a>        )</span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb4-19"><a href="#cb4-19"></a>        H <span class="op">=</span> <span class="va">self</span>.linear_block(x)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="cf">return</span> H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There are two things to note in the code:</p>
+<ul>
+<li>There is no activation function at the end of the final Fully Connected (FC) layer. Because we want the Neural Network to output a value that is perceived as the total energy of the system, and it’s a real-numbered value, not limited to the range of the <span class="math inline">\(\tanh{}\)</span> function.</li>
+<li>We chose the <code>tanh()</code> activation function. As the function is thoroughly differentiable at every point.</li>
+</ul>
+<p>We want to feed a batch of 200 pairs of <span class="math inline">\(q\)</span> and <span class="math inline">\(p\)</span> to the NN.</p>
+</section>
+<section id="training-the-hamiltonian-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="training-the-hamiltonian-neural-network">Training the Hamiltonian Neural Network</h2>
+<p>We want to write vectorized code. We don’t want to bottleneck the model by feeding in data through naive for loops.</p>
+<p>For that, we can write a function to get the derivatives of the model, in batches:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> torch</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="im">from</span> HNN <span class="im">import</span> HNN</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>device <span class="op">=</span> <span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="kw">def</span> get_model_time_derivatives(model, x):</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="co">"""</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">    Compute time derivatives [dq/dt, dp/dt] for a batch of inputs.</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">    x: Tensor of shape (Batch_Size, 2)</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">    """</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    H_hat <span class="op">=</span> model(x)</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="co"># sum the energy to get a scalar,</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="co"># the gradients separate out perfectly per row</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>    grads <span class="op">=</span> torch.autograd.grad(H_hat.<span class="bu">sum</span>(), x, create_graph<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="co"># grads shape: (Batch, 2) -&gt; [dH/dq, dH/dp]</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a></span>
+<span id="cb5-19"><a href="#cb5-19"></a>    <span class="co"># flipping (Symplectic Swap (Hamilton's Eqs))</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>    <span class="co"># dq/dt =  dH/dp</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>    <span class="co"># dp/dt = -dH/dq</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a></span>
+<span id="cb5-23"><a href="#cb5-23"></a>    dH_dq <span class="op">=</span> grads[:, <span class="dv">0</span>].unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb5-24"><a href="#cb5-24"></a>    dH_dp <span class="op">=</span> grads[:, <span class="dv">1</span>].unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="cf">return</span> torch.cat([dH_dp, <span class="op">-</span>dH_dq], dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># - because minus</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There is a nice trick with the summing up of the predicted Hamiltonians. PyTorch can only find gradients of scalars. And here we have a tensor of predicted Hamiltonians. We can just sum them up, and then find the gradient with respect to the whole batch of the inputs. And everything gets neatly stored in rows. Gradient of a sum is equal to sum of gradients.</p>
+<p>I am not going deep into it for now. I hope that you know why this is the case.</p>
+<p>Here’s what the training script looks like:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> torch</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="im">from</span> HNN <span class="im">import</span> HNN</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="im">from</span> hnn_model_derivs <span class="im">import</span> get_model_time_derivatives</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="im">from</span> pendulum_tensor <span class="im">import</span> pendulum_dynamics_tensor</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a>device <span class="op">=</span> <span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># params</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>m <span class="op">=</span> <span class="fl">1.0</span>    <span class="co"># mass</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>l <span class="op">=</span> <span class="fl">1.0</span>    <span class="co"># length of rod</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>dt <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># time-step</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>g <span class="op">=</span> <span class="fl">9.8</span>    <span class="co"># gravitational acceleration</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a>mean <span class="op">=</span> torch.tensor([<span class="op">-</span><span class="fl">3.0</span>, <span class="fl">3.0</span>])</span>
+<span id="cb6-17"><a href="#cb6-17"></a>std <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a>init_states <span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> torch.rand(<span class="dv">1_000</span>, <span class="dv">2</span>) <span class="op">-</span> <span class="dv">3</span>).to(device).requires_grad_()</span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a>true_derivatives <span class="op">=</span> pendulum_dynamics_tensor(t<span class="op">=</span>dt, state<span class="op">=</span>init_states, m<span class="op">=</span>m, l<span class="op">=</span>l, g<span class="op">=</span>g)</span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a>hamiltonian_nn <span class="op">=</span> HNN().to(device)</span>
+<span id="cb6-23"><a href="#cb6-23"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
+<span id="cb6-24"><a href="#cb6-24"></a>optimizer <span class="op">=</span> torch.optim.Adam(hamiltonian_nn.parameters(), lr<span class="op">=</span><span class="fl">1e-2</span>)</span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a>n_epochs <span class="op">=</span> <span class="dv">1_200</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="cf">for</span> epoch <span class="kw">in</span> tqdm(<span class="bu">range</span>(n_epochs <span class="op">+</span> <span class="dv">1</span>)):</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    deriv_pred <span class="op">=</span> get_model_time_derivatives(hamiltonian_nn, init_states)</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    loss <span class="op">=</span> loss_func(deriv_pred, true_derivatives)</span>
+<span id="cb6-31"><a href="#cb6-31"></a></span>
+<span id="cb6-32"><a href="#cb6-32"></a>    optimizer.zero_grad()</span>
+<span id="cb6-33"><a href="#cb6-33"></a>    loss.backward(retain_graph<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a>    optimizer.step()</span>
+<span id="cb6-36"><a href="#cb6-36"></a>    <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-37"><a href="#cb6-37"></a>        <span class="bu">print</span>(<span class="ss">f"Epoch: </span><span class="sc">{</span>epoch<span class="sc">}</span><span class="ch">\t</span><span class="ss"> Loss: </span><span class="sc">{</span>loss<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-38"><a href="#cb6-38"></a></span>
+<span id="cb6-39"><a href="#cb6-39"></a>torch.save(hamiltonian_nn.state_dict(), <span class="st">"hamiltonian_nn_1.pth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note the calculation of loss- <code>loss = loss_func(deriv_pred, true_derivatives)</code>. We calculate the loss between predicted and true derivatives. You are usually accustomed to see the loss being calculated between <code>y_pred</code> and <code>y</code>. But the parameters of the model get updated through backpropagation, as the optimizer receives them: <code>optimizer = torch.optim.Adam(hamiltonian_nn.parameters(), lr=1e-2)</code>.</p>
+<p>After running this script, I had a loss of <span class="math inline">\(0.0009111023391596973\)</span> - which is great.</p>
+<p>Note that I <em>train the model derivatives to be close to the true derivatives</em> - unlike normal NNs - where we train the model to output values close to the ground truth.</p>
+<p>Throughout the training, and generating data, maintaining the graph of the computation is crucial.</p>
+</section>
+<section id="plotting-the-trajectory-as-predicted-using-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-the-trajectory-as-predicted-using-the-model">Plotting the Trajectory as Predicted Using the Model</h2>
+<p>Now, I will plot the trajectory as solved from the derivatives predicted by the Neural Network. Here, we are using Semi-Implicit Euler’s Method to find points in the phase space. To learn more about this, read the previously mentioned post.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Here, we have an already trained HNN</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># We use it to plot trajectory</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="im">import</span> torch</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="im">from</span> HNN <span class="im">import</span> HNN</span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="im">from</span> hnn_model_derivs <span class="im">import</span> get_model_time_derivatives</span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a>device <span class="op">=</span> <span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co"># different initial states</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>init_a <span class="op">=</span> torch.tensor([<span class="fl">0.5</span>, <span class="dv">0</span>]).to(device)  <span class="co"># small release</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>init_b <span class="op">=</span> torch.tensor([<span class="fl">3.1</span>, <span class="dv">0</span>]).to(device)  <span class="co"># close to top</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>init_c <span class="op">=</span> torch.tensor([<span class="dv">0</span>, <span class="fl">5.0</span>]).to(device)  <span class="co"># kicked from near bottom</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co"># params</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>m <span class="op">=</span> <span class="fl">1.0</span>  <span class="co"># mass</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>l <span class="op">=</span> <span class="fl">1.0</span>  <span class="co"># length of rod</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a>dt <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># time-step</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a>g <span class="op">=</span> <span class="fl">9.8</span>  <span class="co"># gravitational acceleration</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a>hamiltonian_model <span class="op">=</span> HNN().to(device)</span>
+<span id="cb7-23"><a href="#cb7-23"></a>hamiltonian_model.load_state_dict(torch.load(<span class="st">"hamiltonian_nn_1.pth"</span>, weights_only<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb7-24"><a href="#cb7-24"></a></span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="kw">def</span> run_simulation_HNN(init_state: torch.Tensor):</span>
+<span id="cb7-27"><a href="#cb7-27"></a>    p_vals <span class="op">=</span> []</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    q_vals <span class="op">=</span> []</span>
+<span id="cb7-29"><a href="#cb7-29"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1_000</span>):</span>
+<span id="cb7-30"><a href="#cb7-30"></a>        curr_state_tensor <span class="op">=</span> (</span>
+<span id="cb7-31"><a href="#cb7-31"></a>            init_state.clone().detach().unsqueeze(<span class="dv">0</span>).requires_grad_(<span class="va">True</span>)</span>
+<span id="cb7-32"><a href="#cb7-32"></a>        )</span>
+<span id="cb7-33"><a href="#cb7-33"></a>        derivs <span class="op">=</span> get_model_time_derivatives(hamiltonian_model, curr_state_tensor)</span>
+<span id="cb7-34"><a href="#cb7-34"></a></span>
+<span id="cb7-35"><a href="#cb7-35"></a>        dq_dt <span class="op">=</span> derivs[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb7-36"><a href="#cb7-36"></a>        dp_dt <span class="op">=</span> derivs[<span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb7-37"><a href="#cb7-37"></a></span>
+<span id="cb7-38"><a href="#cb7-38"></a>        q_old, p_old <span class="op">=</span> init_state</span>
+<span id="cb7-39"><a href="#cb7-39"></a></span>
+<span id="cb7-40"><a href="#cb7-40"></a>        p_new <span class="op">=</span> p_old <span class="op">+</span> dp_dt <span class="op">*</span> dt</span>
+<span id="cb7-41"><a href="#cb7-41"></a>        q_new <span class="op">=</span> q_old <span class="op">+</span> dq_dt <span class="op">*</span> dt</span>
+<span id="cb7-42"><a href="#cb7-42"></a></span>
+<span id="cb7-43"><a href="#cb7-43"></a>        init_state <span class="op">=</span> torch.tensor([q_new, p_new]).to(device)</span>
+<span id="cb7-44"><a href="#cb7-44"></a></span>
+<span id="cb7-45"><a href="#cb7-45"></a>        q_vals.append(q_new.item())</span>
+<span id="cb7-46"><a href="#cb7-46"></a>        p_vals.append(p_new.item())</span>
+<span id="cb7-47"><a href="#cb7-47"></a>    <span class="cf">return</span> p_vals, q_vals</span>
+<span id="cb7-48"><a href="#cb7-48"></a></span>
+<span id="cb7-49"><a href="#cb7-49"></a></span>
+<span id="cb7-50"><a href="#cb7-50"></a>a_p_vals, a_q_vals <span class="op">=</span> run_simulation_HNN(init_a)</span>
+<span id="cb7-51"><a href="#cb7-51"></a>b_p_vals, b_q_vals <span class="op">=</span> run_simulation_HNN(init_b)</span>
+<span id="cb7-52"><a href="#cb7-52"></a>c_p_vals, c_q_vals <span class="op">=</span> run_simulation_HNN(init_c)</span>
+<span id="cb7-53"><a href="#cb7-53"></a></span>
+<span id="cb7-54"><a href="#cb7-54"></a><span class="co"># Plotting</span></span>
+<span id="cb7-55"><a href="#cb7-55"></a>plt.plot(a_q_vals, a_p_vals, label<span class="op">=</span><span class="st">"$q_0=0, p_0=0$"</span>)</span>
+<span id="cb7-56"><a href="#cb7-56"></a>plt.plot(b_q_vals, b_p_vals, label<span class="op">=</span><span class="st">"$q_0=3.1, p_0=0$"</span>)</span>
+<span id="cb7-57"><a href="#cb7-57"></a>plt.plot(c_q_vals, c_p_vals, label<span class="op">=</span><span class="st">"$q_0=0, p_0=5.0$"</span>)</span>
+<span id="cb7-58"><a href="#cb7-58"></a></span>
+<span id="cb7-59"><a href="#cb7-59"></a>plt.xlabel(<span class="st">"$q$"</span>)</span>
+<span id="cb7-60"><a href="#cb7-60"></a>plt.ylabel(<span class="st">"$p$"</span>)</span>
+<span id="cb7-61"><a href="#cb7-61"></a>plt.title(<span class="st">"$p  v. q$ for different inital conditions simulated via Hamiltonian NN"</span>)</span>
+<span id="cb7-62"><a href="#cb7-62"></a>plt.legend()</span>
+<span id="cb7-63"><a href="#cb7-63"></a>plt.tight_layout()</span>
+<span id="cb7-64"><a href="#cb7-64"></a>plt.savefig(<span class="st">"FIG5.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that, we are not using a Python function for this plot, but load the trained weights from a <code>.pth</code> file: <code>hamiltonian_model.load_state_dict(torch.load("hamiltonian_nn_1.pth", weights_only=True))</code>.</p>
+<p>This is the plot that we get:</p>
+<p><img src="FIG5.png" class="img-fluid"></p>
+<p>For the inner loops (blue and green), The network did a decent job learning the “swinging” motion! It captured the concentric nature of the phase space near the center. The outer “loop” (orange): This trajectory starts at q=3.1. In our clean phase space figure, this was a closed loop (the “eye”). In our HNN simulation, it drifts off significantly.</p>
+<p>This is due to the fact that the point was an out-of-distribution data point for the model.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>We have trained a Neural Network’s parameters so that the model learns the Physics from the data, by making <em>its gradients</em> be close to the real derivatives. We saw that we can leverage our Physics knowledge in training of Neural Networks, and leverage Physical properties like Liouville’s Theorem to train well-behaved NNs with predictable behaviour.</p>
+<hr>
+<section id="changelog" class="level3">
+<h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
+<p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
+<p><img src="human-gen-sticker.png" width="256"></p>
+<hr>
+</section>
+<section id="cite-this-article" class="level3">
+<h3 class="anchored" data-anchor-id="cite-this-article">Cite this Article</h3>
+<pre><code>@ONLINE {,
+    author = "Ritobrata Ghosh",
+    title  = "Training a Hamiltonian Neural Network",
+    month  = "jan",
+    year   = "2026",
+    url    = "https://ritog.github.io/posts/hamiltonian_nn"
+}</code></pre>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="ritog/ritog.github.io" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

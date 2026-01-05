@@ -10,7 +10,1044 @@
 <atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Fri, 02 Jan 2026 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 05 Jan 2026 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Training a Hamiltonian Neural Network</title>
+  <dc:creator>Ritobrata Ghosh</dc:creator>
+  <link>https://ritog.github.io/posts/hamiltonian_nn/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator" class="level2">
+<h2 class="anchored" data-anchor-id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator">Training a Hamiltonian Neural Network: Using an NN for Simulating the Phase Space of a Harmonic Oscillator</h2>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/cover_hamiltonian_nn.png" class="img-fluid"></p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We can use Neural Networks not only for predicting the class of an image, completing sentences, or classifying sentiment of a paragraph of text. We can also use Neural Networks for solving scientific problems. In this article, you will learn about using a trained Neural Network to simulate the phase space of a Harmonic Oscillator (a weighted rigid pendulum). Here, there’s a twist. We will train the Neural Network not by calculating the loss between the outputs and the ground truth data, but we will <em>train using the derivatives</em>. We will leverage our Physics knowledge to train the Neural Network.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>I expect the reader to be knowledgeable about basics of training a Neural Network from scratch- using a library like PyTorch, Jax, etc. I will use PyTorch in this project. I expect no knowledge of Hamiltonian Dynamics or college-level Physics, but knowing the basics of Physics up to High School level. Being well-versed in Differential Calculus is required. Experience with Python is helpful. I also expect the reader to have read an earlier post on simulating a spring with Hamiltonian Mechanics and plotting the phase space as well as the trajectory: <a href="../../posts/implicit_euler/index.html">Modelling a Spring System in Hamiltonian Mechanics: Using Euler’s Method for Trajectory Plotting</a>.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>We will model our system using Hamiltonian Dynamics. And using the Python function, we will plot the phase space of the system. And then using the the derivatives, we will train a Neural Network using those derivatives. Then we will use the trained Neural Network to again simulate the system and plot the phase space of the system. And we will see how the NN is doing. If you don’t know about Hamiltonian Dynamics or phase spaces, then that’s okay. I will cover what we need.</p>
+</section>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">Code</h2>
+<p>All code used in this project is available on GitHub: <a href="https://github.com/ritog/harmonic"><strong>ritog/harmonic</strong></a>.</p>
+</section>
+<section id="our-physical-system" class="level2">
+<h2 class="anchored" data-anchor-id="our-physical-system">Our Physical System</h2>
+<p>We will work with a rigid pendulum.</p>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/physical-pendulum-rod-and-ball.png" class="img-fluid"></p>
+<p>The related variables are:</p>
+<ul>
+<li>A body of mass <img src="https://latex.codecogs.com/png.latex?m"> on a rigid rod of length <img src="https://latex.codecogs.com/png.latex?l"></li>
+<li>Angle <img src="https://latex.codecogs.com/png.latex?q"> (<img src="https://latex.codecogs.com/png.latex?0"> is straight down)</li>
+<li>Angular momentum, <img src="https://latex.codecogs.com/png.latex?p"></li>
+<li>Gravity <img src="https://latex.codecogs.com/png.latex?g"></li>
+</ul>
+</section>
+<section id="defining-the-hamiltonian-of-our-system" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-hamiltonian-of-our-system">Defining the Hamiltonian of Our System</h2>
+<ol type="1">
+<li>Potential Energy(<img src="https://latex.codecogs.com/png.latex?V">): Height is <img src="https://latex.codecogs.com/png.latex?l(1-%5Ccos%7Bq%7D)">, so, <img src="https://latex.codecogs.com/png.latex?V%20=%20mgl(1-%5Ccos%7Bq%7D)"></li>
+</ol>
+<p>How? <img src="https://ritog.github.io/posts/hamiltonian_nn/triangle.png" class="img-fluid"></p>
+<ol start="2" type="1">
+<li>Kinetic Energy (<img src="https://latex.codecogs.com/png.latex?T">):</li>
+</ol>
+<p>Rotational kinetic energy is <img src="https://latex.codecogs.com/png.latex?%5Cdfrac12%20I%20%7B%5Comega%7D%5E2">. For a point mass, moment of inertia, <img src="https://latex.codecogs.com/png.latex?I=ml%5E2">, and angular velocity, <img src="https://latex.codecogs.com/png.latex?%5Comega%20=%20%5Cdfrac%7Bp%7D%7Bml%5E2%7D">.</p>
+<p>So, Kinetic Energy in terms of momentum, <img src="https://latex.codecogs.com/png.latex?T(p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2ml%5E2%7D"></p>
+<p>Remember that, in Hamiltonian mechanics, the Hamiltonian of the system is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20V%20+%20T"></p>
+<p>And the Hamiltonian equations are:</p>
+<ol type="1">
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdq%7D%7Bdt%7D%20=%20%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20p%7D"></li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdp%7D%7Bdt%7D%20=%20-%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20q%7D"></li>
+</ol>
+<p>If we calculate theses, we will get:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bml%5E2%7D%20&amp;%20%5Ctext%7B(Angular%20Velocity)%7D%20%5C%5C%0A%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-mgl%20%5Csin%20q%20&amp;%20%5Ctext%7B(Torque%20due%20to%20Gravity)%7D%0A%5Cend%7Baligned%7D"></p>
+<p>You can trust me, or check using a pen and paper. Remember that I said the same thing in the last article as well?</p>
+</section>
+<section id="implementing" class="level2">
+<h2 class="anchored" data-anchor-id="implementing">Implementing</h2>
+<p>This is how we implement this in Python. Using this function, we can find the derivatives, and using these, we can find the trajectory.</p>
+<p>Here’s a basic implementation using NumPy:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> pendulum_dynamics(t, state: List, m, l, g) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> List:</span>
+<span id="cb1-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb1-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    inputs:</span></span>
+<span id="cb1-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    t: The current time, solvers expect it.</span></span>
+<span id="cb1-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    state: A list or array containing [q, p].</span></span>
+<span id="cb1-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    m: mass</span></span>
+<span id="cb1-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    l: the length of the rigid pendulum</span></span>
+<span id="cb1-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    g: gravitational acceleration</span></span>
+<span id="cb1-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    output:</span></span>
+<span id="cb1-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    the list [dq_dt, dp_dt]</span></span>
+<span id="cb1-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb1-12">    dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> state[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.power(l, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>))</span>
+<span id="cb1-13">    dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> g <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.sin(state[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])</span>
+<span id="cb1-14">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div>
+<p>Or, we can write a version using <code>torch</code>. This will make things better.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> pendulum_dynamics_tensor(t, state: torch.Tensor, m, l, g) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> torch.Tensor:</span>
+<span id="cb2-2">    dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (state[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> torch.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">pow</span>(torch.tensor(l), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>))).unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb2-3">    dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> g <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> torch.sin(state[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])).unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb2-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> torch.cat([dq_dt, dp_dt], dim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span></code></pre></div>
+<p>We can use the earlier function to plot the trajectory of the pendulum.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pendulum_nonlinear <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pendulum_dynamics</span>
+<span id="cb3-2"></span>
+<span id="cb3-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># different initial states</span></span>
+<span id="cb3-4">init_a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># small release</span></span>
+<span id="cb3-5">init_b <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># close to top</span></span>
+<span id="cb3-6">init_c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.0</span>]  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># close to bottom with force</span></span>
+<span id="cb3-7"></span>
+<span id="cb3-8"></span>
+<span id="cb3-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># params</span></span>
+<span id="cb3-10">m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># mass</span></span>
+<span id="cb3-11">l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># length of rod</span></span>
+<span id="cb3-12">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.05</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># time-step</span></span>
+<span id="cb3-13">g <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9.8</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># gravitational acceleration</span></span>
+<span id="cb3-14"></span>
+<span id="cb3-15"></span>
+<span id="cb3-16"></span>
+<span id="cb3-17"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> run_simulation(init_state: List):</span>
+<span id="cb3-18">    p_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb3-19">    q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb3-20">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1_000</span>):</span>
+<span id="cb3-21">        q, p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> init_state</span>
+<span id="cb3-22">        _, dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pendulum_dynamics(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[q, p], m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, l<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>l, g<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>g)</span>
+<span id="cb3-23">        p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb3-24">        dq_dt, _ <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pendulum_dynamics(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[q, p], m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, l<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>l, g<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>g)</span>
+<span id="cb3-25">        q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> q <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb3-26">        init_state <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [q, p]</span>
+<span id="cb3-27">        q_vals.append(q)</span>
+<span id="cb3-28">        p_vals.append(p)</span>
+<span id="cb3-29">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> p_vals, q_vals</span>
+<span id="cb3-30"></span>
+<span id="cb3-31">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation(init_a)</span>
+<span id="cb3-32">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation(init_b)</span>
+<span id="cb3-33">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation(init_c)</span>
+<span id="cb3-34"></span>
+<span id="cb3-35"></span>
+<span id="cb3-36"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Plotting</span></span>
+<span id="cb3-37">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=0, p_0=0$"</span>)</span>
+<span id="cb3-38">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=3.1, p_0=0$"</span>)</span>
+<span id="cb3-39">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=0, p_0=5.0$"</span>)</span>
+<span id="cb3-40">plt.xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q$"</span>)</span>
+<span id="cb3-41">plt.ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$p$"</span>)</span>
+<span id="cb3-42">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$p v. q$ for different inital conditions"</span>)</span>
+<span id="cb3-43">plt.legend()</span>
+<span id="cb3-44">plt.tight_layout()</span>
+<span id="cb3-45">plt.show()</span></code></pre></div>
+<p>This is the plot that the code generates:</p>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/Figure_3.png" class="img-fluid"></p>
+<p>The Blue and green loops represent the pendulum swinging back and forth. It doesn’t have enough energy to go over the top, so it stays trapped in a closed loop. The Orange loop is right on the edge! If you had just a tiny bit more energy, the pendulum would stop swinging back and start spinning 360° continuously.</p>
+<p>One of the reasons that Hamiltonian Neural Networks are better than vanilla Neural ODEs comes from Hamiltonian Mechanics. There’s a special property called Liouville’s Theorem, which says that the total area under the curve for the total set of initial points will be preserved for the total set of end points. That is, if you think of the initial points as a blob of points, then the blob might stretch, skew, twist, or distort, but the total area will remain constant. This is how Neural Networks handle data in higher dimension, and maps training data to target. I recommend that you watch Alfredo Canziani’s video from NYU CDS: <a href="https://youtu.be/0TdAmZUMj2k?si=dcQG-2jwaYiVwyHx&amp;t=1127">02 – Neural nets: rotation and squashing</a> to get great a visual grasp of this. These kind of transformations are modelled and studied extensively in Linear Algebra.</p>
+<p>This incompressible flow of points, and fluid-like behaviour (as opposed to gas-like, as gases compress and expand) are great for Neural Networks, and NNs trained using Hamiltonian mechanics are much more robust and well-behaved than simple NODEs.</p>
+<p>I am not writing more about this here. Maybe in a future post I write more on this.</p>
+</section>
+<section id="hamiltonian-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="hamiltonian-neural-network">Hamiltonian Neural Network</h2>
+<p>With our Python function, we can generate the data from our knowledge of Physics.</p>
+<p>With Deep Learning, we solve the opposite problem- going from data to the Physics.</p>
+<p>Standard Neural ODEs try to learn the derivatives directly from the available data.</p>
+<p>Input: <img src="https://latex.codecogs.com/png.latex?(q,%20p)">, Output: <img src="https://latex.codecogs.com/png.latex?(%5Cdfrac%7Bdq%7D%7Bdt%7D,%20%5Cdfrac%7Bdp%7D%7Bdt%7D)"></p>
+<p>But, Hamiltonian Neural Networks are smarter. Instead of training the NN to predict the data, we force the NN to <em>predict the Hamiltonian</em> of the system.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7BH%7D%20=%20NeuralNet(q,%20p;%5Ctheta)"></p>
+<p>Here, <img src="https://latex.codecogs.com/png.latex?%5Ctheta"> is the set of trainable parameters of the neural network.</p>
+<p>We ask the Neural Network to output the Hamiltonian of the system. And, <em>as the Neural Network is just a chain of differentiable math operations, if we calculate the gradients of the output ($), with respect to the variables <img src="https://latex.codecogs.com/png.latex?q"> and <img src="https://latex.codecogs.com/png.latex?p">, then, what we have are predicted time derivatives of the Hamiltonian</em>.</p>
+<ol type="1">
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bd%5Chat%7Bq%7D%7D%7Bdt%7D%20=%20%5Cdfrac%7B%5Cpartial%20%5Chat%7BH%7D%7D%7B%5Cpartial%20p%7D"></li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bd%5Chat%7Bp%7D%7D%7Bdt%7D%20=%20-%5Cdfrac%7B%5Cpartial%20%5Chat%7BH%7D%7D%7B%5Cpartial%20q%7D"></li>
+</ol>
+<p>Here is our Neural Network:</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb4-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> torch <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> nn</span>
+<span id="cb4-3"></span>
+<span id="cb4-4">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cpu"</span></span>
+<span id="cb4-5"></span>
+<span id="cb4-6"></span>
+<span id="cb4-7"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">class</span> HNN(nn.Module):</span>
+<span id="cb4-8">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb4-9">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">super</span>().<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>()</span>
+<span id="cb4-10">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.linear_block <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> nn.Sequential(</span>
+<span id="cb4-11">            nn.Linear(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>),</span>
+<span id="cb4-12">            nn.Tanh(),</span>
+<span id="cb4-13">            nn.Linear(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>),</span>
+<span id="cb4-14">            nn.Tanh(),</span>
+<span id="cb4-15">            nn.Linear(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>),</span>
+<span id="cb4-16">        )</span>
+<span id="cb4-17"></span>
+<span id="cb4-18">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, x):</span>
+<span id="cb4-19">        H <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.linear_block(x)</span>
+<span id="cb4-20">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> H</span></code></pre></div>
+<p>There are two things to note in the code:</p>
+<ul>
+<li>There is no activation function at the end of the final Fully Connected (FC) layer. Because we want the Neural Network to output a value that is perceived as the total energy of the system, and it’s a real-numbered value, not limited to the range of the <img src="https://latex.codecogs.com/png.latex?%5Ctanh%7B%7D"> function.</li>
+<li>We chose the <code>tanh()</code> activation function. As the function is thoroughly differentiable at every point.</li>
+</ul>
+<p>We want to feed a batch of 200 pairs of <img src="https://latex.codecogs.com/png.latex?q"> and <img src="https://latex.codecogs.com/png.latex?p"> to the NN.</p>
+</section>
+<section id="training-the-hamiltonian-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="training-the-hamiltonian-neural-network">Training the Hamiltonian Neural Network</h2>
+<p>We want to write vectorized code. We don’t want to bottleneck the model by feeding in data through naive for loops.</p>
+<p>For that, we can write a function to get the derivatives of the model, in batches:</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb5-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> HNN <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> HNN</span>
+<span id="cb5-3"></span>
+<span id="cb5-4">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cpu"</span></span>
+<span id="cb5-5"></span>
+<span id="cb5-6"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> get_model_time_derivatives(model, x):</span>
+<span id="cb5-7">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb5-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Compute time derivatives [dq/dt, dp/dt] for a batch of inputs.</span></span>
+<span id="cb5-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    x: Tensor of shape (Batch_Size, 2)</span></span>
+<span id="cb5-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb5-11">    H_hat <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(x)</span>
+<span id="cb5-12"></span>
+<span id="cb5-13">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># sum the energy to get a scalar,</span></span>
+<span id="cb5-14">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># the gradients separate out perfectly per row</span></span>
+<span id="cb5-15">    grads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.autograd.grad(H_hat.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sum</span>(), x, create_graph<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb5-16"></span>
+<span id="cb5-17">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># grads shape: (Batch, 2) -&gt; [dH/dq, dH/dp]</span></span>
+<span id="cb5-18"></span>
+<span id="cb5-19">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># flipping (Symplectic Swap (Hamilton's Eqs))</span></span>
+<span id="cb5-20">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># dq/dt =  dH/dp</span></span>
+<span id="cb5-21">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># dp/dt = -dH/dq</span></span>
+<span id="cb5-22"></span>
+<span id="cb5-23">    dH_dq <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> grads[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb5-24">    dH_dp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> grads[:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb5-25"></span>
+<span id="cb5-26">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> torch.cat([dH_dp, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>dH_dq], dim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># - because minus</span></span></code></pre></div>
+<p>There is a nice trick with the summing up of the predicted Hamiltonians. PyTorch can only find gradients of scalars. And here we have a tensor of predicted Hamiltonians. We can just sum them up, and then find the gradient with respect to the whole batch of the inputs. And everything gets neatly stored in rows. Gradient of a sum is equal to sum of gradients.</p>
+<p>I am not going deep into it for now. I hope that you know why this is the case.</p>
+<p>Here’s what the training script looks like:</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb6-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> tqdm <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> tqdm</span>
+<span id="cb6-3"></span>
+<span id="cb6-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> HNN <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> HNN</span>
+<span id="cb6-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> hnn_model_derivs <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> get_model_time_derivatives</span>
+<span id="cb6-6"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pendulum_tensor <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pendulum_dynamics_tensor</span>
+<span id="cb6-7"></span>
+<span id="cb6-8">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cpu"</span></span>
+<span id="cb6-9"></span>
+<span id="cb6-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># params</span></span>
+<span id="cb6-11">m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># mass</span></span>
+<span id="cb6-12">l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># length of rod</span></span>
+<span id="cb6-13">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.05</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># time-step</span></span>
+<span id="cb6-14">g <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9.8</span>    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># gravitational acceleration</span></span>
+<span id="cb6-15"></span>
+<span id="cb6-16">mean <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.tensor([<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.0</span>])</span>
+<span id="cb6-17">std <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span></span>
+<span id="cb6-18">init_states <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> torch.rand(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1_000</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>).to(device).requires_grad_()</span>
+<span id="cb6-19"></span>
+<span id="cb6-20">true_derivatives <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pendulum_dynamics_tensor(t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dt, state<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>init_states, m<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>m, l<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>l, g<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>g)</span>
+<span id="cb6-21"></span>
+<span id="cb6-22">hamiltonian_nn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> HNN().to(device)</span>
+<span id="cb6-23">loss_func <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.nn.MSELoss()</span>
+<span id="cb6-24">optimizer <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.optim.Adam(hamiltonian_nn.parameters(), lr<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-2</span>)</span>
+<span id="cb6-25"></span>
+<span id="cb6-26">n_epochs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1_200</span></span>
+<span id="cb6-27"></span>
+<span id="cb6-28"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> epoch <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> tqdm(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(n_epochs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)):</span>
+<span id="cb6-29">    deriv_pred <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> get_model_time_derivatives(hamiltonian_nn, init_states)</span>
+<span id="cb6-30">    loss <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> loss_func(deriv_pred, true_derivatives)</span>
+<span id="cb6-31"></span>
+<span id="cb6-32">    optimizer.zero_grad()</span>
+<span id="cb6-33">    loss.backward(retain_graph<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb6-34"></span>
+<span id="cb6-35">    optimizer.step()</span>
+<span id="cb6-36">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> epoch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>:</span>
+<span id="cb6-37">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Epoch: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>epoch<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\t</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> Loss: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>loss<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span>
+<span id="cb6-38"></span>
+<span id="cb6-39">torch.save(hamiltonian_nn.state_dict(), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hamiltonian_nn_1.pth"</span>)</span></code></pre></div>
+<p>Note the calculation of loss- <code>loss = loss_func(deriv_pred, true_derivatives)</code>. We calculate the loss between predicted and true derivatives. You are usually accustomed to see the loss being calculated between <code>y_pred</code> and <code>y</code>. But the parameters of the model get updated through backpropagation, as the optimizer receives them: <code>optimizer = torch.optim.Adam(hamiltonian_nn.parameters(), lr=1e-2)</code>.</p>
+<p>After running this script, I had a loss of <img src="https://latex.codecogs.com/png.latex?0.0009111023391596973"> - which is great.</p>
+<p>Note that I <em>train the model derivatives to be close to the true derivatives</em> - unlike normal NNs - where we train the model to output values close to the ground truth.</p>
+<p>Throughout the training, and generating data, maintaining the graph of the computation is crucial.</p>
+</section>
+<section id="plotting-the-trajectory-as-predicted-using-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-the-trajectory-as-predicted-using-the-model">Plotting the Trajectory as Predicted Using the Model</h2>
+<p>Now, I will plot the trajectory as solved from the derivatives predicted by the Neural Network. Here, we are using Semi-Implicit Euler’s Method to find points in the phase space. To learn more about this, read the previously mentioned post.</p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Here, we have an already trained HNN</span></span>
+<span id="cb7-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># We use it to plot trajectory</span></span>
+<span id="cb7-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb7-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> matplotlib <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb7-5"></span>
+<span id="cb7-6"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> HNN <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> HNN</span>
+<span id="cb7-7"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> hnn_model_derivs <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> get_model_time_derivatives</span>
+<span id="cb7-8"></span>
+<span id="cb7-9">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cpu"</span></span>
+<span id="cb7-10"></span>
+<span id="cb7-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># different initial states</span></span>
+<span id="cb7-12">init_a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.tensor([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]).to(device)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># small release</span></span>
+<span id="cb7-13">init_b <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.tensor([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]).to(device)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># close to top</span></span>
+<span id="cb7-14">init_c <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.tensor([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.0</span>]).to(device)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># kicked from near bottom</span></span>
+<span id="cb7-15"></span>
+<span id="cb7-16"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># params</span></span>
+<span id="cb7-17">m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># mass</span></span>
+<span id="cb7-18">l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># length of rod</span></span>
+<span id="cb7-19">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.05</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># time-step</span></span>
+<span id="cb7-20">g <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9.8</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># gravitational acceleration</span></span>
+<span id="cb7-21"></span>
+<span id="cb7-22">hamiltonian_model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> HNN().to(device)</span>
+<span id="cb7-23">hamiltonian_model.load_state_dict(torch.load(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hamiltonian_nn_1.pth"</span>, weights_only<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>))</span>
+<span id="cb7-24"></span>
+<span id="cb7-25"></span>
+<span id="cb7-26"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> run_simulation_HNN(init_state: torch.Tensor):</span>
+<span id="cb7-27">    p_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb7-28">    q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb7-29">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1_000</span>):</span>
+<span id="cb7-30">        curr_state_tensor <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb7-31">            init_state.clone().detach().unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>).requires_grad_(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb7-32">        )</span>
+<span id="cb7-33">        derivs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> get_model_time_derivatives(hamiltonian_model, curr_state_tensor)</span>
+<span id="cb7-34"></span>
+<span id="cb7-35">        dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> derivs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb7-36">        dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> derivs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb7-37"></span>
+<span id="cb7-38">        q_old, p_old <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> init_state</span>
+<span id="cb7-39"></span>
+<span id="cb7-40">        p_new <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p_old <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb7-41">        q_new <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> q_old <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> dt</span>
+<span id="cb7-42"></span>
+<span id="cb7-43">        init_state <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.tensor([q_new, p_new]).to(device)</span>
+<span id="cb7-44"></span>
+<span id="cb7-45">        q_vals.append(q_new.item())</span>
+<span id="cb7-46">        p_vals.append(p_new.item())</span>
+<span id="cb7-47">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> p_vals, q_vals</span>
+<span id="cb7-48"></span>
+<span id="cb7-49"></span>
+<span id="cb7-50">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation_HNN(init_a)</span>
+<span id="cb7-51">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation_HNN(init_b)</span>
+<span id="cb7-52">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> run_simulation_HNN(init_c)</span>
+<span id="cb7-53"></span>
+<span id="cb7-54"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Plotting</span></span>
+<span id="cb7-55">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=0, p_0=0$"</span>)</span>
+<span id="cb7-56">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=3.1, p_0=0$"</span>)</span>
+<span id="cb7-57">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q_0=0, p_0=5.0$"</span>)</span>
+<span id="cb7-58"></span>
+<span id="cb7-59">plt.xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$q$"</span>)</span>
+<span id="cb7-60">plt.ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$p$"</span>)</span>
+<span id="cb7-61">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"$p  v. q$ for different inital conditions simulated via Hamiltonian NN"</span>)</span>
+<span id="cb7-62">plt.legend()</span>
+<span id="cb7-63">plt.tight_layout()</span>
+<span id="cb7-64">plt.savefig(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
+<p>Note that, we are not using a Python function for this plot, but load the trained weights from a <code>.pth</code> file: <code>hamiltonian_model.load_state_dict(torch.load("hamiltonian_nn_1.pth", weights_only=True))</code>.</p>
+<p>This is the plot that we get:</p>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/FIG5.png" class="img-fluid"></p>
+<p>For the inner loops (blue and green), The network did a decent job learning the “swinging” motion! It captured the concentric nature of the phase space near the center. The outer “loop” (orange): This trajectory starts at q=3.1. In our clean phase space figure, this was a closed loop (the “eye”). In our HNN simulation, it drifts off significantly.</p>
+<p>This is due to the fact that the point was an out-of-distribution data point for the model.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>We have trained a Neural Network’s parameters so that the model learns the Physics from the data, by making <em>its gradients</em> be close to the real derivatives. We saw that we can leverage our Physics knowledge in training of Neural Networks, and leverage Physical properties like Liouville’s Theorem to train well-behaved NNs with predictable behaviour.</p>
+<hr>
+<section id="changelog" class="level3">
+<h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
+<p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/human-gen-sticker.png" width="256"></p>
+<hr>
+</section>
+<section id="cite-this-article" class="level3">
+<h3 class="anchored" data-anchor-id="cite-this-article">Cite this Article</h3>
+<pre><code>@ONLINE {,
+    author = "Ritobrata Ghosh",
+    title  = "Training a Hamiltonian Neural Network",
+    month  = "jan",
+    year   = "2026",
+    url    = "https://ritog.github.io/posts/hamiltonian_nn"
+}</code></pre>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+  <category>deep-learning</category>
+  <category>physics</category>
+  <category>computational-math</category>
+  <guid>https://ritog.github.io/posts/hamiltonian_nn/index.html</guid>
+  <pubDate>Mon, 05 Jan 2026 18:30:00 GMT</pubDate>
+  <media:content url="https://ritog.github.io/posts/hamiltonian_nn/cover_hamiltonian_nn.png" medium="image" type="image/png" height="79" width="144"/>
+</item>
 <item>
   <title>Modelling a Spring System in Hamiltonian Mechanics</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
