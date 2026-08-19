@@ -6,16 +6,18 @@
       version="2.0">
 <channel>
 <title>Posts by Rito Ghosh</title>
-<link>https://ritog.github.io/index.html</link>
+<link>https://ritog.github.io/</link>
 <atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.450</generator>
+<generator>quarto-1.10.18</generator>
 <lastBuildDate>Mon, 05 Jan 2026 18:30:00 GMT</lastBuildDate>
 <item>
   <title>Training a Hamiltonian Neural Network</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/hamiltonian_nn/index.html</link>
+  <link>https://ritog.github.io/posts/hamiltonian_nn/</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -62,24 +64,25 @@
 <li>Kinetic Energy (<img src="https://latex.codecogs.com/png.latex?T">):</li>
 </ol>
 <p>Rotational kinetic energy is <img src="https://latex.codecogs.com/png.latex?%5Cdfrac12%20I%20%7B%5Comega%7D%5E2">. For a point mass, moment of inertia, <img src="https://latex.codecogs.com/png.latex?I=ml%5E2">, and angular velocity, <img src="https://latex.codecogs.com/png.latex?%5Comega%20=%20%5Cdfrac%7Bp%7D%7Bml%5E2%7D">.</p>
-<p>So, Kinetic Energy in terms of momentum, <img src="https://latex.codecogs.com/png.latex?T(p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2ml%5E2%7D"></p>
+<p>So, Kinetic Energy in terms of momentum, <img src="https://latex.codecogs.com/png.latex?%0AT(p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2ml%5E2%7D%0A"></p>
 <p>Remember that, in Hamiltonian mechanics, the Hamiltonian of the system is:</p>
-<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20V%20+%20T"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AH(q,%20p)%20=%20V%20+%20T%0A"></p>
 <p>And the Hamiltonian equations are:</p>
 <ol type="1">
 <li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdq%7D%7Bdt%7D%20=%20%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20p%7D"></li>
 <li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bdp%7D%7Bdt%7D%20=%20-%5Cdfrac%7B%5Cpartial%20H%7D%7B%5Cpartial%20q%7D"></li>
 </ol>
 <p>If we calculate theses, we will get:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bml%5E2%7D%20&amp;%20%5Ctext%7B(Angular%20Velocity)%7D%20%5C%5C%0A%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-mgl%20%5Csin%20q%20&amp;%20%5Ctext%7B(Torque%20due%20to%20Gravity)%7D%0A%5Cend%7Baligned%7D"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%20%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bml%5E2%7D%20&amp;%20%5Ctext%7B(Angular%20Velocity)%7D%20%5C%5C%20%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-mgl%20%5Csin%20q%20&amp;%20%5Ctext%7B(Torque%20due%20to%20Gravity)%7D%20%5Cend%7Baligned%7D%0A"></p>
 <p>You can trust me, or check using a pen and paper. Remember that I said the same thing in the last article as well?</p>
 </section>
 <section id="implementing" class="level2">
 <h2 class="anchored" data-anchor-id="implementing">Implementing</h2>
 <p>This is how we implement this in Python. Using this function, we can find the derivatives, and using these, we can find the trajectory.</p>
 <p>Here’s a basic implementation using NumPy:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> pendulum_dynamics(t, state: List, m, l, g) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-&gt;</span> List:</span>
@@ -139,10 +142,12 @@ background-color: null;
 font-style: inherit;">0</span>])</span>
 <span id="cb1-14">    <span class="cf" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div>
+font-weight: bold;
+font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div></div>
 <p>Or, we can write a version using <code>torch</code>. This will make things better.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> pendulum_dynamics_tensor(t, state: torch.Tensor, m, l, g) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-&gt;</span> torch.Tensor:</span>
@@ -178,13 +183,14 @@ background-color: null;
 font-style: inherit;">1</span>)</span>
 <span id="cb2-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> torch.cat([dq_dt, dp_dt], dim<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span>)</span></code></pre></div>
+font-style: inherit;">1</span>)</span></code></pre></div></div>
 <p>We can use the earlier function to plot the trajectory of the pendulum.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pendulum_nonlinear <span class="im" style="color: #00769E;
 background-color: null;
@@ -221,63 +227,63 @@ font-style: inherit;">5.0</span>]  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># close to bottom with force</span></span>
 <span id="cb3-7"></span>
-<span id="cb3-8"></span>
-<span id="cb3-9"><span class="co" style="color: #5E5E5E;
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># params</span></span>
-<span id="cb3-10">m <span class="op" style="color: #5E5E5E;
+<span id="cb3-9">m <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># mass</span></span>
-<span id="cb3-11">l <span class="op" style="color: #5E5E5E;
+<span id="cb3-10">l <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.0</span>    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># length of rod</span></span>
-<span id="cb3-12">dt <span class="op" style="color: #5E5E5E;
+<span id="cb3-11">dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.05</span>  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># time-step</span></span>
-<span id="cb3-13">g <span class="op" style="color: #5E5E5E;
+<span id="cb3-12">g <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">9.8</span>    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># gravitational acceleration</span></span>
-<span id="cb3-14"></span>
-<span id="cb3-15"></span>
-<span id="cb3-16"></span>
-<span id="cb3-17"><span class="kw" style="color: #003B4F;
+<span id="cb3-13"></span>
+<span id="cb3-14"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> run_simulation(init_state: List):</span>
-<span id="cb3-18">    p_vals <span class="op" style="color: #5E5E5E;
+<span id="cb3-15">    p_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
-<span id="cb3-19">    q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb3-16">    q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
-<span id="cb3-20">    <span class="cf" style="color: #003B4F;
+<span id="cb3-17">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1_000</span>):</span>
-<span id="cb3-21">        q, p <span class="op" style="color: #5E5E5E;
+<span id="cb3-18">        q, p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> init_state</span>
-<span id="cb3-22">        _, dp_dt <span class="op" style="color: #5E5E5E;
+<span id="cb3-19">        _, dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pendulum_dynamics(t<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -290,14 +296,14 @@ background-color: null;
 font-style: inherit;">=</span>l, g<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>g)</span>
-<span id="cb3-23">        p <span class="op" style="color: #5E5E5E;
+<span id="cb3-20">        p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb3-24">        dq_dt, _ <span class="op" style="color: #5E5E5E;
+<span id="cb3-21">        dq_dt, _ <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pendulum_dynamics(t<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -310,63 +316,63 @@ background-color: null;
 font-style: inherit;">=</span>l, g<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>g)</span>
-<span id="cb3-25">        q <span class="op" style="color: #5E5E5E;
+<span id="cb3-22">        q <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> q <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb3-26">        init_state <span class="op" style="color: #5E5E5E;
+<span id="cb3-23">        init_state <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [q, p]</span>
-<span id="cb3-27">        q_vals.append(q)</span>
-<span id="cb3-28">        p_vals.append(p)</span>
-<span id="cb3-29">    <span class="cf" style="color: #003B4F;
+<span id="cb3-24">        q_vals.append(q)</span>
+<span id="cb3-25">        p_vals.append(p)</span>
+<span id="cb3-26">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> p_vals, q_vals</span>
-<span id="cb3-30"></span>
-<span id="cb3-31">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb3-27"></span>
+<span id="cb3-28">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation(init_a)</span>
-<span id="cb3-32">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb3-29">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation(init_b)</span>
-<span id="cb3-33">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb3-30">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation(init_c)</span>
-<span id="cb3-34"></span>
-<span id="cb3-35"></span>
-<span id="cb3-36"><span class="co" style="color: #5E5E5E;
+<span id="cb3-31"></span>
+<span id="cb3-32"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting</span></span>
-<span id="cb3-37">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb3-33">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=0, p_0=0$"</span>)</span>
-<span id="cb3-38">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb3-34">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=3.1, p_0=0$"</span>)</span>
-<span id="cb3-39">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb3-35">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=0, p_0=5.0$"</span>)</span>
-<span id="cb3-40">plt.xlabel(<span class="st" style="color: #20794D;
+<span id="cb3-36">plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q$"</span>)</span>
-<span id="cb3-41">plt.ylabel(<span class="st" style="color: #20794D;
+<span id="cb3-37">plt.ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$p$"</span>)</span>
-<span id="cb3-42">plt.title(<span class="st" style="color: #20794D;
+<span id="cb3-38">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$p v. q$ for different inital conditions"</span>)</span>
-<span id="cb3-43">plt.legend()</span>
-<span id="cb3-44">plt.tight_layout()</span>
-<span id="cb3-45">plt.show()</span></code></pre></div>
+<span id="cb3-39">plt.legend()</span>
+<span id="cb3-40">plt.tight_layout()</span>
+<span id="cb3-41">plt.show()</span></code></pre></div></div>
 <p>This is the plot that the code generates:</p>
 <p><img src="https://ritog.github.io/posts/hamiltonian_nn/Figure_3.png" class="img-fluid"></p>
 <p>The Blue and green loops represent the pendulum swinging back and forth. It doesn’t have enough energy to go over the top, so it stays trapped in a closed loop. The Orange loop is right on the edge! If you had just a tiny bit more energy, the pendulum would stop swinging back and start spinning 360° continuously.</p>
@@ -381,7 +387,7 @@ font-style: inherit;">"$p v. q$ for different inital conditions"</span>)</span>
 <p>Standard Neural ODEs try to learn the derivatives directly from the available data.</p>
 <p>Input: <img src="https://latex.codecogs.com/png.latex?(q,%20p)">, Output: <img src="https://latex.codecogs.com/png.latex?(%5Cdfrac%7Bdq%7D%7Bdt%7D,%20%5Cdfrac%7Bdp%7D%7Bdt%7D)"></p>
 <p>But, Hamiltonian Neural Networks are smarter. Instead of training the NN to predict the data, we force the NN to <em>predict the Hamiltonian</em> of the system.</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Chat%7BH%7D%20=%20NeuralNet(q,%20p;%5Ctheta)"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Chat%7BH%7D%20=%20NeuralNet(q,%20p;%5Ctheta)%0A"></p>
 <p>Here, <img src="https://latex.codecogs.com/png.latex?%5Ctheta"> is the set of trainable parameters of the neural network.</p>
 <p>We ask the Neural Network to output the Hamiltonian of the system. And, <em>as the Neural Network is just a chain of differentiable math operations, if we calculate the gradients of the output ($), with respect to the variables <img src="https://latex.codecogs.com/png.latex?q"> and <img src="https://latex.codecogs.com/png.latex?p">, then, what we have are predicted time derivatives of the Hamiltonian</em>.</p>
 <ol type="1">
@@ -389,7 +395,7 @@ font-style: inherit;">"$p v. q$ for different inital conditions"</span>)</span>
 <li><img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7Bd%5Chat%7Bp%7D%7D%7Bdt%7D%20=%20-%5Cdfrac%7B%5Cpartial%20%5Chat%7BH%7D%7D%7B%5Cpartial%20q%7D"></li>
 </ol>
 <p>Here is our Neural Network:</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> torch</span>
 <span id="cb4-2"><span class="im" style="color: #00769E;
@@ -404,65 +410,70 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cpu"</span></span>
 <span id="cb4-5"></span>
-<span id="cb4-6"></span>
-<span id="cb4-7"><span class="kw" style="color: #003B4F;
+<span id="cb4-6"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> HNN(nn.Module):</span>
-<span id="cb4-8">    <span class="kw" style="color: #003B4F;
+<span id="cb4-7">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
-<span id="cb4-9">        <span class="bu" style="color: null;
+<span id="cb4-8">        <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">super</span>().<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>()</span>
-<span id="cb4-10">        <span class="va" style="color: #111111;
+<span id="cb4-9">        <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.linear_block <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> nn.Sequential(</span>
-<span id="cb4-11">            nn.Linear(<span class="dv" style="color: #AD0000;
+<span id="cb4-10">            nn.Linear(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>),</span>
-<span id="cb4-12">            nn.Tanh(),</span>
-<span id="cb4-13">            nn.Linear(<span class="dv" style="color: #AD0000;
+<span id="cb4-11">            nn.Tanh(),</span>
+<span id="cb4-12">            nn.Linear(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>),</span>
-<span id="cb4-14">            nn.Tanh(),</span>
-<span id="cb4-15">            nn.Linear(<span class="dv" style="color: #AD0000;
+<span id="cb4-13">            nn.Tanh(),</span>
+<span id="cb4-14">            nn.Linear(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>),</span>
-<span id="cb4-16">        )</span>
-<span id="cb4-17"></span>
-<span id="cb4-18">    <span class="kw" style="color: #003B4F;
+<span id="cb4-15">        )</span>
+<span id="cb4-16"></span>
+<span id="cb4-17">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, x):</span>
-<span id="cb4-19">        H <span class="op" style="color: #5E5E5E;
+<span id="cb4-18">        H <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.linear_block(x)</span>
-<span id="cb4-20">        <span class="cf" style="color: #003B4F;
+<span id="cb4-19">        <span class="cf" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">return</span> H</span></code></pre></div>
+font-weight: bold;
+font-style: inherit;">return</span> H</span></code></pre></div></div>
 <p>There are two things to note in the code:</p>
 <ul>
 <li>There is no activation function at the end of the final Fully Connected (FC) layer. Because we want the Neural Network to output a value that is perceived as the total energy of the system, and it’s a real-numbered value, not limited to the range of the <img src="https://latex.codecogs.com/png.latex?%5Ctanh%7B%7D"> function.</li>
@@ -474,7 +485,7 @@ font-style: inherit;">return</span> H</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="training-the-hamiltonian-neural-network">Training the Hamiltonian Neural Network</h2>
 <p>We want to write vectorized code. We don’t want to bottleneck the model by feeding in data through naive for loops.</p>
 <p>For that, we can write a function to get the derivatives of the model, in batches:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> torch</span>
 <span id="cb5-2"><span class="im" style="color: #00769E;
@@ -489,14 +500,17 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cpu"</span></span>
 <span id="cb5-5"></span>
 <span id="cb5-6"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> get_model_time_derivatives(model, x):</span>
 <span id="cb5-7">    <span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -563,6 +577,7 @@ font-style: inherit;">1</span>)</span>
 <span id="cb5-25"></span>
 <span id="cb5-26">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> torch.cat([dH_dp, <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span>dH_dq], dim<span class="op" style="color: #5E5E5E;
@@ -571,11 +586,11 @@ font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>)  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># - because minus</span></span></code></pre></div>
+font-style: inherit;"># - because minus</span></span></code></pre></div></div>
 <p>There is a nice trick with the summing up of the predicted Hamiltonians. PyTorch can only find gradients of scalars. And here we have a tensor of predicted Hamiltonians. We can just sum them up, and then find the gradient with respect to the whole batch of the inputs. And everything gets neatly stored in rows. Gradient of a sum is equal to sum of gradients.</p>
 <p>I am not going deep into it for now. I hope that you know why this is the case.</p>
 <p>Here’s what the training script looks like:</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> torch</span>
 <span id="cb6-2"><span class="im" style="color: #00769E;
@@ -606,8 +621,10 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cpu"</span></span>
@@ -710,8 +727,10 @@ font-style: inherit;">1_200</span></span>
 <span id="cb6-27"></span>
 <span id="cb6-28"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> epoch <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> tqdm(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(n_epochs <span class="op" style="color: #5E5E5E;
@@ -736,6 +755,7 @@ font-style: inherit;">True</span>)</span>
 <span id="cb6-35">    optimizer.step()</span>
 <span id="cb6-36">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> epoch <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span> <span class="dv" style="color: #AD0000;
@@ -767,7 +787,7 @@ font-style: inherit;">"</span>)</span>
 <span id="cb6-38"></span>
 <span id="cb6-39">torch.save(hamiltonian_nn.state_dict(), <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"hamiltonian_nn_1.pth"</span>)</span></code></pre></div>
+font-style: inherit;">"hamiltonian_nn_1.pth"</span>)</span></code></pre></div></div>
 <p>Note the calculation of loss- <code>loss = loss_func(deriv_pred, true_derivatives)</code>. We calculate the loss between predicted and true derivatives. You are usually accustomed to see the loss being calculated between <code>y_pred</code> and <code>y</code>. But the parameters of the model get updated through backpropagation, as the optimizer receives them: <code>optimizer = torch.optim.Adam(hamiltonian_nn.parameters(), lr=1e-2)</code>.</p>
 <p>After running this script, I had a loss of <img src="https://latex.codecogs.com/png.latex?0.0009111023391596973"> - which is great.</p>
 <p>Note that I <em>train the model derivatives to be close to the true derivatives</em> - unlike normal NNs - where we train the model to output values close to the ground truth.</p>
@@ -776,7 +796,7 @@ font-style: inherit;">"hamiltonian_nn_1.pth"</span>)</span></code></pre></div>
 <section id="plotting-the-trajectory-as-predicted-using-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="plotting-the-trajectory-as-predicted-using-the-model">Plotting the Trajectory as Predicted Using the Model</h2>
 <p>Now, I will plot the trajectory as solved from the derivatives predicted by the Neural Network. Here, we are using Semi-Implicit Euler’s Method to find points in the phase space. To learn more about this, read the previously mentioned post.</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Here, we have an already trained HNN</span></span>
 <span id="cb7-2"><span class="co" style="color: #5E5E5E;
@@ -810,8 +830,10 @@ font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cuda"</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cpu"</span></span>
@@ -890,126 +912,128 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>))</span>
 <span id="cb7-24"></span>
-<span id="cb7-25"></span>
-<span id="cb7-26"><span class="kw" style="color: #003B4F;
+<span id="cb7-25"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> run_simulation_HNN(init_state: torch.Tensor):</span>
-<span id="cb7-27">    p_vals <span class="op" style="color: #5E5E5E;
+<span id="cb7-26">    p_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
-<span id="cb7-28">    q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb7-27">    q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
-<span id="cb7-29">    <span class="cf" style="color: #003B4F;
+<span id="cb7-28">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1_000</span>):</span>
-<span id="cb7-30">        curr_state_tensor <span class="op" style="color: #5E5E5E;
+<span id="cb7-29">        curr_state_tensor <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (</span>
-<span id="cb7-31">            init_state.clone().detach().unsqueeze(<span class="dv" style="color: #AD0000;
+<span id="cb7-30">            init_state.clone().detach().unsqueeze(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>).requires_grad_(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
-<span id="cb7-32">        )</span>
-<span id="cb7-33">        derivs <span class="op" style="color: #5E5E5E;
+<span id="cb7-31">        )</span>
+<span id="cb7-32">        derivs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> get_model_time_derivatives(hamiltonian_model, curr_state_tensor)</span>
-<span id="cb7-34"></span>
-<span id="cb7-35">        dq_dt <span class="op" style="color: #5E5E5E;
+<span id="cb7-33"></span>
+<span id="cb7-34">        dq_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> derivs[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>]</span>
-<span id="cb7-36">        dp_dt <span class="op" style="color: #5E5E5E;
+<span id="cb7-35">        dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> derivs[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>]</span>
-<span id="cb7-37"></span>
-<span id="cb7-38">        q_old, p_old <span class="op" style="color: #5E5E5E;
+<span id="cb7-36"></span>
+<span id="cb7-37">        q_old, p_old <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> init_state</span>
-<span id="cb7-39"></span>
-<span id="cb7-40">        p_new <span class="op" style="color: #5E5E5E;
+<span id="cb7-38"></span>
+<span id="cb7-39">        p_new <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> p_old <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb7-41">        q_new <span class="op" style="color: #5E5E5E;
+<span id="cb7-40">        q_new <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> q_old <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb7-42"></span>
-<span id="cb7-43">        init_state <span class="op" style="color: #5E5E5E;
+<span id="cb7-41"></span>
+<span id="cb7-42">        init_state <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.tensor([q_new, p_new]).to(device)</span>
-<span id="cb7-44"></span>
-<span id="cb7-45">        q_vals.append(q_new.item())</span>
-<span id="cb7-46">        p_vals.append(p_new.item())</span>
-<span id="cb7-47">    <span class="cf" style="color: #003B4F;
+<span id="cb7-43"></span>
+<span id="cb7-44">        q_vals.append(q_new.item())</span>
+<span id="cb7-45">        p_vals.append(p_new.item())</span>
+<span id="cb7-46">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> p_vals, q_vals</span>
-<span id="cb7-48"></span>
-<span id="cb7-49"></span>
-<span id="cb7-50">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb7-47"></span>
+<span id="cb7-48">a_p_vals, a_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation_HNN(init_a)</span>
-<span id="cb7-51">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb7-49">b_p_vals, b_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation_HNN(init_b)</span>
-<span id="cb7-52">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
+<span id="cb7-50">c_p_vals, c_q_vals <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> run_simulation_HNN(init_c)</span>
-<span id="cb7-53"></span>
-<span id="cb7-54"><span class="co" style="color: #5E5E5E;
+<span id="cb7-51"></span>
+<span id="cb7-52"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting</span></span>
-<span id="cb7-55">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb7-53">plt.plot(a_q_vals, a_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=0, p_0=0$"</span>)</span>
-<span id="cb7-56">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb7-54">plt.plot(b_q_vals, b_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=3.1, p_0=0$"</span>)</span>
-<span id="cb7-57">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
+<span id="cb7-55">plt.plot(c_q_vals, c_p_vals, label<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q_0=0, p_0=5.0$"</span>)</span>
-<span id="cb7-58"></span>
-<span id="cb7-59">plt.xlabel(<span class="st" style="color: #20794D;
+<span id="cb7-56"></span>
+<span id="cb7-57">plt.xlabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$q$"</span>)</span>
-<span id="cb7-60">plt.ylabel(<span class="st" style="color: #20794D;
+<span id="cb7-58">plt.ylabel(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$p$"</span>)</span>
-<span id="cb7-61">plt.title(<span class="st" style="color: #20794D;
+<span id="cb7-59">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"$p  v. q$ for different inital conditions simulated via Hamiltonian NN"</span>)</span>
-<span id="cb7-62">plt.legend()</span>
-<span id="cb7-63">plt.tight_layout()</span>
-<span id="cb7-64">plt.savefig(<span class="st" style="color: #20794D;
+<span id="cb7-60">plt.legend()</span>
+<span id="cb7-61">plt.tight_layout()</span>
+<span id="cb7-62">plt.savefig(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
+font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
 <p>Note that, we are not using a Python function for this plot, but load the trained weights from a <code>.pth</code> file: <code>hamiltonian_model.load_state_dict(torch.load("hamiltonian_nn_1.pth", weights_only=True))</code>.</p>
 <p>This is the plot that we get:</p>
 <p><img src="https://ritog.github.io/posts/hamiltonian_nn/FIG5.png" class="img-fluid"></p>
@@ -1027,7 +1051,7 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
 <section id="changelog" class="level3">
 <h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
 <p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/human-gen-sticker.png" width="256"></p>
+<p><img src="https://ritog.github.io/posts/hamiltonian_nn/human-gen-sticker.png" class="img-fluid" width="256"></p>
 <hr>
 </section>
 <section id="cite-this-article" class="level3">
@@ -1044,19 +1068,21 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>deep-learning</category>
   <category>physics</category>
   <category>computational-math</category>
-  <guid>https://ritog.github.io/posts/hamiltonian_nn/index.html</guid>
+  <guid>https://ritog.github.io/posts/hamiltonian_nn/</guid>
   <pubDate>Mon, 05 Jan 2026 18:30:00 GMT</pubDate>
   <media:content url="https://ritog.github.io/posts/hamiltonian_nn/cover_hamiltonian_nn.png" medium="image" type="image/png" height="79" width="144"/>
 </item>
 <item>
   <title>Modelling a Spring System in Hamiltonian Mechanics</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/implicit_euler/index.html</link>
+  <link>https://ritog.github.io/posts/implicit_euler/</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -1094,11 +1120,11 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
 <p>With Hamiltonian system, we get what computers are better at solving. Although that’s not why it was invented or used for a long time. With Hamiltonian mechanics, we have conservation laws baked in, and it can represent evolution of the system through time as a flow, and it provides many geometrical niceties which we will not delve (I know) deep into in this article.</p>
 <p>The Hamiltonian of our system, is the sum of kinetic and potential energies of the system. And it is always conserved.</p>
 <p>Hamiltonian, <img src="https://latex.codecogs.com/png.latex?H"> of our system:</p>
-<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Ctext%7BKinetic%20Energy%20+%20Potential%20Energy%7D"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AH(q,%20p)%20=%20%5Ctext%7BKinetic%20Energy%20+%20Potential%20Energy%7D%0A"></p>
 <p>The Hamiltonian is a function of <img src="https://latex.codecogs.com/png.latex?p"> and <img src="https://latex.codecogs.com/png.latex?q"> only.</p>
-<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Cdfrac12%20mv%5E2%20+%20%5Cdfrac12%20kx%5E2"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AH(q,%20p)%20=%20%5Cdfrac12%20mv%5E2%20+%20%5Cdfrac12%20kx%5E2%0A"></p>
 <p>The above equation can be re-written as:</p>
-<p><img src="https://latex.codecogs.com/png.latex?H(q,%20p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2m%7D%20+%20%5Cdfrac12%20kq%5E2"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AH(q,%20p)%20=%20%5Cdfrac%7Bp%5E2%7D%7B2m%7D%20+%20%5Cdfrac12%20kq%5E2%0A"></p>
 <p>As <img src="https://latex.codecogs.com/png.latex?v%20=%20%5Cdfrac%7Bp%7D%7Bm%7D">. And the position <img src="https://latex.codecogs.com/png.latex?x"> is simply rewritten as <img src="https://latex.codecogs.com/png.latex?q">.</p>
 </section>
 <section id="hamiltonian-equations" class="level2">
@@ -1111,15 +1137,16 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div>
 <p>If you have never seen partial derivatives before- they are simple if you know derivatives. In partial derivatives, the variable you are differentiating with respect to, is treated as a variable. All other variables, <em>and constants</em> are treated as constants.</p>
 <p>Let’s say there is a function, <img src="https://latex.codecogs.com/png.latex?f(m,%20n)%20=%20m%5E2n%20+%20n%5E3m%20+%20m%20-%20n"> then <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7B%5Cpartial%20f%7D%7B%5Cpartial%20m%7D%20=%202mn%20+%20n%5E3%20+%201"> and <img src="https://latex.codecogs.com/png.latex?%5Cdfrac%7B%5Cpartial%20f%7D%7B%5Cpartial%20n%7D%20=%20m%5E2%20+%203n%5E2m%20-%201">. Even though <img src="https://latex.codecogs.com/png.latex?m"> and <img src="https://latex.codecogs.com/png.latex?n"> are variables, when we are differentiating with respect to one of them, we are treating the other as a constant.</p>
 <p>Now, if we calculate the Right Hand Sides of 1 and 2 above, we get,</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0A%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bm%7D%20%5C%5C%0A%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-kq%0A%5Cend%7Baligned%7D"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Baligned%7D%20%5Cfrac%7Bdq%7D%7Bdt%7D%20&amp;=%20%5Cfrac%7Bp%7D%7Bm%7D%20%5C%5C%20%5Cfrac%7Bdp%7D%7Bdt%7D%20&amp;=%20-kq%20%5Cend%7Baligned%7D%0A"></p>
 <p>You either trust me, or pick up a pen and paper and work through them!</p>
 <p>Now, look at the equations above. This is the core beauty of Hamiltonian mechanics. The change in <img src="https://latex.codecogs.com/png.latex?q"> through time is dependent on <img src="https://latex.codecogs.com/png.latex?p"> and the change in <img src="https://latex.codecogs.com/png.latex?p"> is dependent on <img src="https://latex.codecogs.com/png.latex?q">.</p>
 </section>
 <section id="writing-a-program" class="level2">
 <h2 class="anchored" data-anchor-id="writing-a-program">Writing a Program</h2>
 <p>Now we can code up the Python function that will give us <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdq%7D%7Bdt%7D"> and <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdp%7D%7Bdt%7D">. This is where we will get the true derivatives that will later guide our training, and will also help up simulate the system.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> harmonic_dynamics(t, state: List, m, k) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-&gt;</span> List:</span>
@@ -1165,7 +1192,8 @@ background-color: null;
 font-style: inherit;">0</span>]</span>
 <span id="cb1-12">    <span class="cf" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div>
+font-weight: bold;
+font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div></div>
 <p>This is a basic function that returns a Python array. We will not deal with PyTorch arrays or SIMD hardware for now.</p>
 <p>This function returns terms analogous to velocities, but to plot the phase space, we will need something analogous to positions. And we need to integrate.</p>
 </section>
@@ -1174,12 +1202,12 @@ font-style: inherit;">return</span> [dq_dt, dp_dt]</span></code></pre></div>
 <p>We could use something like <a href="https://docs.scipy.org/doc//scipy-1.16.2/tutorial/integrate.html"><code>scipy.integrate</code></a>, but let’s implement our own solver in Python. We will implement a solver using the Euler Method.</p>
 <p>You can read formally about Euler Method in any decent book covering DEs, but, put simply, it says that- <em>“The state in the next moment is the current state plus a small step in the direction of the derivative.”</em></p>
 <p>In Math:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cmathbf%7By%7D_%7Bt+dt%7D%20=%20%5Cmathbf%7By%7D_t%20+%20%5Cdfrac%7Bd%5Cmathbf%7By%7D%7D%7Bdt%7D%20%5Ccdot%20dt"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbf%7By%7D_%7Bt+dt%7D%20=%20%5Cmathbf%7By%7D_t%20+%20%5Cdfrac%7Bd%5Cmathbf%7By%7D%7D%7Bdt%7D%20%5Ccdot%20dt%0A"></p>
 </section>
 <section id="coding-things-up-the-dynamics-of-the-system" class="level2">
 <h2 class="anchored" data-anchor-id="coding-things-up-the-dynamics-of-the-system">Coding Things Up: The Dynamics of the System</h2>
 <p>Now, we can get the “positions” in the phase space, using the code below.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> harmonic <span class="im" style="color: #00769E;
 background-color: null;
@@ -1192,35 +1220,35 @@ font-style: inherit;"># params</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1.0</span>&nbsp; <span class="co" style="color: #5E5E5E;
+font-style: inherit;">1.0</span>  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># mass</span></span>
 <span id="cb2-5">k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1.0</span>&nbsp; <span class="co" style="color: #5E5E5E;
+font-style: inherit;">1.0</span>  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># spring constant</span></span>
 <span id="cb2-6">q0 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>&nbsp;  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">0</span>   <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># initial position</span></span>
 <span id="cb2-7">p0 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span>&nbsp;  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">1</span>   <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># initial momentum</span></span>
 <span id="cb2-8">dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.1</span>&nbsp;<span class="co" style="color: #5E5E5E;
+font-style: inherit;">0.1</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># time-step</span></span>
 <span id="cb2-9"></span>
@@ -1236,8 +1264,10 @@ font-style: inherit;">=</span> []</span>
 <span id="cb2-13"></span>
 <span id="cb2-14"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
@@ -1245,10 +1275,10 @@ background-color: null;
 font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>):</span>
-<span id="cb2-15">&nbsp; &nbsp; q, p <span class="op" style="color: #5E5E5E;
+<span id="cb2-15">    q, p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> init_state</span>
-<span id="cb2-16">&nbsp; &nbsp; dq_dt, dp_dt <span class="op" style="color: #5E5E5E;
+<span id="cb2-16">    dq_dt, dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> harmonic_dynamics(t<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1259,25 +1289,25 @@ background-color: null;
 font-style: inherit;">=</span>m, k<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>k)</span>
-<span id="cb2-17">&nbsp; &nbsp; q <span class="op" style="color: #5E5E5E;
+<span id="cb2-17">    q <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> q <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dq_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb2-18">&nbsp; &nbsp; p <span class="op" style="color: #5E5E5E;
+<span id="cb2-18">    p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> dp_dt <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> dt</span>
-<span id="cb2-19">&nbsp; &nbsp; init_state <span class="op" style="color: #5E5E5E;
+<span id="cb2-19">    init_state <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [q, p]</span>
-<span id="cb2-20">&nbsp; &nbsp; q_vals.append(q)</span>
-<span id="cb2-21">&nbsp; &nbsp; p_vals.append(p)</span></code></pre></div>
+<span id="cb2-20">    q_vals.append(q)</span>
+<span id="cb2-21">    p_vals.append(p)</span></code></pre></div></div>
 <p>We are taking the following values for the system:</p>
 <ul>
 <li>mass, <img src="https://latex.codecogs.com/png.latex?m%20=%201.0"></li>
@@ -1303,10 +1333,12 @@ font-style: inherit;">=</span> [q, p]</span>
 <li>Update q using that.</li>
 </ul>
 <p>Things will be clearer in code. We keep everything else intact. But we change the loop to this:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"> <span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
@@ -1357,7 +1389,7 @@ font-style: inherit;">*</span> dt</span>
 background-color: null;
 font-style: inherit;">=</span> [q, p]</span>
 <span id="cb3-8">    q_vals.append(q)</span>
-<span id="cb3-9">    p_vals.append(p) </span></code></pre></div>
+<span id="cb3-9">    p_vals.append(p) </span></code></pre></div></div>
 <p>Doing this, if we plot again, we get:</p>
 <p><img src="https://ritog.github.io/posts/implicit_euler/Figure_2.png" class="img-fluid"></p>
 <p>Now, it is a well-behaved phase space with no spiralling. And the position vs.&nbsp;time plot is also a smooth sinusoidal wave, as expected.</p>
@@ -1374,7 +1406,7 @@ font-style: inherit;">=</span> [q, p]</span>
 <section id="changelog" class="level3">
 <h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
 <p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
-<p><img src="https://ritog.github.io/posts/implicit_euler/human-gen-sticker.png" width="256"></p>
+<p><img src="https://ritog.github.io/posts/implicit_euler/human-gen-sticker.png" class="img-fluid" width="256"></p>
 <hr>
 </section>
 <section id="cite-this-article" class="level3">
@@ -1390,25 +1422,27 @@ font-style: inherit;">=</span> [q, p]</span>
 <section id="support" class="level3">
 <h3 class="anchored" data-anchor-id="support">Support</h3>
 <p>I highly appreciate donations. If you liked this post, or the content in the site in general, support me via <a href="https://ko-fi.com/ritog">Ko-Fi</a>, <a href="https://liberapay.com/ritog">Liberapay</a> or if you are in India, via UPI <a href="https://i.imgur.com/D9rTvVN.png">ritogh8@oksbi</a>.</p>
+<figure class="figure">
+<p>
+<a href="https://ko-fi.com/B0B33QVX2"><img src="https://ko-fi.com/img/githubbutton_sm.svg" class="img-fluid figure-img"></a>
+</p>
+</figure>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://ko-fi.com/B0B33QVX2"><img src="https://ritog.github.io/posts/implicit_euler/https:/ko-fi.com/img/githubbutton_sm.svg" class="img-fluid figure-img"></a></p>
+<p><a href="https://liberapay.com/ritog/donate"><img src="https://liberapay.com/assets/widgets/donate.svg" class="img-fluid figure-img"></a></p>
+<figcaption>Donate using Liberapay</figcaption>
 </figure>
 </div>
-<script src="https://liberapay.com/ritog/widgets/button.js"></script>
-<noscript>
-<a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://ritog.github.io/posts/implicit_euler/https:/liberapay.com/assets/widgets/donate.svg"></a>
-</noscript>
 
 
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>math</category>
   <category>physics</category>
   <category>computational-math</category>
-  <guid>https://ritog.github.io/posts/implicit_euler/index.html</guid>
+  <guid>https://ritog.github.io/posts/implicit_euler/</guid>
   <pubDate>Fri, 02 Jan 2026 18:30:00 GMT</pubDate>
   <media:content url="https://ritog.github.io/posts/implicit_euler/euler_cover.png" medium="image" type="image/png" height="79" width="144"/>
 </item>
@@ -1417,6 +1451,8 @@ font-style: inherit;">=</span> [q, p]</span>
   <dc:creator>Ritobrata Ghosh</dc:creator>
   <link>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -1487,19 +1523,19 @@ font-style: inherit;">=</span> [q, p]</span>
 <p>We will reframe this equation so that we can implement the equation in Julia, and solve it using the solver.</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0A%20%20%20%20&amp;-%5Cdfrac%7BdN%7D%7Bdt%7D%20%5Cpropto%20N%20%5C%5C%0A%20%20%20%20&amp;%5Cimplies%20-%5Cdfrac%7BdN%7D%7Bdt%7D%20=%20%5Clambda%20N%20%5C%5C%0A%20%20%20%20&amp;%5Cimplies%20%5Cdfrac%7BdN%7D%7BN%7D%20=%20-%5Clambda%20dt%0A%5Cend%7Balign%7D%0A"></p>
 <p>Julia package <code>DifferentialEquations.jl</code> expects functions to be in this format-</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">f</span>(du, u, p, t) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">*</span> u</span></code></pre></div>
+font-style: inherit;">*</span> u</span></code></pre></div></div>
 <p>Where <code>du</code> is the first derivative, <code>u</code> is the function, <code>t</code> is the time-span for which we want the function’s output, and <code>p</code> is the parameter, or a set of parameters.</p>
 <p>From here, we can frame <code>du</code> to be <code>du[1] = -lambda * u[1]</code>.</p>
 <section id="importing-packages" class="level4">
 <h4 class="anchored" data-anchor-id="importing-packages">Importing Packages</h4>
 <div class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> <span class="bu" style="color: null;
 background-color: null;
@@ -1525,7 +1561,7 @@ font-style: inherit;">using</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">DifferentialEquations</span>, <span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">Plots</span></span></code></pre></div>
+font-style: inherit;">Plots</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>   Resolving package versions...
   No Changes to `~/.julia/environments/v1.11/Project.toml`
@@ -1539,8 +1575,9 @@ font-style: inherit;">Plots</span></span></code></pre></div>
 <section id="function-definition" class="level4">
 <h4 class="anchored" data-anchor-id="function-definition">Function Definition</h4>
 <div class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">radio_decay!</span>(du, u, p, t)</span>
@@ -1560,7 +1597,8 @@ background-color: null;
 font-style: inherit;">1</span>]</span>
 <span id="cb4-4"><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">end</span></span></code></pre></div>
+font-weight: bold;
+font-style: inherit;">end</span></span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>radio_decay! (generic function with 1 method)</code></pre>
 </div>
@@ -1569,7 +1607,7 @@ font-style: inherit;">end</span></span></code></pre></div>
 <section id="declaring-parameters" class="level4">
 <h4 class="anchored" data-anchor-id="declaring-parameters">Declaring Parameters</h4>
 <div class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1">N <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1">N <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
 background-color: null;
@@ -1602,7 +1640,7 @@ font-style: inherit;">0.0</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5e-6</span>)     <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># time-span is very small because the half-life is very small</span></span></code></pre></div>
+font-style: inherit;"># time-span is very small because the half-life is very small</span></span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(0.0, 5.0e-6)</code></pre>
 </div>
@@ -1611,11 +1649,11 @@ font-style: inherit;"># time-span is very small because the half-life is very sm
 <section id="defining-the-ode-problem" class="level4">
 <h4 class="anchored" data-anchor-id="defining-the-ode-problem">Defining the ODE Problem</h4>
 <div class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1">prob <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1">prob <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">ODEProblem</span>(radio_decay!, N, tspan, p)</span></code></pre></div>
+font-style: inherit;">ODEProblem</span>(radio_decay!, N, tspan, p)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div class="ansi-escaped-output">
 <pre><span style="color:rgb(86,182,194)">ODEProblem</span> with uType <span style="color:rgb(86,182,194)">Vector{Float64}</span> and tType <span style="color:rgb(86,182,194)">Float64</span>. In-place: <span style="color:rgb(86,182,194)">true</span>
@@ -1630,11 +1668,11 @@ u0: 1-element Vector{Float64}:
 <section id="solving-and-plotting-the-solution" class="level4">
 <h4 class="anchored" data-anchor-id="solving-and-plotting-the-solution">Solving and Plotting the Solution</h4>
 <div class="cell" data-tags="[]" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1">sol <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1">sol <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">solve</span>(prob)</span></code></pre></div>
+font-style: inherit;">solve</span>(prob)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>retcode: Success
 Interpolation: 3rd order Hermite
@@ -1677,7 +1715,7 @@ u: 17-element Vector{Vector{Float64}}:
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">plot</span>(sol, title<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1691,7 +1729,7 @@ font-style: inherit;">"Time"</span>, ylabel<span class="op" style="color: #5E5E5
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"N"</span>)</span></code></pre></div>
+font-style: inherit;">"N"</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <!--?xml version="1.0" encoding="utf-8"?-->
 <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
@@ -1760,8 +1798,9 @@ font-style: inherit;">"N"</span>)</span></code></pre></div>
 <section id="function-definition-1" class="level4">
 <h4 class="anchored" data-anchor-id="function-definition-1">Function Definition</h4>
 <div class="cell" data-tags="[]" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">newtons_cooling!</span>(du, u, p, t)</span>
@@ -1781,19 +1820,20 @@ background-color: null;
 font-style: inherit;">-</span> T_a)</span>
 <span id="cb12-4"><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">end</span></span></code></pre></div>
+font-weight: bold;
+font-style: inherit;">end</span></span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>newtons_cooling! (generic function with 1 method)</code></pre>
 </div>
 </div>
 <p>Expected format-</p>
-<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">f</span>(du, u, p, t) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> p <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">*</span> u</span></code></pre></div>
+font-style: inherit;">*</span> u</span></code></pre></div></div>
 <p>Where <code>du</code> is the first derivative, <code>u</code> is the function, <code>t</code> is the time-span for which we want the function’s output, and <code>p</code> is the parameter, or a set of parameters.</p>
 <p>Here, we are using in-place updating to define <code>du</code> because it is memory efficient, and will be a crucial where there is a system of Differential Equations present.</p>
 <p>Here we have two parameters- <code>k</code> and <code>T_a</code>, and they are related as <img src="https://latex.codecogs.com/png.latex?T_1%20=%20k%20%5Ctimes%20(T_0%20-%20T_a)">. That is what we implement on line 3 of the function definition.</p>
@@ -1801,7 +1841,7 @@ font-style: inherit;">*</span> u</span></code></pre></div>
 <section id="declaring-parameters-1" class="level4">
 <h4 class="anchored" data-anchor-id="declaring-parameters-1">Declaring Parameters</h4>
 <div class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb15-1">T <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb15-1">T <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="fl" style="color: #AD0000;
 background-color: null;
@@ -1837,7 +1877,7 @@ font-style: inherit;"># time-period for which we want to tract the values of the
 background-color: null;
 font-style: inherit;">=</span> (k, T_a)              <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># defining a tuple of parameters as expected by the library</span></span></code></pre></div>
+font-style: inherit;"># defining a tuple of parameters as expected by the library</span></span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(-0.06, 20.0)</code></pre>
 </div>
@@ -1847,11 +1887,11 @@ font-style: inherit;"># defining a tuple of parameters as expected by the librar
 <h4 class="anchored" data-anchor-id="defining-the-ode-problem-1">Defining the ODE Problem</h4>
 <p>Here we define the <code>ODEProblem</code> as required by the solver package.</p>
 <div class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb17-1">prob <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb17-1">prob <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">ODEProblem</span>(newtons_cooling!, T, tspan, p)</span></code></pre></div>
+font-style: inherit;">ODEProblem</span>(newtons_cooling!, T, tspan, p)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div class="ansi-escaped-output">
 <pre><span style="color:rgb(86,182,194)">ODEProblem</span> with uType <span style="color:rgb(86,182,194)">Vector{Float64}</span> and tType <span style="color:rgb(86,182,194)">Float64</span>. In-place: <span style="color:rgb(86,182,194)">true</span>
@@ -1866,11 +1906,11 @@ u0: 1-element Vector{Float64}:
 <section id="solving-the-ode" class="level4">
 <h4 class="anchored" data-anchor-id="solving-the-ode">Solving the ODE</h4>
 <div class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb18-1">sol <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb18-1">sol <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">solve</span>(prob)</span></code></pre></div>
+font-style: inherit;">solve</span>(prob)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>retcode: Success
 Interpolation: 3rd order Hermite
@@ -1917,7 +1957,7 @@ u: 19-element Vector{Vector{Float64}}:
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">plot</span>(sol,</span>
 <span id="cb20-2">    xlabel<span class="op" style="color: #5E5E5E;
@@ -1934,7 +1974,7 @@ font-style: inherit;">"Temperature, T"</span>,</span>
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div>
+font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <!--?xml version="1.0" encoding="utf-8"?-->
 <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
@@ -2019,21 +2059,17 @@ font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div>
 <section id="support" class="level3">
 <h3 class="anchored" data-anchor-id="support">Support</h3>
 <p>I highly appreciate donations. If you liked this post, or the content in the site in general, support me via <a href="https://ko-fi.com/ritog">Ko-Fi</a>, <a href="https://liberapay.com/ritog">Liberapay</a> or if you are in India, via UPI <a href="https://i.imgur.com/D9rTvVN.png">ritogh8@oksbi</a>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://ko-fi.com/B0B33QVX2"><img src="https://ritog.github.io/posts/1st-order-DE-julia/https:/ko-fi.com/img/githubbutton_sm.svg" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
+<p><a href="https://ko-fi.com/B0B33QVX2"><img src="https://ko-fi.com/img/githubbutton_sm.svg" class="img-fluid"></a></p>
 <script src="https://liberapay.com/ritog/widgets/button.js"></script>
 <noscript>
-<a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://ritog.github.io/posts/1st-order-DE-julia/https:/liberapay.com/assets/widgets/donate.svg"></a>
+<a href="https://liberapay.com/ritog/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 </noscript>
 
 
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>math</category>
   <category>julia</category>
   <category>computational-math</category>
@@ -2044,8 +2080,10 @@ font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div>
 <item>
   <title>Non-Linear Dynamics Trajectories with Python</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</link>
+  <link>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -2056,7 +2094,7 @@ font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this Notebook, trajectories of the Logistic Map [1] is plotted with Python.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
 background-color: null;
@@ -2065,9 +2103,10 @@ font-style: inherit;">as</span> np</span>
 background-color: null;
 font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">as</span> plt</span></code></pre></div>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+font-style: inherit;">as</span> plt</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> logistic_function(parameter: <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">float</span>, initial_value: <span class="bu" style="color: null;
@@ -2079,6 +2118,7 @@ background-color: null;
 font-style: inherit;">float</span>:</span>
 <span id="cb2-2">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> parameter <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> initial_value <span class="op" style="color: #5E5E5E;
@@ -2087,9 +2127,10 @@ font-style: inherit;">*</span> (<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span> initial_value)</span></code></pre></div>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+font-style: inherit;">-</span> initial_value)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> logistic_function_trajectory(parameter: <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">float</span>,</span>
@@ -2111,8 +2152,10 @@ background-color: null;
 font-style: inherit;">=</span> initial_value</span>
 <span id="cb3-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(num_iter<span class="op" style="color: #5E5E5E;
@@ -2136,8 +2179,9 @@ background-color: null;
 font-style: inherit;">1</span>]</span>
 <span id="cb3-9">    <span class="cf" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">return</span> np.array(trajectory)</span></code></pre></div>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">return</span> np.array(trajectory)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -2149,10 +2193,10 @@ font-style: inherit;">0.8</span>, num_iter<span class="op" style="color: #5E5E5E
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">10</span>)</span></code></pre></div>
+font-style: inherit;">10</span>)</span></code></pre></div></div>
 <pre><code>array([0.8       , 0.352     , 0.5018112 , 0.54999278, 0.54450159,
        0.54564314, 0.54541675, 0.5454621 , 0.54545303, 0.54545485])</code></pre>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">xs <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">xs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -2175,9 +2219,10 @@ font-style: inherit;">0.8</span>, num_iter<span class="op" style="color: #5E5E5E
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+font-style: inherit;">200</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> plot_trajectory(xs, ys, x_label, y_label, title):</span>
 <span id="cb7-2">    plt.figure(figsize<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2214,8 +2259,8 @@ background-color: null;
 font-style: inherit;">;</span></span>
 <span id="cb7-7">    plt.grid()<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">point_colors <span class="op" style="color: #5E5E5E;
+font-style: inherit;">;</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">point_colors <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
 background-color: null;
@@ -2225,8 +2270,8 @@ font-style: inherit;">'magenta'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'yellow'</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'black'</span>]</span></code></pre></div>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+font-style: inherit;">'black'</span>]</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2242,12 +2287,12 @@ font-style: inherit;">'$x_n$'</span>, title<span class="op" style="color: #5E5E5
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Trajectory'</span>)</span></code></pre></div>
+font-style: inherit;">'Trajectory'</span>)</span></code></pre></div></div>
 <p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
 </section>
 <section id="r-2" class="level3">
 <h3 class="anchored" data-anchor-id="r-2"><img src="https://latex.codecogs.com/png.latex?r%20=%202"></h3>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">x_n <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">x_n <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2276,8 +2321,8 @@ font-style: inherit;">0.200001</span>, num_iter<span class="op" style="color: #5
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">ys <span class="op" style="color: #5E5E5E;
+font-style: inherit;">200</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">ys <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -2290,8 +2335,8 @@ font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">200</span>, <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">200</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
+font-style: inherit;">200</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1">plot_trajectory(xs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>xs, ys<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2303,7 +2348,11 @@ font-style: inherit;">'$n$'</span>, y_label<span class="op" style="color: #5E5E5
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'$ x_n - \hat</span><span class="sc" style="color: #5E5E5E;
+font-style: inherit;">'$ x_n - </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">hat</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{x_n}</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -2311,12 +2360,12 @@ font-style: inherit;"> $'</span>, title<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div>
+font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div></div>
 <p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
 </section>
 <section id="plotting-x_n---hatx_n-vs.-n-for-r3.4" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-x_n---hatx_n-vs.-n-for-r3.4">Plotting <img src="https://latex.codecogs.com/png.latex?x_n%20-%20%5Chat%7Bx_n%7D"> vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?n"> for <img src="https://latex.codecogs.com/png.latex?r=3.4"></h3>
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1">x_n <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1">x_n <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> logistic_function_trajectory(parameter<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2374,7 +2423,11 @@ font-style: inherit;">'$n$'</span>, y_label<span class="op" style="color: #5E5E5
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'$ x_n - \hat</span><span class="sc" style="color: #5E5E5E;
+font-style: inherit;">'$ x_n - </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">hat</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{x_n}</span><span class="st" style="color: #20794D;
 background-color: null;
@@ -2382,7 +2435,7 @@ font-style: inherit;"> $'</span>, title<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></div>
+font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></div></div>
 <p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
 <p>We can thus plot the trajectories of the Logistic Map with Python and relevant libraries.</p>
 </section>
@@ -2410,15 +2463,17 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
   <category>physics</category>
   <category>chaos-theory</category>
   <category>ai</category>
-  <guid>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/index.html</guid>
+  <guid>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/</guid>
   <pubDate>Wed, 26 Apr 2023 18:30:00 GMT</pubDate>
   <media:content url="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
 </item>
 <item>
   <title>Stuff About Complex Number I Wish Somebody Told Me</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/complex-numbers/index.html</link>
+  <link>https://ritog.github.io/posts/complex-numbers/</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -2488,8 +2543,8 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 <p>It wasn’t so one-dimensional anymore.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/complex-numbers/https:/upload.wikimedia.org/wikipedia/commons/5/50/A_plus_bi.svg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">argand plane</figcaption>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/A_plus_bi.svg" class="img-fluid figure-img"></p>
+<figcaption>argand plane</figcaption>
 </figure>
 </div>
 <p>Picture: Wikipedia</p>
@@ -2545,9 +2600,9 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>math</category>
-  <guid>https://ritog.github.io/posts/complex-numbers/index.html</guid>
+  <guid>https://ritog.github.io/posts/complex-numbers/</guid>
   <pubDate>Tue, 05 Jul 2022 18:30:00 GMT</pubDate>
   <media:content url="https://ritog.github.io/posts/complex-numbers/complex-numbers-post.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
@@ -2556,6 +2611,8 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
   <dc:creator>Ritobrata Ghosh</dc:creator>
   <link>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
   <description><![CDATA[ 
+
+
 
 
 
@@ -2588,22 +2645,22 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 <h3 class="anchored" data-anchor-id="installing-and-importing">Installing and Importing</h3>
 <pre><code>! pip install transformers[sentencepiece] &gt; /dev/null</code></pre>
 <p>If you have not seen a <code>pip</code> install with a square bracket in it before, don’t worry. It means that you are installing the <code>transformers</code> package with extra support added for the <code>sentencepiece</code> package. You can find out more about square parentheses installs in <code>pip</code> <a href="https://stackoverflow.com/questions/46775346/what-do-square-brackets-mean-in-pip-install">here</a>.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> transformers <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> pipeline</span></code></pre></div>
+font-style: inherit;">import</span> pipeline</span></code></pre></div></div>
 <p>We will use the utilities available in the <code>pipeline</code> namespace in the <code>transformers</code> library.</p>
 <hr>
 </section>
 <section id="sentiment-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="sentiment-analysis">Sentiment Analysis</h3>
 <p>Before I begin going through the specific <code>pipeline</code>s, let me tell you something beforehand that you will find yourself. Hugging Face API is very intuitive. When you want to use a <code>pipeline</code>, you have to instantiate an object, then you pass data to that object to get result. Very simple! You are soon to see what I mean.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1">classifier_sentiment <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1">classifier_sentiment <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"sentiment-analysis"</span>)</span></code></pre></div>
+font-style: inherit;">"sentiment-analysis"</span>)</span></code></pre></div></div>
 <p>That’s it. You call the <code>pipeline()</code> method with the task you want to accomplish as an argument. And you assign a name to it. You are done now. You can now begin to use the object as a function to achieve what you want. Let’s see an example-</p>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=15&amp;kernelSessionId=66118660" height="150" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
@@ -2621,11 +2678,11 @@ font-style: inherit;">"sentiment-analysis"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-Shot Classification</h3>
 <p>When you want to classify something using Deep Learning, in many cases you need to train it with labeled examples. This approach is known as Supervised Learning. Even when leveraging transfer learning, you need to train your model with quite a few labeled examples in the domain of your choice. Zero-shot classification is different than that. In this, you use a pre-trained model to classify a given string and some labels of your choice. The model returns you the confidence score for each model.</p>
 <p>Let me show you how this works. First, you instantiate an object and assign it a name just like you did in the case of the Sentiment Analysis pipeline.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">classifier_zero_shot <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1">classifier_zero_shot <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"zero-shot-classification"</span>)</span></code></pre></div>
+font-style: inherit;">"zero-shot-classification"</span>)</span></code></pre></div></div>
 <p>Then you pass a string, along with the labels of your choice to test how well they correspond to your sentence.</p>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=25&amp;kernelSessionId=66118660" height="260" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
@@ -2637,11 +2694,11 @@ font-style: inherit;">"zero-shot-classification"</span>)</span></code></pre></di
 <h3 class="anchored" data-anchor-id="text-generation">Text Generation</h3>
 <p>Before I heard about Deep Learning, I heard about Natural Language Processing, because I heard that you can generate text with it! This is the most exciting part of NLP to me, personally.</p>
 <p>As the name suggests, this <code>pipeline</code> lets you generate text. It just needs you to supply a prompt, a text that will determine what the generated text will be. Let me show you how.</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1">generator <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1">generator <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"text-generation"</span>)</span></code></pre></div>
+font-style: inherit;">"text-generation"</span>)</span></code></pre></div></div>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=30&amp;kernelSessionId=66118660" height="230" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
 <p>See what I mean! Even with zero training, it can create logically coherent text that is even interesting to read. Robots will take over writers soon 🤖!</p>
@@ -2657,11 +2714,11 @@ font-style: inherit;">"text-generation"</span>)</span></code></pre></div>
 <section id="mask-filling" class="level3">
 <h3 class="anchored" data-anchor-id="mask-filling">Mask Filling</h3>
 <p>In this pipeline, if there is a word that you hide and supply the string with the hidden word, the <code>pipeline</code> will predict that word. This is like magic!</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">unmasker <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1">unmasker <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"fill-mask"</span>)</span></code></pre></div>
+font-style: inherit;">"fill-mask"</span>)</span></code></pre></div></div>
 <p>You pass the sentence with the masked word, and it will predict it. You can choose the number of predictions you want to see. You just have to pass a value to the <code>top_k</code> parameter.</p>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellIds=41&amp;kernelSessionId=66128979" height="330" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
@@ -2673,7 +2730,7 @@ font-style: inherit;">"fill-mask"</span>)</span></code></pre></div>
 <section id="named-entity-recognition" class="level3">
 <h3 class="anchored" data-anchor-id="named-entity-recognition">Named Entity Recognition</h3>
 <p>This <code>pipeline</code> recognizes the proper nouns in your sentence. And it also classifies them. Let’s see an example.</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1">ner <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1">ner <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -2681,7 +2738,7 @@ font-style: inherit;">"ner"</span>, grouped_entities<span class="op" style="colo
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
+font-style: inherit;">True</span>)</span></code></pre></div></div>
 <p>The <code>grouped_entities</code> parameter just ensures that the <code>pipeline</code> can recognize the names that have more than one word, like, you know, Chocolate Factory.</p>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=46&amp;kernelSessionId=66118660" height="400" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
@@ -2691,11 +2748,11 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 <section id="question-answering" class="level3">
 <h3 class="anchored" data-anchor-id="question-answering">Question Answering</h3>
 <p>This pipeline provides you with an answer to a question you ask from the context that you provide.</p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">question_answerer <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">question_answerer <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"question-answering"</span>)</span></code></pre></div>
+font-style: inherit;">"question-answering"</span>)</span></code></pre></div></div>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=51&amp;kernelSessionId=66118660" height="210" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
 <p>It can answer multiple questions from the same prompt.</p>
@@ -2707,11 +2764,11 @@ font-style: inherit;">"question-answering"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="summarization">Summarization</h3>
 <p>This is one of the most practical tasks that has existed for a long time. Deep Learning really changes the landscape of the task.</p>
 <p>Let’s see it in action.</p>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">summarizer <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">summarizer <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"summarization"</span>)</span></code></pre></div>
+font-style: inherit;">"summarization"</span>)</span></code></pre></div></div>
 <p>Let’s summarize a piece of text from a <a href="https://blog.royalsloth.eu/posts/i-wish-i-could-write-this-well/">blog post</a> I recently read.</p>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=59&amp;kernelSessionId=66118660" height="650" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
@@ -2722,7 +2779,7 @@ font-style: inherit;">"summarization"</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="translation">Translation</h3>
 <p>The translation <code>pipeline</code> translates a piece of text from one language to another. It also lets you choose the language model of your choice.</p>
 <p>First, let’s translate a text from English to German. I will use the <a href="https://huggingface.co/Helsinki-NLP/opus-mt-en-de"><code>Helsinki-NLP/opus-mt-en-de</code></a> model for this task.</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">translator_de <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1">translator_de <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -2730,12 +2787,12 @@ font-style: inherit;">"translation"</span>, model<span class="op" style="color: 
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Helsinki-NLP/opus-mt-en-de"</span>)</span></code></pre></div>
+font-style: inherit;">"Helsinki-NLP/opus-mt-en-de"</span>)</span></code></pre></div></div>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=64&amp;kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
 <p>Note that you are not explicitly telling the model about the language of the input language or the output language. A language model is only trained for translating from one language to another. It cannot translate other languages. If you want to translate from German to English, you’d have to use another model from the model hub. You can find all the translation models <a href="https://huggingface.co/models?pipeline_tag=translation">here</a>.</p>
 <p>The cool thing is that Hugging Face is not limited to Romance languages or European languages in general. Let me show you by translating a piece of text from Bengali.</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">translator_bn <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1">translator_bn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pipeline(<span class="st" style="color: #20794D;
 background-color: null;
@@ -2743,7 +2800,7 @@ font-style: inherit;">"translation"</span>, model<span class="op" style="color: 
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></div>
+font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></div></div>
 <iframe src="https://www.kaggle.com/embed/truthr/a-gentle-introduction-to-the-hugging-face-api?cellId=6&amp;cellIds=68&amp;kernelSessionId=66118660" height="165" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0" scrolling="auto" title="A Gentle Introduction to the Hugging Face API">
 </iframe>
 <blockquote class="blockquote">
@@ -2791,6 +2848,8 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 
 
 
+
+
 <p>by <a href="https://ritog.github.io">Ritobrata Ghosh</a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
@@ -2804,8 +2863,8 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>A book that I have come across- <a href="https://mitpress.mit.edu/books/elements-computing-systems-second-edition"><em>The Elements of Computing Systems</em></a> by By Noam Nisan and Shimon Schocken does just that. It teaches you how the basic building blocks of modern computers actually create the computers.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/m.media-amazon.com/images/I/71tRTKR3NOL._SL1500_.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">nand2tetris-book-cover-2ed</figcaption>
+<p><img src="https://m.media-amazon.com/images/I/71tRTKR3NOL._SL1500_.jpg" class="img-fluid figure-img"></p>
+<figcaption>nand2tetris-book-cover-2ed</figcaption>
 </figure>
 </div>
 <p><em>[Although it shows the new 2nd edition, I am reading the first one]</em></p>
@@ -2827,7 +2886,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <section id="design-a-boolean-function" class="level4">
 <h4 class="anchored" data-anchor-id="design-a-boolean-function">Design a Boolean Function</h4>
 <p>Let’s say we need a Boolean function that behaves in such a way-</p>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>A</th>
@@ -2917,35 +2976,35 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>The first <em>component</em> a*b*c* can be obtained in this way-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623507789933/QBItJ0Vmd.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>And here are the second, third, and fourth components-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623507861780/SGdZszA-c.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623508014150/-0UIiS7o5.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>And,</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623508144340/0hlCdyidE.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>Now, we have to add them all together, i.e.&nbsp;put these components through an OR gate. The output of the OR gate will be our final output.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623566604394/Cm-9WW_ftX.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>Our final output.</p>
@@ -2959,20 +3018,20 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>For example, given a NAND gate, you will design an AND gate this way.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623567491868/2i-eaHy4V.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>As you can see, it is very intuitive, and you can pick it up in 20 minutes.</p>
 <p>And, this is how you’d test this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">image.png</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623567613326/EIaikZlbD.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
 </figure>
 </div>
 <p>To write our custom function in HDL, we would do-</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1">// Custom.hdl</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1">// Custom.hdl</span>
 <span id="cb1-2">// this is a part of Hashnode blog Convoluted demo</span>
 <span id="cb1-3"></span>
 <span id="cb1-4">CHIP Custom {</span>
@@ -2991,10 +3050,10 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <span id="cb1-17">    And(a=a, b=b, out=ab);</span>
 <span id="cb1-18">    And(a=ab, b=notc, out=w4);</span>
 <span id="cb1-19">    Or8Way(in[0]=w1, in[1]=w2, in[2]=w3, in[3]=w4, out=out);</span>
-<span id="cb1-20">}</span></code></pre></div>
+<span id="cb1-20">}</span></code></pre></div></div>
 <p>And as this is a custom chip, the <code>.tst</code> test file, and <code>.cmp</code> compare file are not supplied. So, for testing this chip, I wrote my own.</p>
 <p>Here is the test (<code>.tst</code>) file-</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1">// Custom.tst</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1">// Custom.tst</span>
 <span id="cb2-2">// test file for testing custom chip</span>
 <span id="cb2-3">// could be found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be</span>
 <span id="cb2-4"></span>
@@ -3051,9 +3110,9 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <span id="cb2-55">set b 1,</span>
 <span id="cb2-56">set c 1,</span>
 <span id="cb2-57">eval,</span>
-<span id="cb2-58">output;</span></code></pre></div>
+<span id="cb2-58">output;</span></code></pre></div></div>
 <p>And here is the compare (<code>.cmp</code>) file. It contains the truth table that we expect.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1">// Custom.cmp</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1">// Custom.cmp</span>
 <span id="cb3-2">// compare file for chip Custom.hdl</span>
 <span id="cb3-3">// found at- https://gist.github.com/ghosh-r/c4e6f5ceb1e7ea2e3ba3601c9de121be</span>
 <span id="cb3-4">// test file at- https://gist.github.com/ghosh-r/cef52b9f6ac017e00d64460b025a53fe</span>
@@ -3066,21 +3125,21 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <span id="cb3-11">|   1   |   0   |   0   |   1   |</span>
 <span id="cb3-12">|   1   |   0   |   1   |   1   |</span>
 <span id="cb3-13">|   1   |   1   |   0   |   1   |</span>
-<span id="cb3-14">|   1   |   1   |   1   |   0   |</span></code></pre></div>
+<span id="cb3-14">|   1   |   1   |   1   |   0   |</span></code></pre></div></div>
 <p>Note that the text in Compare files is not robust to whitespaces.</p>
 <p>It will be compared with the output file generated by the simulator.</p>
 <p>Here’s how the successful run looks like-</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://ritog.github.io/posts/nand2tetris_1/https:/cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">final_60c5cd572911290063ac8055_216317.gif</figcaption>
+<p><img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1623576505734/bj93xn62K.gif" class="img-fluid figure-img"></p>
+<figcaption>final_60c5cd572911290063ac8055_216317.gif</figcaption>
 </figure>
 </div>
 </section>
 <section id="another-example-xor-gate" class="level4">
 <h4 class="anchored" data-anchor-id="another-example-xor-gate">Another Example: XOR Gate</h4>
 <p>Suppose you want to implement a XOR gate from basic gates. And the truth-table would be-</p>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>A</th>
@@ -3114,7 +3173,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <p>This will be your Boolean expression-</p>
 <p><img src="https://latex.codecogs.com/png.latex?%20y%20=%20%5Coverline%7Ba%7Db%20+%20a%5Coverline%7Bb%7D%20"></p>
 <p>And this will be your HDL implementation.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1">// Xor.hdl</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource hdl number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1">// Xor.hdl</span>
 <span id="cb4-2"></span>
 <span id="cb4-3">CHIP Xor {</span>
 <span id="cb4-4">    IN a, b;</span>
@@ -3126,7 +3185,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 <span id="cb4-10">    And(a=a, b=notb, out=w1);</span>
 <span id="cb4-11">    And(a=nota, b=b, out=w2);</span>
 <span id="cb4-12">    Or(a=w1, b=w2, out=out);</span>
-<span id="cb4-13">}</span></code></pre></div>
+<span id="cb4-13">}</span></code></pre></div></div>
 <hr>
 </section>
 </section>
@@ -3140,7 +3199,7 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>nand2tetris</category>
   <category>computer-science</category>
   <category>electronics</category>
