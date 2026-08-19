@@ -1,0 +1,31 @@
+name: Verify Quarto site
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.9.38
+
+      - name: Set up Python for the post-render check
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render and verify generated HTML
+        run: quarto render

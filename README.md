@@ -1,5 +1,27 @@
 # Rito Ghosh
 
+## Maintaining and publishing the website
+
+The site requires Quarto 1.9.38 or newer and uses KaTeX 0.18.1 for browser-side
+math. This avoids the legacy MathJax template that loaded JavaScript from the
+compromised `polyfill.io` service and keeps the replacement dependency pinned.
+
+Render the site locally with:
+
+```sh
+quarto render
+```
+
+Every render automatically runs `scripts/check-generated-html.py`. The command
+fails if generated HTML references `polyfill.io` or an unpinned KaTeX release;
+the same check runs in GitHub Actions on every pull request and push to `master`.
+
+After a successful render, publish in the usual way:
+
+```sh
+quarto publish gh-pages
+```
+
 #### _Legal name:_ Ritobrata Ghosh
 
 #### (he/him)
