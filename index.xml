@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Posts by Rito Ghosh</title>
-<link>https://ritog.github.io/</link>
-<atom:link href="https://ritog.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://ritoghosh.com/</link>
+<atom:link href="https://ritoghosh.com/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Mon, 05 Jan 2026 18:30:00 GMT</lastBuildDate>
 <item>
   <title>Training a Hamiltonian Neural Network</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/hamiltonian_nn/</link>
+  <link>https://ritoghosh.com/posts/hamiltonian_nn/</link>
   <description><![CDATA[ 
 
 
@@ -24,7 +24,7 @@
 
 <section id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator" class="level2">
 <h2 class="anchored" data-anchor-id="training-a-hamiltonian-neural-network-using-an-nn-for-simulating-the-phase-space-of-a-harmonic-oscillator">Training a Hamiltonian Neural Network: Using an NN for Simulating the Phase Space of a Harmonic Oscillator</h2>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/cover_hamiltonian_nn.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/hamiltonian_nn/cover_hamiltonian_nn.png" class="img-fluid"></p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -45,7 +45,7 @@
 <section id="our-physical-system" class="level2">
 <h2 class="anchored" data-anchor-id="our-physical-system">Our Physical System</h2>
 <p>We will work with a rigid pendulum.</p>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/physical-pendulum-rod-and-ball.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/hamiltonian_nn/physical-pendulum-rod-and-ball.png" class="img-fluid"></p>
 <p>The related variables are:</p>
 <ul>
 <li>A body of mass <img src="https://latex.codecogs.com/png.latex?m"> on a rigid rod of length <img src="https://latex.codecogs.com/png.latex?l"></li>
@@ -59,7 +59,7 @@
 <ol type="1">
 <li>Potential Energy(<img src="https://latex.codecogs.com/png.latex?V">): Height is <img src="https://latex.codecogs.com/png.latex?l(1-%5Ccos%7Bq%7D)">, so, <img src="https://latex.codecogs.com/png.latex?V%20=%20mgl(1-%5Ccos%7Bq%7D)"></li>
 </ol>
-<p>How? <img src="https://ritog.github.io/posts/hamiltonian_nn/triangle.png" class="img-fluid"></p>
+<p>How? <img src="https://ritoghosh.com/posts/hamiltonian_nn/triangle.png" class="img-fluid"></p>
 <ol start="2" type="1">
 <li>Kinetic Energy (<img src="https://latex.codecogs.com/png.latex?T">):</li>
 </ol>
@@ -374,7 +374,7 @@ font-style: inherit;">"$p v. q$ for different inital conditions"</span>)</span>
 <span id="cb3-40">plt.tight_layout()</span>
 <span id="cb3-41">plt.show()</span></code></pre></div></div>
 <p>This is the plot that the code generates:</p>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/Figure_3.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/hamiltonian_nn/Figure_3.png" class="img-fluid"></p>
 <p>The Blue and green loops represent the pendulum swinging back and forth. It doesn’t have enough energy to go over the top, so it stays trapped in a closed loop. The Orange loop is right on the edge! If you had just a tiny bit more energy, the pendulum would stop swinging back and start spinning 360° continuously.</p>
 <p>One of the reasons that Hamiltonian Neural Networks are better than vanilla Neural ODEs comes from Hamiltonian Mechanics. There’s a special property called Liouville’s Theorem, which says that the total area under the curve for the total set of initial points will be preserved for the total set of end points. That is, if you think of the initial points as a blob of points, then the blob might stretch, skew, twist, or distort, but the total area will remain constant. This is how Neural Networks handle data in higher dimension, and maps training data to target. I recommend that you watch Alfredo Canziani’s video from NYU CDS: <a href="https://youtu.be/0TdAmZUMj2k?si=dcQG-2jwaYiVwyHx&amp;t=1127">02 – Neural nets: rotation and squashing</a> to get great a visual grasp of this. These kind of transformations are modelled and studied extensively in Linear Algebra.</p>
 <p>This incompressible flow of points, and fluid-like behaviour (as opposed to gas-like, as gases compress and expand) are great for Neural Networks, and NNs trained using Hamiltonian mechanics are much more robust and well-behaved than simple NODEs.</p>
@@ -1036,7 +1036,7 @@ background-color: null;
 font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
 <p>Note that, we are not using a Python function for this plot, but load the trained weights from a <code>.pth</code> file: <code>hamiltonian_model.load_state_dict(torch.load("hamiltonian_nn_1.pth", weights_only=True))</code>.</p>
 <p>This is the plot that we get:</p>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/FIG5.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/hamiltonian_nn/FIG5.png" class="img-fluid"></p>
 <p>For the inner loops (blue and green), The network did a decent job learning the “swinging” motion! It captured the concentric nature of the phase space near the center. The outer “loop” (orange): This trajectory starts at q=3.1. In our clean phase space figure, this was a closed loop (the “eye”). In our HNN simulation, it drifts off significantly.</p>
 <p>This is due to the fact that the point was an out-of-distribution data point for the model.</p>
 </section>
@@ -1051,7 +1051,7 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
 <section id="changelog" class="level3">
 <h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
 <p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
-<p><img src="https://ritog.github.io/posts/hamiltonian_nn/human-gen-sticker.png" class="img-fluid" width="256"></p>
+<p><img src="https://ritoghosh.com/posts/hamiltonian_nn/human-gen-sticker.png" class="img-fluid" width="256"></p>
 <hr>
 </section>
 <section id="cite-this-article" class="level3">
@@ -1072,14 +1072,14 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
   <category>deep-learning</category>
   <category>physics</category>
   <category>computational-math</category>
-  <guid>https://ritog.github.io/posts/hamiltonian_nn/</guid>
+  <guid>https://ritoghosh.com/posts/hamiltonian_nn/</guid>
   <pubDate>Mon, 05 Jan 2026 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/hamiltonian_nn/cover_hamiltonian_nn.png" medium="image" type="image/png" height="79" width="144"/>
+  <media:content url="https://ritoghosh.com/posts/hamiltonian_nn/cover_hamiltonian_nn.png" medium="image" type="image/png" height="79" width="144"/>
 </item>
 <item>
   <title>Modelling a Spring System in Hamiltonian Mechanics</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/implicit_euler/</link>
+  <link>https://ritoghosh.com/posts/implicit_euler/</link>
   <description><![CDATA[ 
 
 
@@ -1089,7 +1089,7 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
 
 <section id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory" class="level2">
 <h2 class="anchored" data-anchor-id="modelling-a-spring-system-in-hamiltonian-mechanics-using-euler-method-for-trajectory">Modelling a Spring System in Hamiltonian Mechanics: Using Euler Method for Trajectory</h2>
-<p><img src="https://ritog.github.io/posts/implicit_euler/euler_cover.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/implicit_euler/euler_cover.png" class="img-fluid"></p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -1110,7 +1110,7 @@ font-style: inherit;">"FIG5.png"</span>)</span></code></pre></div></div>
 <section id="our-system" class="level2">
 <h2 class="anchored" data-anchor-id="our-system">Our System</h2>
 <p>We have a mass <img src="https://latex.codecogs.com/png.latex?m"> attached to a spring of negligible mass.</p>
-<p><img src="https://ritog.github.io/posts/implicit_euler/system.jpg" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/implicit_euler/system.jpg" class="img-fluid"></p>
 <p>And we are concerned with only two variables of the system- the position <img src="https://latex.codecogs.com/png.latex?q">, and the momentum <img src="https://latex.codecogs.com/png.latex?p"> (<img src="https://latex.codecogs.com/png.latex?p%20=%20m%20%5Ccdot%20v">). These are the only two variables needed to construct the Hamiltonian. And if we plot <img src="https://latex.codecogs.com/png.latex?p"> versus <img src="https://latex.codecogs.com/png.latex?q"> in a 2-dimensional figure, what we get is called a <strong>phase space</strong>.</p>
 </section>
 <section id="hamiltonian-of-the-system" class="level2">
@@ -1317,7 +1317,7 @@ font-style: inherit;">=</span> [q, p]</span>
 </ul>
 <p>And for time-stepping, we are taking <img src="https://latex.codecogs.com/png.latex?dt%20=%200.1">.</p>
 <p>Now if we plot both q vs.&nbsp;p (phase space), and q vs.&nbsp;t, we will get:</p>
-<p><img src="https://ritog.github.io/posts/implicit_euler/Figure_1.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/implicit_euler/Figure_1.png" class="img-fluid"></p>
 </section>
 <section id="semi-implicit-eulers-method" class="level2">
 <h2 class="anchored" data-anchor-id="semi-implicit-eulers-method">Semi-Implicit Euler’s Method</h2>
@@ -1391,7 +1391,7 @@ font-style: inherit;">=</span> [q, p]</span>
 <span id="cb3-8">    q_vals.append(q)</span>
 <span id="cb3-9">    p_vals.append(p) </span></code></pre></div></div>
 <p>Doing this, if we plot again, we get:</p>
-<p><img src="https://ritog.github.io/posts/implicit_euler/Figure_2.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/implicit_euler/Figure_2.png" class="img-fluid"></p>
 <p>Now, it is a well-behaved phase space with no spiralling. And the position vs.&nbsp;time plot is also a smooth sinusoidal wave, as expected.</p>
 </section>
 <section id="conclusion" class="level2">
@@ -1406,7 +1406,7 @@ font-style: inherit;">=</span> [q, p]</span>
 <section id="changelog" class="level3">
 <h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
 <p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
-<p><img src="https://ritog.github.io/posts/implicit_euler/human-gen-sticker.png" class="img-fluid" width="256"></p>
+<p><img src="https://ritoghosh.com/posts/implicit_euler/human-gen-sticker.png" class="img-fluid" width="256"></p>
 <hr>
 </section>
 <section id="cite-this-article" class="level3">
@@ -1442,14 +1442,14 @@ font-style: inherit;">=</span> [q, p]</span>
   <category>math</category>
   <category>physics</category>
   <category>computational-math</category>
-  <guid>https://ritog.github.io/posts/implicit_euler/</guid>
+  <guid>https://ritoghosh.com/posts/implicit_euler/</guid>
   <pubDate>Fri, 02 Jan 2026 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/implicit_euler/euler_cover.png" medium="image" type="image/png" height="79" width="144"/>
+  <media:content url="https://ritoghosh.com/posts/implicit_euler/euler_cover.png" medium="image" type="image/png" height="79" width="144"/>
 </item>
 <item>
   <title>Solving First Order Differential Equations with Julia</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</link>
+  <link>https://ritoghosh.com/posts/1st-order-DE-julia/1st_order_DE_julia.html</link>
   <description><![CDATA[ 
 
 
@@ -1459,7 +1459,7 @@ font-style: inherit;">=</span> [q, p]</span>
 
 <section id="solving-first-order-differential-equations-with-julia" class="level2">
 <h2 class="anchored" data-anchor-id="solving-first-order-differential-equations-with-julia">Solving First Order Differential Equations with Julia</h2>
-<p><img src="https://ritog.github.io/posts/1st-order-DE-julia/fractal-2008101.jpg" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/1st-order-DE-julia/fractal-2008101.jpg" class="img-fluid"></p>
 <p>Image by <a href="https://pixabay.com/users/thedigitalartist-202249/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2008101">Pete Linforth</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2008101">Pixabay</a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
@@ -2044,7 +2044,7 @@ font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div></
 <section id="changelog" class="level3">
 <h3 class="anchored" data-anchor-id="changelog">Changelog</h3>
 <p>This is an Open Source blog. Feel free to inspect diffs in the GitHub <a href="https://github.com/ritog/ritog.github.io">repo</a>.</p>
-<p><img src="https://ritog.github.io/posts/1st-order-DE-julia/human-gen-sticker.png" width="256"></p>
+<p><img src="https://ritoghosh.com/posts/1st-order-DE-julia/human-gen-sticker.png" width="256"></p>
 </section>
 <section id="cite-this-article" class="level3">
 <h3 class="anchored" data-anchor-id="cite-this-article">Cite this Article</h3>
@@ -2073,14 +2073,14 @@ font-style: inherit;">"Temperature vs. Time"</span>)</span></code></pre></div></
   <category>math</category>
   <category>julia</category>
   <category>computational-math</category>
-  <guid>https://ritog.github.io/posts/1st-order-DE-julia/1st_order_DE_julia.html</guid>
+  <guid>https://ritoghosh.com/posts/1st-order-DE-julia/1st_order_DE_julia.html</guid>
   <pubDate>Sun, 02 Mar 2025 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/1st-order-DE-julia/fractal-2008101.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://ritoghosh.com/posts/1st-order-DE-julia/fractal-2008101.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Non-Linear Dynamics Trajectories with Python</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/</link>
+  <link>https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/</link>
   <description><![CDATA[ 
 
 
@@ -2288,7 +2288,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory'</span>)</span></code></pre></div></div>
-<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/output_10_0.png" class="img-fluid"></p>
 </section>
 <section id="r-2" class="level3">
 <h3 class="anchored" data-anchor-id="r-2"><img src="https://latex.codecogs.com/png.latex?r%20=%202"></h3>
@@ -2361,7 +2361,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory for $r = 2$'</span>)</span></code></pre></div></div>
-<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/output_14_0.png" class="img-fluid"></p>
 </section>
 <section id="plotting-x_n---hatx_n-vs.-n-for-r3.4" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-x_n---hatx_n-vs.-n-for-r3.4">Plotting <img src="https://latex.codecogs.com/png.latex?x_n%20-%20%5Chat%7Bx_n%7D"> vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?n"> for <img src="https://latex.codecogs.com/png.latex?r=3.4"></h3>
@@ -2436,7 +2436,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></div></div>
-<p><img src="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" class="img-fluid"></p>
 <p>We can thus plot the trajectories of the Logistic Map with Python and relevant libraries.</p>
 </section>
 </section>
@@ -2463,14 +2463,14 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
   <category>physics</category>
   <category>chaos-theory</category>
   <category>ai</category>
-  <guid>https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/</guid>
+  <guid>https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/</guid>
   <pubDate>Wed, 26 Apr 2023 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
+  <media:content url="https://ritoghosh.com/posts/non-linear-dynamics-trajectories-with-python/output_16_0.png" medium="image" type="image/png" height="75" width="144"/>
 </item>
 <item>
   <title>Stuff About Complex Number I Wish Somebody Told Me</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/complex-numbers/</link>
+  <link>https://ritoghosh.com/posts/complex-numbers/</link>
   <description><![CDATA[ 
 
 
@@ -2602,14 +2602,14 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div>CC-BY-NC-SA</div></div></section></div> ]]></description>
   <category>math</category>
-  <guid>https://ritog.github.io/posts/complex-numbers/</guid>
+  <guid>https://ritoghosh.com/posts/complex-numbers/</guid>
   <pubDate>Tue, 05 Jul 2022 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/complex-numbers/complex-numbers-post.png" medium="image" type="image/png" height="144" width="144"/>
+  <media:content url="https://ritoghosh.com/posts/complex-numbers/complex-numbers-post.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
   <title>A Gentle Introduction to the Hugging Face API</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
+  <link>https://ritoghosh.com/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</link>
   <description><![CDATA[ 
 
 
@@ -2617,7 +2617,7 @@ font-style: inherit;">'Trajectory for $r = 3.4$'</span>)</span></code></pre></di
 
 
 
-<p><img src="https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="img-fluid"></p>
+<p><img src="https://ritoghosh.com/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" class="img-fluid"></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Natural Language Processing is a fast-advancing field. And it is also one of the fields that require a huge amount of computational resources to make important progress. And although breakthroughs are openly announced, and papers are released in free-to-access repositories such as <a href="https://arxiv.org/">arXiv</a>, Open Review, Papers with Code, etc., and despite (sometimes) having the code freely available on GitHub, using those language models is not something widely accessible and easy.</p>
@@ -2835,14 +2835,14 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
   <category>tutorial</category>
   <category>nlp</category>
   <category>kaggle</category>
-  <guid>https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</guid>
+  <guid>https://ritoghosh.com/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api.html</guid>
   <pubDate>Sat, 19 Jun 2021 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://ritoghosh.com/posts/intro-to-huggingface-api/2021-06-20-intro-huggingface-api-0.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Creating Any Boolean Function</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</link>
+  <link>https://ritoghosh.com/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</link>
   <description><![CDATA[ 
 
 
@@ -3204,9 +3204,9 @@ font-style: inherit;">"Helsinki-NLP/opus-mt-bn-en"</span>)</span></code></pre></
   <category>computer-science</category>
   <category>electronics</category>
   <category>computation</category>
-  <guid>https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</guid>
+  <guid>https://ritoghosh.com/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1.html</guid>
   <pubDate>Sat, 12 Jun 2021 18:30:00 GMT</pubDate>
-  <media:content url="https://ritog.github.io/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" medium="image" type="image/png" height="76" width="144"/>
+  <media:content url="https://ritoghosh.com/posts/nand2tetris_1/2021-06-13-chips-logic-gates-nand2tetris-1-1.png" medium="image" type="image/png" height="76" width="144"/>
 </item>
 </channel>
 </rss>

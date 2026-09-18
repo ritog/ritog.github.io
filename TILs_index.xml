@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Posts by Rito Ghosh</title>
-<link>https://ritog.github.io/TILs_index.html</link>
-<atom:link href="https://ritog.github.io/TILs_index.xml" rel="self" type="application/rss+xml"/>
+<link>https://ritoghosh.com/TILs_index.html</link>
+<atom:link href="https://ritoghosh.com/TILs_index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Thu, 06 Jul 2023 18:30:00 GMT</lastBuildDate>
 <item>
   <title>2023-Jul-07</title>
   <dc:creator>Ritobrata Ghosh</dc:creator>
-  <link>https://ritog.github.io/TILs/2023-Jul-07/</link>
+  <link>https://ritoghosh.com/TILs/2023-Jul-07/</link>
   <description><![CDATA[ 
 
 
@@ -50,7 +50,7 @@ font-style: inherit;">15</span></span></code></pre></div></div>
   <category>functional-programming</category>
   <category>haskell</category>
   <category>til</category>
-  <guid>https://ritog.github.io/TILs/2023-Jul-07/</guid>
+  <guid>https://ritoghosh.com/TILs/2023-Jul-07/</guid>
   <pubDate>Thu, 06 Jul 2023 18:30:00 GMT</pubDate>
 </item>
 </channel>
