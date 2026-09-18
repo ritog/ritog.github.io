@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - fonts/**
   post-render:
     - scripts/check-generated-html.py
 
@@ -10,7 +12,7 @@ quarto-required: ">=1.9.38"
 
 website:
   title: "Posts by Rito Ghosh"
-  site-url: https://ritog.github.io
+  site-url: https://ritoghosh.com
   search: true
   comments:
     utterances:
@@ -46,7 +48,8 @@ format:
     monofont: "Cascadia Code"
     css: styles.css
     anchor-sections: true
-    mainfont: "IBM Plex Mono"
+    # mainfont: "IBM Plex Mono"
+    mainfont: "Courier Prime"
     code-line-numbers: true
     code-copy: true
     # KaTeX avoids the legacy MathJax template that referenced polyfill.io.
